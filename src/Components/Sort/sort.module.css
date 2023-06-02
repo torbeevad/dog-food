@@ -1,0 +1,21 @@
+.wrapper {
+    height: 44px;
+    width: 1024px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.wrapper span {
+    margin-right: 1rem;
+    color: #7B8E98;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.wrapper span:hover {
+    cursor: pointer;
+}
+.active {
+    color: #1A1A1A;
+}

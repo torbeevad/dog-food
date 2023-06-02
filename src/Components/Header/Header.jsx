@@ -11,7 +11,7 @@ export const Header = (props) => {
 
     return <header>
         <div className="wrapper">
-            <Logo></Logo>
+            <Logo/>
             <Search setSearch={setSearchQuery}/>
             <div>какие-то кнопки</div>
         </div>

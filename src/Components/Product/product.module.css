@@ -1,0 +1,179 @@
+.wrapper {
+    width: 1024px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.back:hover {
+    cursor: pointer;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.properties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.leftSide {
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    object-fit: contain;
+}
+
+.disc {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2px 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #F44336;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24px;
+    color: #FFF;
+    font-style: normal;
+}
+
+.hide {
+    display: none;
+}
+
+.rightSide {
+    display: flex;
+    align-items: flex-start;
+}
+
+.preImage {
+    width: 80px;
+    margin-right: 40px;
+    object-fit: contain;
+}
+
+.frame {
+    display: flex;
+    flex-direction: column;
+}
+
+.prices {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.price {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.oldPrice {
+    text-decoration-line: line-through;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.priceWithDisc {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 32px;
+    color: #F44336;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button {
+    width: 218px;
+    height: 48px;
+}
+
+.favorite {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #7B8E98;
+    margin-bottom: 24px;
+}
+
+.delivery, .warranty {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: rgba(236, 239, 241, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.details {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr 6fr;
+}
+
+.title {
+    display: inline;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #7B8E98;
+    position: relative;
+}
+
+
+
+.dashed {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    top: 14px;
+    left: 0;
+    height: 1px;
+    content: " ";
+    border-bottom:  #CFD8DC 1px dashed;
+}
+
+p {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.description, .description b, .characteristics b {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}

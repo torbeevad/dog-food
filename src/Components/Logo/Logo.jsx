@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
-import logo from "./logo-dog-food.svg"
+import {ReactComponent as LogoDF} from "./logo-dog-food.svg"
+import styles from "./logo.module.css"
 
 export const Logo = () => {
-    return <a href='/'><img src={logo} alt="logo"/></a>
+    return <LogoDF className={styles.logo} />
 }

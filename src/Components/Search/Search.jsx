@@ -3,5 +3,5 @@ import "./index.css"
 
 
 export const Search = ({setSearch}) => {
-    return <input type="text" placeholder="search" onChange={(e) => setSearch(e.target.value)}/>
+    return <input className="header__search" type="text" placeholder="search" onChange={(e) => setSearch(e.target.value)}/>
 }

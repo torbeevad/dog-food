@@ -1,0 +1,43 @@
+.countWrapper {
+    border: 1px solid #CFD8DC;
+    border-radius: 100px;
+    width: 109px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.countWrapper div {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 24px;
+    width: 20%;
+}
+
+.minus {
+    fill: #CFD8DC;
+}
+
+.minusActive {
+    fill: #1A1A1A;
+}
+
+.plus {
+    fill: #1A1A1A;
+}
