@@ -2,7 +2,6 @@
 .wrapper {
     width: 1024px;
     display: grid;
-    padding: 1rem;
     gap: 1rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
