@@ -1,7 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./sort.module.css"
 
 export const Sort = ({products, setProducts}) => {
+
+    const [isActive, setActive] = useState({});
+    const activeSortItem = (e) => {
+        if (!e.target.id) return;
+        setActive(e.target);
+        if (isActive !== e.target.id) {
+            e.target.className = styles.itemBlack;
+            isActive.className = styles.item;
+        }
+    }
 
     const averRating = (arr) => {
         if (!arr.length) {
@@ -9,6 +19,7 @@ export const Sort = ({products, setProducts}) => {
         }
         return arr.reduce((acc, prev) => acc + prev.rating, 0) / arr.length;
     }
+
 
     const popular = () => {
         const result = products.sort((a, b) => b.likes.length - a.likes.length)
@@ -38,12 +49,12 @@ export const Sort = ({products, setProducts}) => {
         setProducts([...result])
     }
 
-    return <div className={styles.wrapper}>
-        <span onClick={popular}>Популярные</span>
-        <span onClick={newest}>Новинки</span>
-        <span onClick={lowPrice}>Сначала дешёвые</span>
-        <span onClick={highPrice}>Сначала дорогие</span>
-        <span onClick={rate}>По рейтингу</span>
-        <span onClick={discount}>По скидке</span>
+    return <div onClick={activeSortItem} className={styles.wrapper}>
+        <span onClick={popular} id={1} className={styles.item}>Популярные</span>
+        <span onClick={newest} id={2} className={styles.item}>Новинки</span>
+        <span onClick={lowPrice} id={3} className={styles.item}>Сначала дешёвые</span>
+        <span onClick={highPrice} id={4} className={styles.item}>Сначала дорогие</span>
+        <span onClick={rate} id={5} className={styles.item}>По рейтингу</span>
+        <span onClick={discount} id={6} className={styles.item}>По скидке</span>
     </div>
 }

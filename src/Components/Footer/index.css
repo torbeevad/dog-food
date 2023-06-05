@@ -3,4 +3,5 @@ footer {
     justify-content: center;
     height: 80px;
     background-color: var(--main-color);
+    margin-top: 20px;
 }

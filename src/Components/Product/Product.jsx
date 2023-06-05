@@ -14,7 +14,6 @@ export const Product = () => {
     const params = useParams()
 
     const navigate = useNavigate()
-
     const back = () => {
         navigate("/")
     }
@@ -53,7 +52,8 @@ export const Product = () => {
                             <Counter/>
                             <button>В корзину</button>
                         </div>
-                        <span className={styles.favorite}>В избранное</span>
+                        <span onClick={() => {
+                        }} className={styles.favorite}>В избранное</span>
                         <div className={styles.delivery}>
                             <img src={truck} alt="машина"/>
                             <div>

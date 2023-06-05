@@ -126,6 +126,7 @@ button {
     line-height: 20px;
     color: #7B8E98;
     margin-bottom: 24px;
+    cursor: pointer;
 }
 
 .delivery, .warranty {

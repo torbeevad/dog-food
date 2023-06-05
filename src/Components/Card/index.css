@@ -1,12 +1,23 @@
+.card__nav-link {
+    text-decoration: none;
+    color: #1A1A1A;
+    cursor: auto;
+}
+
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     position: relative;
     border-radius: 16px;
     text-decoration: none;
     color: #1A1A1A;
     cursor: auto;
+    padding: 8px;
+}
+
+.card:hover {
+    box-shadow: 0 2px 4px rgba(40, 41, 61, 0.04), 0 8px 16px rgba(96, 97, 112, 0.16);
 }
 
 .card__sticky {
@@ -22,6 +33,7 @@
 .card__tags-wrapper {
     display: flex;
     align-items: center;
+    padding: 4px;
 }
 
 .card__discount, .card__new, .card__sale {
@@ -34,6 +46,15 @@
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
+    stroke: #7B8E98;
+}
+
+.card__like_liked {
+    position: absolute;
+    top: 0;
+    right: 0;
+    fill: #F44336;
     cursor: pointer;
 }
 
@@ -59,6 +80,12 @@
     align-items: flex-start;
 }
 
+.card__count {
+    font-size: 12px;
+    line-height: 14px;
+    color: #7B8E98;
+}
+
 .card__description {
     height: 40px;
     font-weight: 600;
@@ -66,8 +93,8 @@
 }
 
 .card__button {
-    width: 116px;
-    height: 40px;
+    width: 60%;
+    margin-top: 1rem;
 }
 
 .card__old-price {

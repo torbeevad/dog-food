@@ -7,22 +7,26 @@ import {ReactComponent as Cart} from "./img/Cart.svg"
 import {ReactComponent as Face} from "./img/Face.svg"
 import {Link} from "react-router-dom";
 
-export const Header = (props) => {
+export const Header = ({setSearch, favorites, search}) => {
 
     const setSearchQuery = (path) => {
-        props.setSearch(path)
+        setSearch(path)
     }
 
     return <header>
         <div className="wrapper">
             <Link className="header__logo" to={"/"}><Logo/></Link>
-            <Search setSearch={setSearchQuery}/>
+            <Search search={search} setSearch={setSearchQuery}/>
             <div className="buttons">
-                <div className="bubble__wrapper"><Fav className="bubble__favorite"></Fav>
-                    <span className="bubble">12</span></div>
-                <div className="bubble__wrapper"><Cart className="bubble__cart"/>
-                    <span className="bubble">12</span></div>
-                <div className="bubble__wrapper"><Face className="bubble__face"/>
+                <Link to={"/favorites"}>
+                    <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>
+                        {!!favorites.length && <span className="bubble">{favorites.length}</span>}</div>
+                </Link>
+                <Link to={"/cart"}>
+                    <div className="bubble__wrapper"><Cart className="button__cart"/>
+                        <span className="bubble">12</span></div>
+                </Link>
+                <div className="bubble__wrapper"><Face className="button__face"/>
                 </div>
 
             </div>
