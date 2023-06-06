@@ -1,33 +1,37 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./index.css"
 import {NavLink} from "react-router-dom";
 import {ReactComponent as Like} from "./img/ic-favorites-fill.svg";
+import {ValueContext} from "../../ValueContext/ValueContext";
 
-export const Card = ({props, handleLike, user}) => {
-    const isLiked = props.likes.some(e => e === user._id)
+export const Card = ({card}) => {
+
+    const {handleLike, user} = useContext(ValueContext)
+
+    const isLiked = card.likes.some(e => e === user._id)
 
     const handleClick = () => {
-        handleLike(props, isLiked)
+        handleLike(card, isLiked)
     }
 
     return <div className="card">
         <div className="card__sticky">
             <div className="card__tags-wrapper">
-                {!!props.discount && <div className="card__discount">-{props.discount}%</div>}
-                {!!props.tags.includes("new") && <div className="card__new">New</div>}
-                {!!props.tags.includes("sale") && <div className="card__sale">Sale</div>}
+                {!!card.discount && <div className="card__discount">-{card.discount}%</div>}
+                {!!card.tags.includes("new") && <div className="card__new">New</div>}
+                {!!card.tags.includes("sale") && <div className="card__sale">Sale</div>}
             </div>
             <Like onClick={handleClick} className={isLiked ? "card__like_liked" : "card__like"}/>
         </div>
-        <NavLink className="card__nav-link" to={`/product/${props._id}`}>
-            <img src={props.pictures} alt="food"
+        <NavLink className="card__nav-link" to={`/product/${card._id}`}>
+            <img src={card.pictures} alt="food"
                  className="card__image"/>
             <div className="card__content">
-                <span className={`${props.discount ? "card__old-price" : "card__price"}`}>{props.price} р</span>
-                {!!props.discount &&
-                    <span className="card__price-with-disc">{props.price - props.price / 100 * props.discount} р</span>}
-                <span className="card__count">{props.wight}</span>
-                <p className="card__description">{props.name}</p>
+                <span className={`${card.discount ? "card__old-price" : "card__price"}`}>{card.price} р</span>
+                {!!card.discount &&
+                    <span className="card__price-with-disc">{card.price - card.price / 100 * card.discount} р</span>}
+                <span className="card__count">{card.wight}</span>
+                <p className="card__description">{card.name}</p>
                 <button className="card__button">В корзину</button>
             </div>
         </NavLink>

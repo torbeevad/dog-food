@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Logo} from "../Logo/Logo";
 import "./index.css"
 import {Search} from "../Search/Search";
@@ -6,12 +6,18 @@ import {ReactComponent as Fav} from "./img/Favorites.svg"
 import {ReactComponent as Cart} from "./img/Cart.svg"
 import {ReactComponent as Face} from "./img/Face.svg"
 import {Link} from "react-router-dom";
+import {ValueContext} from "../../ValueContext/ValueContext";
 
-export const Header = ({setSearch, favorites, search}) => {
+export const Header = () => {
+
+    const {setSearch, favorites, search} = useContext(ValueContext)
 
     const setSearchQuery = (path) => {
         setSearch(path)
     }
+
+
+
 
     return <header>
         <div className="wrapper">

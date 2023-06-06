@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from "./query.module.css"
+import {ValueContext} from "../../ValueContext/ValueContext";
 
-export const QueryFind = ({search, products}) => {
+export const QueryFind = ({cards}) => {
+
+    const {search} = useContext(ValueContext)
 
     let findStr = ""
     let prodStr = ""
-    let str = products.length.toString()
+    let str = cards.length.toString()
 
 
     if (str.match(/1$/g)) {
@@ -23,6 +26,6 @@ export const QueryFind = ({search, products}) => {
         prodStr = "товаров";
     }
 
-    return <div className={search ? styles.query : styles.hide}>По запросу <b>{search}</b> {findStr} {products.length} {prodStr}
+    return <div className={search ? styles.query : styles.hide}>По запросу <b>{search}</b> {findStr} {cards.length} {prodStr}
     </div>
 }
