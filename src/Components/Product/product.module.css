@@ -127,6 +127,7 @@ button {
     color: #7B8E98;
     margin-bottom: 24px;
     cursor: pointer;
+    width: fit-content;
 }
 
 .delivery, .warranty {

@@ -4,8 +4,8 @@ import truck from "./Truck.svg"
 import union from "./Union.svg"
 import {Counter} from "../Counter/Counter";
 import {useNavigate, useParams} from "react-router";
-import {getProductById} from "../../Utils/api";
 import Rating from "../Rating/Rating";
+import {getProductById} from "../../Utils/api";
 
 export const Product = () => {
 
@@ -21,6 +21,7 @@ export const Product = () => {
     useEffect(() => {
         getProductById(params.id).then(res => setProduct(res))
     }, [params.id])
+
 
     return <div className={styles.wrapper}>
         <div className={styles.header}>

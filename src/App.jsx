@@ -9,6 +9,7 @@ import {FavoritePage} from "./Pages/FavoritePage/FavoritePage";
 import {Page404} from "./Pages/Page404/Page404";
 import {addLike, deleteLike, getProducts, getUser, searchProducts} from "./Utils/api";
 import {useDebounce} from "./hooks/useDebounce";
+import {ValueContext} from "./ValueContext/ValueContext";
 
 
 function App() {
@@ -19,12 +20,22 @@ function App() {
     const debounceValueInApp = useDebounce(search)
     const [favorites, setFavorites] = useState([])
 
-    const handleLike = async (props, isLiked) => {
-        const result = isLiked ? await deleteLike(props._id) : await addLike(props._id)
+    const handleLike = async (card, isLiked) => {
+        const result = isLiked ? await deleteLike(card._id) : await addLike(card._id)
         const updateList = products.map(e => e._id === result._id ? result : e)
         setProducts(updateList)
     }
 
+    const valueContext = {
+        products,
+        user,
+        handleLike,
+        favorites,
+        search,
+        setSearch,
+        debounceValueInApp,
+        setProducts
+    }
 
     useEffect(() => {
         setFavorites(products.filter(e => e.likes.includes(user._id)))
@@ -46,17 +57,16 @@ function App() {
 
     return (
         <div className="App">
-            <Header favorites={favorites} search={search} setSearch={setSearch}/>
-            <Routes>
-                <Route path="/"
-                       element={<CatalogPage handleLike={handleLike} products={products} setProducts={setProducts}
-                                             search={debounceValueInApp} user={user}/>}/>
-                <Route path="/product/:id" element={<ProductPage/>}/>
-                <Route path="/favorites"
-                       element={<FavoritePage favorites={favorites} handleLike={handleLike} user={user}/>}/>
-                <Route path="*" element={<Page404/>}/>
-            </Routes>
-            <Footer/>
+            <ValueContext.Provider value={valueContext}>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<CatalogPage/>}/>
+                    <Route path="/product/:id" element={<ProductPage/>}/>
+                    <Route path="/favorites" element={<FavoritePage/>}/>
+                    <Route path="*" element={<Page404/>}/>
+                </Routes>
+                <Footer/>
+            </ValueContext.Provider>
         </div>
     );
 }
