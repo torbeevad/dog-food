@@ -70,28 +70,25 @@ export const deleteLike = (id) => {
 }
 
 export const getRegistration = (data) => {
-    console.log(data)
     return fetch(`${url}/signup`, {
         method: "POST",
-        body: JSON.stringify({ ...data, group: 'group-12'}),
+        body: JSON.stringify({...data, group: 'group-12'}),
         headers
-    }).then(res => res.json()).catch(error => console.log(error))
+    }).then(res => response(res))
 }
 
 export const getEnter = (data) => {
-    console.log(data)
     return fetch(`${url}/signin`, {
         method: "POST",
         body: JSON.stringify(data),
         headers
-    }).then(res => res.json()).catch(error => console.log(error))
+    }).then(res => response(res))
 }
 
 export const resetPassword = (data) => {
-    console.log(data)
     return fetch(`${url}/forgot-password`, {
         method: "POST",
         body: JSON.stringify(data),
         headers
-    }).then(res => res.json()).catch(error => console.log(error))
+    }).then(res => response(res))
 }

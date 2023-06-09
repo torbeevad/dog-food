@@ -17,8 +17,6 @@ export const RegistrationForm = () => {
         }, 2000))
     }
 
-    console.log(errors)
-
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Регистрация</h3>
         <form onSubmit={handleSubmit(registration)}>
