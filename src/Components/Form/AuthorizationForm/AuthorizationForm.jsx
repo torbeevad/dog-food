@@ -24,11 +24,11 @@ export const AuthorizationForm = () => {
             <div className={styles.inputs}>
                 <div><input className={styles.input} placeholder="Email"
                             type="text" {...register("email", {required: true})} />
-                    {errors?.email && <span>{errors.email.message}</span>}
+                    {errors?.email && <span>{errors?.email.message}</span>}
                 </div>
                 <div><input className={styles.input} placeholder="Пароль"
                             type="password" {...register("password", {required: true})} />
-                    {errors?.password && <span>{errors.password.message}</span>}
+                    {errors?.password && <span>{errors?.password.message}</span>}
                 </div>
             </div>
             <span className={styles.reset} onClick={() => setChildrenForm(<ResetPassForm/>)}>Восстановить пароль</span>

@@ -24,12 +24,12 @@ export const RegistrationForm = () => {
                 <div>
                     <input className={styles.input} placeholder="Email"
                            type="text" {...register("email", {required: "Введите Email"})} />
-                    {errors?.email && <span>{errors.email.message}</span>}
+                    {errors?.email && <span>{errors?.email.message}</span>}
                 </div>
                 <div>
                     <input className={styles.input} placeholder="Пароль"
                            type="password" {...register("password", {required: "Введите пароль"})} />
-                    {errors.password && <span>{errors.password.message}</span>}
+                    {errors?.password && <span>{errors?.password.message}</span>}
                 </div>
             </div>
             <p>Регистрируясь на сайте, вы соглашаетесь с нашими<br/>

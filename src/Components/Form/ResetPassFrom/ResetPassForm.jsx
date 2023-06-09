@@ -24,7 +24,7 @@ export const ResetPassForm = () => {
                 <div>
                     <input className={styles.input} placeholder="Email"
                            type="text" {...register("email", {required: true})} />
-                    {errors?.email && <span>{errors.email.message}</span>}
+                    {errors?.email && <span>{errors?.email.message}</span>}
                 </div>
             </div>
             <span>Срок действия временного пароля 24 ч.</span>

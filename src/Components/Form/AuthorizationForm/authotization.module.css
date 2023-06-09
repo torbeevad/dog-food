@@ -46,7 +46,7 @@ form input {
     position: relative;
 }
 
-form minput:focus {
+form input:focus {
     height: 24px;
     border: 1px solid #FFE44D;
     padding: 24px 16px 4px;

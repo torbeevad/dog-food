@@ -1,15 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "./product.module.css"
 import truck from "./Truck.svg"
 import union from "./Union.svg"
 import {Counter} from "../Counter/Counter";
 import {useNavigate, useParams} from "react-router";
 import Rating from "../Rating/Rating";
-import {getProductById} from "../../Utils/api";
+import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
+import {ValueContext} from "../../ValueContext/ValueContext";
 
-export const Product = () => {
+export const Product = ({product}) => {
 
-    const [product, setProduct] = useState({})
+    const {user, handleLike} = useContext(ValueContext)
+
+    const [isFavorite, setFavorite] = useState(Boolean)
 
     const params = useParams()
 
@@ -18,10 +21,15 @@ export const Product = () => {
         navigate("/")
     }
 
-    useEffect(() => {
-        getProductById(params.id).then(res => setProduct(res))
-    }, [params.id])
+    const handleClick = () => {
+        handleLike(product, isFavorite)
+        setFavorite(state => !state)
+    }
 
+    useEffect(() => {
+        const isLiked = product.likes.some(e => e === user._id)
+        setFavorite(isLiked)
+    }, [product.likes, user._id])
 
     return <div className={styles.wrapper}>
         <div className={styles.header}>
@@ -44,17 +52,21 @@ export const Product = () => {
                     <img className={styles.preimage} src={product.pictures} alt=""/>
                     <div className={styles.frame}>
                         <div className={styles.prices}>
-                                <span
-                                    className={product.discount ? styles.oldprice : styles.hide}>{product.price} р.</span>
+                            <span className={product.discount ? styles.oldprice : styles.hide}>
+                                    {product.price} р.</span>
                             <span
-                                className={product.discount ? styles.pricewithdisc : styles.price}>{(product.price - product.price / 100 * product.discount).toFixed()} р.</span>
+                                className={product.discount ? styles.pricewithdisc : styles.price}>
+                                {(product.price - product.price / 100 * product.discount).toFixed()} р.</span>
                         </div>
                         <div className={styles.buttons}>
                             <Counter/>
                             <button>В корзину</button>
                         </div>
-                        <span onClick={() => {
-                        }} className={styles.favorite}>В избранное</span>
+                        <div className={styles.favorite}><Like
+                            className={isFavorite ? styles.favorite__pic_liked : styles.favorite__pic}/><span
+                            onClick={handleClick}
+                            className={styles.favorite__text}>{!isFavorite ? 'В избранное' : "Убрать из избранного"}</span>
+                        </div>
                         <div className={styles.placeholders}>
                             <div className={styles.delivery}>
                                 <img src={truck} alt="машина"/>
@@ -68,7 +80,8 @@ export const Product = () => {
                                 <img src={union} alt="штамп"/>
                                 <div>
                                     <b>Гарантия качества</b>,<br/>
-                                    <p>Если Вам не понравилось качество нашей продукции, мы вернем деньги, либо сделаем
+                                    <p>Если Вам не понравилось качество нашей продукции, мы вернем деньги, либо
+                                        сделаем
                                         все
                                         возможное, чтобы удовлетворить ваши нужды.</p>
                                 </div>
