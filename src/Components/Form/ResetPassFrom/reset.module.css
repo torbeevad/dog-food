@@ -10,6 +10,13 @@ form {
     gap: 1.5rem;
 }
 
+form p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #7B8E98;
+}
+
 .inputs {
     display: flex;
     flex-direction: column;
@@ -76,11 +83,4 @@ input:focus::placeholder{
 
 button {
     width: 100%;
-}
-
-p {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: #7B8E98;
 }

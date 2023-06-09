@@ -7,6 +7,12 @@
     gap: 20px;
 }
 
+product p {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
 .header {
     display: flex;
     flex-direction: column;
@@ -121,11 +127,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-button {
-    width: 218px;
-    height: 48px;
-}
-
 .favorite {
     font-weight: 400;
     font-size: 16px;
@@ -175,12 +176,6 @@ button {
     height: 1px;
     content: " ";
     border-bottom: #CFD8DC 1px dashed;
-}
-
-p {
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
 }
 
 .description, .characteristics {
