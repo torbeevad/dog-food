@@ -2,19 +2,22 @@
 .wrapper {
     max-width: 1024px;
     display: grid;
-    gap: 1rem;
+    gap: 0.5rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 @media (max-width: 960px) {
     main .wrapper {
         grid-template-columns: 1fr 1fr 1fr;
+        padding: 1%;
+        gap: 0.5rem;
     }
 }
 
 @media (max-width: 580px) {
     main .wrapper {
         grid-template-columns: 1fr 1fr;
-        padding: 0.5rem;
+        padding: 1%;
+        gap: 0.5rem;
     }
 }

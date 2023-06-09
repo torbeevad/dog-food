@@ -14,7 +14,7 @@ const response = (res) => {
 export const getProducts = () => {
     return fetch(`${url}/products`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => res.json().then(res => res.products).catch((error) => {
         console.error(error);
     }))
@@ -23,48 +23,75 @@ export const getProducts = () => {
 export const searchProducts = (path) => {
     return fetch(`${url}/products/search?query=${path}`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const getProductById = (id) => {
     return fetch(`${url}/products/${id}`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const getAllReviews = () => {
     return fetch(`${url}/products/review/`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const getReviewsById = (id) => {
     return fetch(`${url}/products/review/${id}`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const getUser = () => {
     return fetch(`${url}/v2/group-12/users/me`, {
         method: "GET",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const addLike = (id) => {
     return fetch(`${url}/products/likes/${id}`, {
         method: "PUT",
-        headers: headers
+        headers
     }).then(res => response(res))
 }
 
 export const deleteLike = (id) => {
     return fetch(`${url}/products/likes/${id}`, {
         method: "DELETE",
-        headers: headers
+        headers
     }).then(res => response(res))
+}
+
+export const getRegistration = (data) => {
+    console.log(data)
+    return fetch(`${url}/signup`, {
+        method: "POST",
+        body: JSON.stringify({ ...data, group: 'group-12'}),
+        headers
+    }).then(res => res.json()).catch(error => console.log(error))
+}
+
+export const getEnter = (data) => {
+    console.log(data)
+    return fetch(`${url}/signin`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers
+    }).then(res => res.json()).catch(error => console.log(error))
+}
+
+export const resetPassword = (data) => {
+    console.log(data)
+    return fetch(`${url}/forgot-password`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers
+    }).then(res => res.json()).catch(error => console.log(error))
 }

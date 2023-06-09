@@ -1,4 +1,4 @@
-.countWrapper {
+.wrapper {
     border: 1px solid #CFD8DC;
     border-radius: 100px;
     width: 109px;
@@ -9,7 +9,7 @@
     padding: 0 12px;
 }
 
-.countWrapper div {
+.wrapper div {
     display: flex;
     height: 100%;
     align-items: center;
@@ -34,7 +34,7 @@
     fill: #CFD8DC;
 }
 
-.minusActive {
+.active {
     fill: #1A1A1A;
 }
 

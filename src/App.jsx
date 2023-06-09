@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
-import {Routes, Route} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {CatalogPage} from "./Pages/CatalogPage/CatalogPage";
 import {ProductPage} from "./Pages/ProductPage/ProductPage";
 import {FavoritePage} from "./Pages/FavoritePage/FavoritePage";
@@ -10,6 +10,8 @@ import {Page404} from "./Pages/Page404/Page404";
 import {addLike, deleteLike, getProducts, getUser, searchProducts} from "./Utils/api";
 import {useDebounce} from "./hooks/useDebounce";
 import {ValueContext} from "./ValueContext/ValueContext";
+import {Modal} from "./Components/Modal/Modal";
+import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
 
 
 function App() {
@@ -19,6 +21,9 @@ function App() {
     const [user, setUser] = useState({})
     const debounceValueInApp = useDebounce(search)
     const [favorites, setFavorites] = useState([])
+    const [activeModal, setActiveModal] = useState(false)
+    const [childrenForm, setChildrenForm] = useState(<AuthorizationForm/>)
+
 
     const handleLike = async (card, isLiked) => {
         const result = isLiked ? await deleteLike(card._id) : await addLike(card._id)
@@ -34,7 +39,16 @@ function App() {
         search,
         setSearch,
         debounceValueInApp,
-        setProducts
+        setProducts,
+        activeModal,
+        setActiveModal,
+        childrenForm,
+        setChildrenForm,
+    }
+
+
+    const filterUser = (arr) => {
+        return arr.filter(e => e.author._id !== "644ce0a78fbc473fa89fe20e")
     }
 
     useEffect(() => {
@@ -50,7 +64,7 @@ function App() {
 
     useEffect(() => {
         Promise.all([getProducts(), getUser()]).then(([products, user]) => {
-            setProducts(products);
+            setProducts(filterUser(products));
             setUser(user);
         });
     }, [])
@@ -59,6 +73,7 @@ function App() {
         <div className="App">
             <ValueContext.Provider value={valueContext}>
                 <Header/>
+                <Modal/>
                 <Routes>
                     <Route path="/" element={<CatalogPage/>}/>
                     <Route path="/product/:id" element={<ProductPage/>}/>

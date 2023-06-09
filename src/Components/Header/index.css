@@ -8,14 +8,13 @@ header {
 }
 
 header .wrapper {
-    width: 1024px;
+    max-width: 1024px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.header__logo {
-    width: 224px;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    padding: 1rem;
 }
 
 .buttons {
@@ -51,5 +50,21 @@ header .wrapper {
 }
 
 .button__favorite, .button__cart, .button__face {
-    fill: #263238
+    fill: #263238;
+    cursor: pointer;
+}
+
+.menu {
+    display: none;
+}
+
+@media (max-width: 580px) {
+
+    .buttons {
+        display: none;
+    }
+
+    .menu {
+        display: block;
+    }
 }

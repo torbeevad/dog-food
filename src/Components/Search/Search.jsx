@@ -12,7 +12,8 @@ export const Search = ({search, setSearch}) => {
     return <div className="header__search">
         <input className="header__input" value={search} type="text" placeholder="search"
                onChange={(e) => setSearch(e.target.value)}/>
-        <Clear onClick={clearInput} className="header__close-btn"/>
+        <span onClick={clearInput} className="header__close-btn"><Clear/></span>
+
     </div>
 
 }

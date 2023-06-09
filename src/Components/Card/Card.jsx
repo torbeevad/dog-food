@@ -29,13 +29,12 @@ export const Card = ({card}) => {
             <div className="card__content">
                 <span className={`${card.discount ? "card__old-price" : "card__price"}`}>{card.price} р</span>
                 {!!card.discount &&
-                    <span className="card__price-with-disc">{card.price - card.price / 100 * card.discount} р</span>}
+                    <span
+                        className="card__price-with-disc">{(card.price - card.price / 100 * card.discount).toFixed()} р</span>}
                 <span className="card__count">{card.wight}</span>
                 <p className="card__description">{card.name}</p>
-                <button className="card__button">В корзину</button>
+                <button className="card__button">В&nbsp;корзину</button>
             </div>
         </NavLink>
-
     </div>
-
 }
