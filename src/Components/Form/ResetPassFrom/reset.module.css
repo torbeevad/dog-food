@@ -10,11 +10,26 @@ form {
     gap: 1.5rem;
 }
 
-form p {
+form p, form span {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
     color: #7B8E98;
+}
+
+form input {
+    height: 24px;
+    border: 1px solid #CFD8DC;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px 16px;
+    outline: none;
 }
 
 .inputs {
@@ -31,35 +46,20 @@ form p {
     position: relative;
 }
 
-input {
-    height: 24px;
-    border: 1px solid #CFD8DC;
-    border-radius: 12px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    padding: 14px 16px;
-    outline: none;
-}
-
-input:focus {
+form minput:focus {
     height: 24px;
     border: 1px solid #FFE44D;
     padding: 24px 16px 4px;
 }
 
-input::placeholder {
+form input::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
     color: #7B8E98;
 }
 
-input:focus::placeholder{
+form input:focus::placeholder{
     position: absolute;
     font-weight: 400;
     font-size: 12px;
@@ -81,6 +81,14 @@ input:focus::placeholder{
     width: 100%;
 }
 
-button {
+form button {
     width: 100%;
+}
+
+.white__button {
+    background-color: #FFFFFF;
+}
+
+.button:hover .white__button:hover {
+    cursor: pointer;
 }

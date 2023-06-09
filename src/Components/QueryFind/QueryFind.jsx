@@ -26,6 +26,17 @@ export const QueryFind = ({cards}) => {
         prodStr = "товаров";
     }
 
-    return <div className={search ? styles.query : styles.hide}>По запросу <b>{search}</b> {findStr} {cards.length} {prodStr}
+    if (str.match(/^0$/g)) {
+        findStr = "не найдено";
+        prodStr = "товаров";
+    }
+
+    return <div className={search ? styles.query : styles.hide}>
+        {!cards.length
+            ?
+            <span>По запросу <b>{search}</b> {prodStr} {findStr}!</span>
+            :
+            <span>По запросу <b>{search}</b> {findStr} {cards.length} {prodStr}:</span>
+        }
     </div>
 }

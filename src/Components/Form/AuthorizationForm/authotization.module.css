@@ -10,21 +10,14 @@ form {
     gap: 1.5rem;
 }
 
-.inputs {
-    display: flex;
-    flex-direction: column;
-    /*noinspection CssInvalidPropertyValue*/
-    width: -webkit-fill-available;
-    gap: 0.5rem;
+form p, form span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #7B8E98;
 }
 
-.inputs div {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-input {
+form input {
     height: 24px;
     border: 1px solid #CFD8DC;
     border-radius: 12px;
@@ -39,20 +32,34 @@ input {
     outline: none;
 }
 
-input:focus {
+.inputs {
+    display: flex;
+    flex-direction: column;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    gap: 0.5rem;
+}
+
+.inputs div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+form minput:focus {
     height: 24px;
     border: 1px solid #FFE44D;
     padding: 24px 16px 4px;
 }
 
-input::placeholder {
+form input::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
     color: #7B8E98;
 }
 
-input:focus::placeholder {
+form input:focus::placeholder{
     position: absolute;
     font-weight: 400;
     font-size: 12px;
@@ -66,25 +73,6 @@ input:focus::placeholder {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-}
-
-form p {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: #7B8E98;
-}
-
-.reset {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: right;
-    color: #7B8E98;
-}
-
-.reset:hover {
-    cursor: pointer;
 }
 
 .buttons {
@@ -101,18 +89,10 @@ form button {
     background-color: #FFFFFF;
 }
 
-.button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 9px 16px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    border-radius: 55px;
-    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.08), 0 4px 16px rgba(96, 97, 112, 0.24);
+.button:hover .white__button:hover {
+    cursor: pointer;
 }
 
-.button:hover .white__button:hover {
+.reset {
     cursor: pointer;
 }
