@@ -6,6 +6,7 @@
 
 button {
   height: 48px;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;

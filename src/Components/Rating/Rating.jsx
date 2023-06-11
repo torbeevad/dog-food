@@ -8,8 +8,8 @@ const Rating = ({id}) => {
     const [rating, setRating] = useState(0)
 
     useEffect(() => {
-        getReviewsById(id).then(res => (setRating((res.reduce((prev, curr) => prev + curr.rating, 0) / res.length).toFixed(1))))
-    },[id])
+        getReviewsById(id).then(res => (setRating((res.reduce((prev, curr) => prev + curr.rating, 0) / res.length).toFixed(1)))).catch(e=>console.log(e))
+    }, [id])
 
     return <Rate style={{fontSize: 14, color: "#FFAA0D"}} value={rating} allowHalf={true}/>
 };

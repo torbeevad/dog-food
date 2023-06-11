@@ -4,7 +4,7 @@ import {ValueContext} from "../../ValueContext/ValueContext";
 
 export const QueryFind = ({cards}) => {
 
-    const {search} = useContext(ValueContext)
+    const {debounceValueInApp} = useContext(ValueContext)
 
     let findStr = ""
     let prodStr = ""
@@ -31,12 +31,14 @@ export const QueryFind = ({cards}) => {
         prodStr = "товаров";
     }
 
-    return <div className={search ? styles.query : styles.hide}>
-        {!cards.length
-            ?
-            <span>По запросу <b>{search}</b> {prodStr} {findStr}!</span>
-            :
-            <span>По запросу <b>{search}</b> {findStr} {cards.length} {prodStr}:</span>
-        }
-    </div>
+    return (
+        <div className={debounceValueInApp ? styles.query : styles.hide}>
+            {!cards.length
+                ?
+                <span>По запросу <b>{debounceValueInApp}</b> {prodStr} {findStr}!</span>
+                :
+                <span>По запросу <b>{debounceValueInApp}</b> {findStr} {cards.length} {prodStr}:</span>
+            }
+        </div>
+    )
 }

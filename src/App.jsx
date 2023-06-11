@@ -16,7 +16,7 @@ import {AuthorizationForm} from "./Components/Form/AuthorizationForm/Authorizati
 
 function App() {
 
-    const [search, setSearch] = useState(undefined)
+    const [search, setSearch] = useState("")
     const [products, setProducts] = useState([])
     const [user, setUser] = useState({})
     const debounceValueInApp = useDebounce(search)
@@ -44,8 +44,8 @@ function App() {
         setActiveModal,
         childrenForm,
         setChildrenForm,
+        setFavorites,
     }
-
 
     const filterUser = (arr) => {
         return arr.filter(e => e.author._id !== "644ce0a78fbc473fa89fe20e")
@@ -56,17 +56,16 @@ function App() {
     }, [products, user._id])
 
     useEffect(() => {
-        if (debounceValueInApp === undefined) return
-        searchProducts(debounceValueInApp).then(res => {
+        searchProducts(debounceValueInApp).then(res => {  // <--  вот это возвращает разные значения при одних параметрах !!!!!!!!!!!!!!!!!!!!!!
             setProducts(res)
-        })
+        }).catch(error => console.log(error))
     }, [debounceValueInApp])
 
     useEffect(() => {
         Promise.all([getProducts(), getUser()]).then(([products, user]) => {
             setProducts(filterUser(products));
             setUser(user);
-        });
+        }).catch(e=> console.log(e));
     }, [])
 
     return (

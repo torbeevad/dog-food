@@ -1,0 +1,45 @@
+.review {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.line {
+    border-bottom: #ECEFF1 solid 1px;
+}
+
+
+.headline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    fill: #7B8E98;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+.name {
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.date {
+    color: #7B8E98;
+}
+

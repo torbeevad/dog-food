@@ -21,16 +21,20 @@ export const Card = ({card}) => {
                 {!!card.tags.includes("new") && <div className="card__new">New</div>}
                 {!!card.tags.includes("sale") && <div className="card__sale">Sale</div>}
             </div>
-            <Like onClick={handleClick} className={isLiked ? "card__like_liked" : "card__like"}/>
+            <div className="card__favorite">
+                <Like onClick={handleClick} className={isLiked ? "card__like_liked" : "card__like"}/>
+            </div>
+
         </div>
         <NavLink className="card__nav-link" to={`/product/${card._id}`}>
             <img src={card.pictures} alt="food"
                  className="card__image"/>
             <div className="card__content">
-                <span className={`${card.discount ? "card__old-price" : "card__price"}`}>{card.price} р</span>
+                <span
+                    className={`${card.discount ? "card__old-price" : "card__price"}`}>{card.price}&nbsp;&#8381;</span>
                 {!!card.discount &&
                     <span
-                        className="card__price-with-disc">{(card.price - card.price / 100 * card.discount).toFixed()} р</span>}
+                        className="card__price-with-disc">{(card.price - card.price / 100 * card.discount).toFixed()}&nbsp;&#8381;</span>}
                 <span className="card__count">{card.wight}</span>
                 <p className="card__description">{card.name}</p>
                 <button className="card__button">В&nbsp;корзину</button>

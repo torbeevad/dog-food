@@ -10,17 +10,18 @@ export const AuthorizationForm = () => {
 
     const {setActiveModal, setChildrenForm} = useContext(ValueContext)
 
-    const {register, handleSubmit, formState: {errors}} = useForm()
+    const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
     const authorization = (data) => {
         getEnter(data).then(() => setTimeout(() => {
+            reset();
             setActiveModal(false);
-        }, 2000))
+        }, 2000)).catch(e=>console.log(e))
     }
 
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Вход</h3>
-        <form onSubmit={handleSubmit(authorization)}>
+        <form className={styles.form__author} onSubmit={handleSubmit(authorization)}>
             <div className={styles.inputs}>
                 <div><input className={styles.input} placeholder="Email"
                             type="text" {...register("email", {required: true})} />

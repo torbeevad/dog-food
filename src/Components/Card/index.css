@@ -1,8 +1,7 @@
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
+    justify-content: space-between;
     border-radius: 16px;
     text-decoration: none;
     color: #1A1A1A;
@@ -15,19 +14,18 @@
 }
 
 .card__sticky {
-    position: absolute;
     display: flex;
+    height: 30px;
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    top: 0;
-    left: 0;
 }
 
 .card__tags-wrapper {
     display: flex;
     align-items: center;
     padding: 4px;
+    gap: 5px;
 }
 
 .card__discount, .card__new, .card__sale {
@@ -36,20 +34,22 @@
     padding: 2px 8px;
 }
 
-.card__like {
-    position: absolute;
-    top: 0;
-    right: 0;
+.card__favorite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__favorite:hover {
     cursor: pointer;
+}
+
+.card__like {
     stroke: #7B8E98;
 }
 
 .card__like_liked {
-    position: absolute;
-    top: 0;
-    right: 0;
     fill: #F44336;
-    cursor: pointer;
 }
 
 .card__discount {

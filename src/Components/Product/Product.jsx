@@ -1,12 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
-import styles from "./product.module.css"
-import truck from "./Truck.svg"
-import union from "./Union.svg"
+import styles from "./product.module.css";
+import truck from "./Truck.svg";
+import union from "./Union.svg";
 import {Counter} from "../Counter/Counter";
 import {useNavigate, useParams} from "react-router";
 import Rating from "../Rating/Rating";
 import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
+import {ReactComponent as Trash} from "../Card/img/Trash.svg";
 import {ValueContext} from "../../ValueContext/ValueContext";
+import {Reviews} from "../Reviews/Reviews";
+import {Link} from "react-router-dom";
 
 export const Product = ({product}) => {
 
@@ -26,6 +29,27 @@ export const Product = ({product}) => {
         setFavorite(state => !state)
     }
 
+
+    let prodStr = "";
+    let str = product.reviews.length.toString()
+
+
+    if (str.match(/1$/g)) {
+        prodStr = "отзыв";
+    }
+
+    if (str.match(/[2-4]$/g)) {
+        prodStr = "отзыва";
+    }
+
+    if (str.match(/[0,5-9]$|1[0-9]$/g)) {
+        prodStr = "отзывов";
+    }
+
+    if (str.match(/^0$/g)) {
+        prodStr = "нет отзывов";
+    }
+
     useEffect(() => {
         const isLiked = product.likes.some(e => e === user._id)
         setFavorite(isLiked)
@@ -38,7 +62,11 @@ export const Product = ({product}) => {
             <div className={styles.info}>
                 <span>Артикул</span>
                 <Rating id={params.id}/>
-                <span>Отзывы</span>
+                <Link className={styles.link}>
+                    {product.reviews.length
+                        ? <span>{product.reviews.length} {prodStr}</span>
+                        : <span>{prodStr}</span>}
+                </Link>
             </div>
         </div>
         <div className={styles.content}>
@@ -53,17 +81,17 @@ export const Product = ({product}) => {
                     <div className={styles.frame}>
                         <div className={styles.prices}>
                             <span className={product.discount ? styles.oldprice : styles.hide}>
-                                    {product.price} р.</span>
+                                    {product.price}&nbsp;&#8381;</span>
                             <span
                                 className={product.discount ? styles.pricewithdisc : styles.price}>
-                                {(product.price - product.price / 100 * product.discount).toFixed()} р.</span>
+                                {(product.price - product.price / 100 * product.discount).toFixed()}&nbsp;&#8381;</span>
                         </div>
                         <div className={styles.buttons}>
                             <Counter/>
                             <button>В корзину</button>
                         </div>
-                        <div className={styles.favorite}><Like
-                            className={isFavorite ? styles.favorite__pic_liked : styles.favorite__pic}/><span
+                        <div className={styles.favorite}>{!isFavorite ? <Like className={styles.favorite__pic}/> :
+                            <Trash className={styles.favorite__pic}/>}<span
                             onClick={handleClick}
                             className={styles.favorite__text}>{!isFavorite ? 'В избранное' : "Убрать из избранного"}</span>
                         </div>
@@ -114,6 +142,6 @@ export const Product = ({product}) => {
                 </div>
             </div>
         </div>
+        <Reviews productId={product._id} user={user}/>
     </div>
-
 }

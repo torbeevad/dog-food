@@ -13,6 +13,10 @@ export const Sort = ({cards, setFunc}) => {
         }
     }
 
+    const sortByDate = (arr) => {
+        return arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    }
+
     const averRating = (arr) => {
         if (!arr.length) {
             return 0
@@ -27,7 +31,7 @@ export const Sort = ({cards, setFunc}) => {
     }
 
     const newest = () => {
-        const result = cards.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        const result = sortByDate(cards)
         setFunc([...result])
     }
 

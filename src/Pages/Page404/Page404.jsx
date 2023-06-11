@@ -3,7 +3,7 @@ import styles from "./page404.module.css"
 import {ReactComponent as NotFound} from "./ic-notfound.svg"
 import {useNavigate} from "react-router";
 
-export const Page404 = () => {
+export const Page404 = ({message}) => {
 
     const navigate = useNavigate()
 
@@ -14,9 +14,9 @@ export const Page404 = () => {
     return <main>
         <div className={styles.wrapper}>
             <NotFound className={styles.nfound}/>
-            <b className={styles.title}>Простите, по вашему запросу <br/>
+            {message ? message : <b className={styles.title}>Простите, по вашему запросу <br/>
                 товаров не найдено.
-            </b>
+            </b>}
             <button onClick={home}>На главную</button>
         </div>
 

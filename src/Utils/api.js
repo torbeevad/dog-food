@@ -12,7 +12,7 @@ const response = (res) => {
 }
 
 export const getProducts = () => {
-    return fetch(`${url}/products`, {
+    return fetch(`${url}/products/`, {
         method: "GET",
         headers
     }).then(res => res.json().then(res => res.products).catch((error) => {
@@ -20,15 +20,15 @@ export const getProducts = () => {
     }))
 }
 
-export const searchProducts = (path) => {
-    return fetch(`${url}/products/search?query=${path}`, {
+export const getProductById = (id) => {
+    return fetch(`${url}/products/${id}/`, {
         method: "GET",
         headers
     }).then(res => response(res))
 }
 
-export const getProductById = (id) => {
-    return fetch(`${url}/products/${id}`, {
+export const searchProducts = (path) => {
+    return fetch(`${url}/products/search?query=${path}/`, {
         method: "GET",
         headers
     }).then(res => response(res))
@@ -42,35 +42,50 @@ export const getAllReviews = () => {
 }
 
 export const getReviewsById = (id) => {
-    return fetch(`${url}/products/review/${id}`, {
+    return fetch(`${url}/products/review/${id}/`, {
         method: "GET",
         headers
     }).then(res => response(res))
 }
 
+export const setReviewById = (id, data, rating) => {
+    return fetch(`${url}/products/review/${id}/`, {
+        method: "POST",
+        body: JSON.stringify({...data, rating}),
+        headers
+    }).then(res => response(res))
+}
+
+export const deleteReviewById = (productId, reviewId) => {
+    return fetch(`${url}/products//review/${productId}/${reviewId}/`, {
+        method: "DELETE",
+        headers
+    }).then(res => response(res))
+}
+
 export const getUser = () => {
-    return fetch(`${url}/v2/group-12/users/me`, {
+    return fetch(`${url}/v2/group-12/users/me/`, {
         method: "GET",
         headers
     }).then(res => response(res))
 }
 
 export const addLike = (id) => {
-    return fetch(`${url}/products/likes/${id}`, {
+    return fetch(`${url}/products/likes/${id}/`, {
         method: "PUT",
         headers
     }).then(res => response(res))
 }
 
 export const deleteLike = (id) => {
-    return fetch(`${url}/products/likes/${id}`, {
+    return fetch(`${url}/products/likes/${id}/`, {
         method: "DELETE",
         headers
     }).then(res => response(res))
 }
 
 export const getRegistration = (data) => {
-    return fetch(`${url}/signup`, {
+    return fetch(`${url}/signup/`, {
         method: "POST",
         body: JSON.stringify({...data, group: 'group-12'}),
         headers
@@ -78,7 +93,7 @@ export const getRegistration = (data) => {
 }
 
 export const getEnter = (data) => {
-    return fetch(`${url}/signin`, {
+    return fetch(`${url}/signin/`, {
         method: "POST",
         body: JSON.stringify(data),
         headers
@@ -86,7 +101,7 @@ export const getEnter = (data) => {
 }
 
 export const resetPassword = (data) => {
-    return fetch(`${url}/forgot-password`, {
+    return fetch(`${url}/forgot-password/`, {
         method: "POST",
         body: JSON.stringify(data),
         headers

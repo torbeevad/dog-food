@@ -12,11 +12,8 @@ import {AuthorizationForm} from "../Form/AuthorizationForm/AuthorizationForm";
 
 export const Header = () => {
 
-    const {setSearch, favorites, search, setActiveModal, setChildrenForm} = useContext(ValueContext)
+    const {favorites, setActiveModal, setChildrenForm} = useContext(ValueContext)
 
-    const setSearchQuery = (path) => {
-        setSearch(path)
-    }
 
     const click = () => {
         setActiveModal(true)
@@ -25,7 +22,7 @@ export const Header = () => {
     return <header>
         <div className="wrapper">
             <Link className="header__logo" to={"/"}><Logo/></Link>
-            <Search search={search} setSearch={setSearchQuery}/>
+            <Search/>
             <div className="buttons">
                 <Link to={"/favorites"}>
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>
