@@ -14,7 +14,6 @@ export const Header = () => {
 
     const {favorites, setActiveModal, setChildrenForm} = useContext(ValueContext)
 
-
     const click = () => {
         setActiveModal(true)
     }

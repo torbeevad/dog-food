@@ -6,7 +6,7 @@ import {setReviewById} from "../../../Utils/api";
 
 export const AddReviewForm = ({id, setProdReview, setAddReview}) => {
 
-    const {register, handleSubmit, reset} = useForm()
+    const {register, handleSubmit, reset, formState: {errors}} = useForm()
     const [rating, setRating] = useState(0)
 
     const addReview = async (data) => {
@@ -19,7 +19,8 @@ export const AddReviewForm = ({id, setProdReview, setAddReview}) => {
         <div>
             <form className={styles.form__review}>
                 <Rate onChange={value => setRating(value)}/>
-                <textarea className={styles.form__text} {...register("text")}/>
+                <textarea className={styles.form__text} {...register("text", {required: "Напишите отзыв"})}/>
+                {errors?.text && <span className={styles.error}>{errors?.text.message}</span>}
                 <button onClick={handleSubmit(addReview)} type={"submit"}>Отправить</button>
             </form>
         </div>

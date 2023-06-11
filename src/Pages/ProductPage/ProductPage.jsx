@@ -10,7 +10,7 @@ export const ProductPage = () => {
     const params = useParams()
 
     useEffect(() => {
-        getProductById(params.id).then(res => setProduct(res).catch(e=>console.log(e)), [params.id])
+        getProductById(params.id).then(res => setProduct(res), [params.id])
     }, [params.id])
 
     return <main>
