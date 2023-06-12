@@ -17,7 +17,7 @@
     color: #7B8E98;
 }
 
-.input {
+.form__reset .input {
     height: 24px;
     border: 1px solid #CFD8DC;
     border-radius: 12px;
@@ -32,7 +32,7 @@
     outline: none;
 }
 
-.inputs {
+.form__reset .inputs {
     display: flex;
     flex-direction: column;
     /*noinspection CssInvalidPropertyValue*/

@@ -18,6 +18,17 @@ export const ResetPassForm = () => {
         }, 2000)
     }
 
+    const emailRegister = {
+        required: {
+            value: true,
+            message: "Введите Email"
+        },
+        pattern: {
+            value: /\w+@\w+.ru|com/gm,
+            message: "Не похоже на Email..."
+        }
+    }
+
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Восстановление пароля</h3>
         <span>Для получения временного пароля необходимо ввести<br/> email, указанный при регистрации.</span>
@@ -25,7 +36,7 @@ export const ResetPassForm = () => {
             <div className={styles.inputs}>
                 <div>
                     <input className={styles.input} placeholder="Email"
-                           type="text" {...register("email", {required: true})} />
+                           type="text" {...register("email", {...emailRegister})} />
                     {errors?.email && <span>{errors?.email.message}</span>}
                 </div>
             </div>

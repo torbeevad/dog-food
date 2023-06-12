@@ -1,0 +1,6 @@
+.link {
+    max-width: 1024px;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    margin: 0;
+}
