@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {memo, useContext, useEffect, useState} from "react";
 import styles from "./review-card.module.css";
 import {Rate} from "antd";
 import {ReactComponent as Close} from "../Card/img/Trash.svg";
 import {deleteReviewById} from "../../Utils/api";
 import {ValueContext} from "../../ValueContext/ValueContext";
 
-export const ReviewCard = ({reviewCard, setProdReview}) => {
+export const ReviewCard = memo(({reviewCard, setProdReview}) => {
 
     const {user} = useContext(ValueContext)
 
@@ -40,4 +40,4 @@ export const ReviewCard = ({reviewCard, setProdReview}) => {
             <p className={styles.message}>{reviewCard?.text}</p>
         </div>
     )
-}
+})

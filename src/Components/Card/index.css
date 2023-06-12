@@ -1,12 +1,13 @@
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-radius: 16px;
+    justify-content: flex-end;
     text-decoration: none;
     color: #1A1A1A;
     cursor: auto;
     padding: 0.5rem;
+    position: relative;
 }
 
 .card:hover {
@@ -14,11 +15,14 @@
 }
 
 .card__sticky {
+    position: absolute;
     display: flex;
     height: 30px;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
 }
 
 .card__tags-wrapper {
@@ -64,8 +68,13 @@
     background-color: #03A9F4;
 }
 
+.card__image-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .card__image {
-    max-width: 100%;
+    width: 100%;
     object-fit: scale-down;
 }
 
@@ -115,6 +124,11 @@
     text-decoration: none;
     color: #1A1A1A;
     cursor: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*noinspection CssInvalidPropertyValue*/
+    height: -webkit-fill-available;
 }
 
 @media (max-width: 580px) {
@@ -122,5 +136,20 @@
         height: 60px;
         font-weight: 600;
         font-size: 16px;
+    }
+    .card__tags-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 4px;
+        gap: 5px;
+    }
+
+    .card__sticky {
+        align-items: flex-start;
+    }
+
+    .card__image {
+        width: 100%;
+        object-fit: scale-down;
     }
 }

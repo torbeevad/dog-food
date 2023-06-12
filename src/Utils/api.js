@@ -28,7 +28,7 @@ export const getProductById = (id) => {
 }
 
 export const searchProducts = (path) => {
-    return fetch(`${url}/products/search?query=${path}/`, {
+    return fetch(`${url}/products/search?query=${path}`, {
         method: "GET",
         headers
     }).then(res => response(res))

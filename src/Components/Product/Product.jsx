@@ -3,7 +3,7 @@ import styles from "./product.module.css";
 import truck from "./Truck.svg";
 import union from "./Union.svg";
 import {Counter} from "../Counter/Counter";
-import {useNavigate, useParams} from "react-router";
+import {useNavigate} from "react-router";
 import Rating from "../Rating/Rating";
 import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
 import {ReactComponent as Trash} from "../Card/img/Trash.svg";
@@ -16,8 +16,6 @@ export const Product = ({product}) => {
     const {user, handleLike} = useContext(ValueContext)
 
     const [isFavorite, setFavorite] = useState(Boolean)
-
-    const params = useParams()
 
     const navigate = useNavigate()
     const back = () => {
@@ -61,7 +59,7 @@ export const Product = ({product}) => {
             <h3>{product.name}</h3>
             <div className={styles.info}>
                 <span>Артикул</span>
-                <Rating id={params.id}/>
+                <Rating id={product._id}/>
                 <Link className={styles.link}>
                     {product.reviews.length
                         ? <span>{product.reviews.length} {prodStr}</span>

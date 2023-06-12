@@ -24,7 +24,6 @@ function App() {
     const [activeModal, setActiveModal] = useState(false)
     const [childrenForm, setChildrenForm] = useState(<AuthorizationForm/>)
 
-
     const handleLike = async (card, isLiked) => {
         const result = isLiked ? await deleteLike(card._id) : await addLike(card._id)
         const updateList = products.map(e => e._id === result._id ? result : e)
@@ -56,7 +55,7 @@ function App() {
     }, [products, user._id])
 
     useEffect(() => {
-        searchProducts(debounceValueInApp).then(res => {  // <--  вот это возвращает разные значения при одних параметрах !!!!!!!!!!!!!!!!!!!!!!
+        searchProducts(debounceValueInApp).then(res => {
             setProducts(res)
         }).catch(error => console.log(error))
     }, [debounceValueInApp])
@@ -65,7 +64,7 @@ function App() {
         Promise.all([getProducts(), getUser()]).then(([products, user]) => {
             setProducts(filterUser(products));
             setUser(user);
-        }).catch(e=> console.log(e));
+        }).catch(e => console.log(e));
     }, [])
 
     return (

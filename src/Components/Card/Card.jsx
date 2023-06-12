@@ -24,7 +24,6 @@ export const Card = ({card}) => {
             <div className="card__favorite">
                 <Like onClick={handleClick} className={isLiked ? "card__like_liked" : "card__like"}/>
             </div>
-
         </div>
         <NavLink className="card__nav-link" to={`/product/${card._id}`}>
             <img src={card.pictures} alt="food"
