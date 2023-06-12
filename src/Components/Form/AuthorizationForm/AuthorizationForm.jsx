@@ -3,20 +3,20 @@ import {useForm} from "react-hook-form";
 import styles from "./authotization.module.css"
 import {getEnter} from "../../../Utils/api";
 import {ValueContext} from "../../../ValueContext/ValueContext";
-import {RegistrationForm} from "../RegistrationForm/RegistrationForm";
-import {ResetPassForm} from "../ResetPassFrom/ResetPassForm";
+import {Link} from "react-router-dom";
 
 export const AuthorizationForm = () => {
 
-    const {setActiveModal, setChildrenForm} = useContext(ValueContext)
+    const {setActiveModal} = useContext(ValueContext)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
-    const authorization = (data) => {
-        getEnter(data).then(() => setTimeout(() => {
-            reset();
+    const authorization = async (data) => {
+        await getEnter(data).then((res) => localStorage.setItem("token", res.token)).catch(e => console.log(e))
+        reset();
+        setTimeout(() => {
             setActiveModal(false);
-        }, 2000)).catch(e=>console.log(e))
+        }, 2000)
     }
 
     return <div className={styles.wrap}>
@@ -32,13 +32,12 @@ export const AuthorizationForm = () => {
                     {errors?.password && <span>{errors?.password.message}</span>}
                 </div>
             </div>
-            <span className={styles.reset} onClick={() => setChildrenForm(<ResetPassForm/>)}>Восстановить пароль</span>
+            <Link to="/reset"><span className={styles.reset}>Восстановить пароль</span></Link>
             <div className={styles.buttons}>
                 <button type="submit">Войти</button>
-                <button className={styles.white__button} onClick={() => {
-                    setChildrenForm(<RegistrationForm/>)
-                }}>Регистрация
-                </button>
+                <Link to="/registration">
+                    <button className={styles.white__button}>Регистрация</button>
+                </Link>
             </div>
         </form>
     </div>

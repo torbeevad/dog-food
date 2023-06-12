@@ -17,9 +17,10 @@ button {
   border-radius: 55px;
   border: none;
   background-color: var(--main-color);
-  box-shadow: 0 2px 8px rgba(40, 41, 61, 0.08), 0 4px 16px rgba(96, 97, 112, 0.24);
+  box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
 }
 
 button:hover {
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24), 0 4px 16px rgba(96, 97, 112, 0.36);
 }

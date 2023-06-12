@@ -8,11 +8,10 @@ import {ReactComponent as Face} from "./img/Face.svg"
 import {Link} from "react-router-dom";
 import {ValueContext} from "../../ValueContext/ValueContext";
 import {ReactComponent as Menu} from "./img/Menu.svg";
-import {AuthorizationForm} from "../Form/AuthorizationForm/AuthorizationForm";
 
 export const Header = () => {
 
-    const {favorites, setActiveModal, setChildrenForm} = useContext(ValueContext)
+    const {favorites, setActiveModal} = useContext(ValueContext)
 
     const click = () => {
         setActiveModal(true)
@@ -31,10 +30,9 @@ export const Header = () => {
                     <div className="bubble__wrapper"><Cart className="button__cart"/>
                         <span className="bubble">12</span></div>
                 </Link>
-                <div className="bubble__wrapper" onClick={() => setChildrenForm(<AuthorizationForm/>)}>
-                    <Face onClick={click} className="button__face"/>
-                </div>
-
+                <Link to={"/authorization"} onClick={click} className="bubble__wrapper">
+                    <Face className="button__face"/>
+                </Link>
             </div>
             <div className="menu">
                 <Menu className="menu__icon"/>

@@ -12,6 +12,9 @@ import {useDebounce} from "./hooks/useDebounce";
 import {ValueContext} from "./ValueContext/ValueContext";
 import {Modal} from "./Components/Modal/Modal";
 import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
+import {HomePage} from "./Pages/HomePage/HomePage";
+import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
+import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
 
 
 function App() {
@@ -22,7 +25,6 @@ function App() {
     const debounceValueInApp = useDebounce(search)
     const [favorites, setFavorites] = useState([])
     const [activeModal, setActiveModal] = useState(false)
-    const [childrenForm, setChildrenForm] = useState(<AuthorizationForm/>)
 
     const handleLike = async (card, isLiked) => {
         const result = isLiked ? await deleteLike(card._id) : await addLike(card._id)
@@ -41,8 +43,6 @@ function App() {
         setProducts,
         activeModal,
         setActiveModal,
-        childrenForm,
-        setChildrenForm,
         setFavorites,
     }
 
@@ -71,13 +71,16 @@ function App() {
         <div className="App">
             <ValueContext.Provider value={valueContext}>
                 <Header/>
-                <Modal/>
-                <Routes>
-                    <Route path="/" element={<CatalogPage/>}/>
-                    <Route path="/product/:id" element={<ProductPage/>}/>
-                    <Route path="/favorites" element={<FavoritePage/>}/>
-                    <Route path="*" element={<Page404/>}/>
-                </Routes>
+                    <Routes>
+                        <Route path={"/"} element={<HomePage/>}/>
+                        <Route path={"/catalog"} element={<CatalogPage/>}/>
+                        <Route path={"/product/:id"} element={<ProductPage/>}/>
+                        <Route path={"/favorites"} element={<FavoritePage/>}/>
+                        <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                        <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                        <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                        <Route path={"*"} element={<Page404/>}/>
+                    </Routes>
                 <Footer/>
             </ValueContext.Provider>
         </div>

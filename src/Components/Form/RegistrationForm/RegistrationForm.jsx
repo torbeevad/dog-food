@@ -3,23 +3,25 @@ import {useForm} from "react-hook-form";
 import styles from "./registration.module.css"
 import {getRegistration} from "../../../Utils/api";
 import {ValueContext} from "../../../ValueContext/ValueContext";
-import {AuthorizationForm} from "../AuthorizationForm/AuthorizationForm";
+import {Link} from "react-router-dom";
 
 export const RegistrationForm = () => {
 
-    const {setActiveModal, setChildrenForm} = useContext(ValueContext)
+    const {setActiveModal} = useContext(ValueContext)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
-    const registration = (data) => {
-        getRegistration(data).then(() => setTimeout(() => {
-            reset(); setActiveModal(false);
-        }, 2000)).catch(e=>console.log(e))
+    const registration = async (data) => {
+        await getRegistration(data).catch(e => console.log(e))
+        reset();
+        setTimeout(() => {
+            setActiveModal(false);
+        }, 2000)
     }
 
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Регистрация</h3>
-        <form className={styles.form__registr} onSubmit={handleSubmit(registration)}>
+        <form className={styles.form__register} onSubmit={handleSubmit(registration)}>
             <div className={styles.inputs}>
                 <div>
                     <input className={styles.input} placeholder="Email"
@@ -37,10 +39,7 @@ export const RegistrationForm = () => {
                 соглашаетесь на информационную рассылку.</p>
             <div className={styles.buttons}>
                 <button type="submit">Зарегистрироваться</button>
-                <button className={styles.white__button} onClick={() => {
-                    setChildrenForm(<AuthorizationForm/>)
-                }}>Войти
-                </button>
+                <Link to="/authorization"><button className={styles.white__button}>Войти</button></Link>
             </div>
         </form>
     </div>

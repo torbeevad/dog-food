@@ -10,11 +10,12 @@ export const ResetPassForm = () => {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
-    const resetPass = (data) => {
-        resetPassword(data).then(() => setTimeout(() => {
-            reset();
+    const resetPass = async (data) => {
+        await resetPassword(data).catch(e => console.log(e))
+        reset();
+        setTimeout(() => {
             setActiveModal(false);
-        }, 2000)).catch(e=>console.log(e))
+        }, 2000)
     }
 
     return <div className={styles.wrap}>

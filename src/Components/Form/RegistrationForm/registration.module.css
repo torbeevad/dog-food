@@ -4,13 +4,13 @@
     gap: 1.5rem;
 }
 
-.form__registr {
+.form__register {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.form__registr p, .form__registr span {
+.form__register p, .form__register span {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
@@ -78,10 +78,9 @@
 .buttons {
     display: grid;
     gap: 0.5rem;
-    width: 100%;
 }
 
-.form__registr button {
+.form__register button {
     width: 100%;
 }
 
