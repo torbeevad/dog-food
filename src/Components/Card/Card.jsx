@@ -26,8 +26,12 @@ export const Card = ({card}) => {
             </div>
         </div>
         <NavLink className="card__nav-link" to={`/product/${card._id}`}>
-            <img src={card.pictures} alt="food"
-                 className="card__image"/>
+
+            <div className="card__image-wrapper">
+                <img src={card.pictures} alt="food"
+                     className="card__image"/>
+            </div>
+
             <div className="card__content">
                 <span
                     className={`${card.discount ? "card__old-price" : "card__price"}`}>{card.price}&nbsp;&#8381;</span>

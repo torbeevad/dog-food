@@ -10,7 +10,6 @@ export const HomePage = () => {
 
     const {debounceValueInApp, products, setProducts} = useContext(ValueContext)
 
-
     return <main>
         {debounceValueInApp
             ? <>
