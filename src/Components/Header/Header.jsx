@@ -8,12 +8,15 @@ import {ReactComponent as Face} from "./img/Face.svg"
 import {Link} from "react-router-dom";
 import {ValueContext} from "../../ValueContext/ValueContext";
 import {ReactComponent as Menu} from "./img/Menu.svg";
+import {useSelector} from "react-redux";
 
 export const Header = () => {
 
-    const {favorites, setActiveModal} = useContext(ValueContext)
+    const {setActiveModal} = useContext(ValueContext)
 
-    const click = () => {
+    const {favorites} = useSelector(state => state.products)
+
+    const clickActive = () => {
         setActiveModal(true)
     }
 
@@ -26,11 +29,11 @@ export const Header = () => {
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>
                         {!!favorites.length && <span className="bubble">{favorites.length}</span>}</div>
                 </Link>
-                <Link to={"/cart"}>
+                <Link to={"/profile"}>
                     <div className="bubble__wrapper"><Cart className="button__cart"/>
                         <span className="bubble">12</span></div>
                 </Link>
-                <Link to={"/authorization"} onClick={click} className="bubble__wrapper">
+                <Link to={"/authorization"} onClick={clickActive} className="bubble__wrapper">
                     <Face className="button__face"/>
                 </Link>
             </div>

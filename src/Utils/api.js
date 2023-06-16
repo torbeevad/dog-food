@@ -8,9 +8,7 @@ const headers = {
     // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc0YmUzNWUwYmYyYzUxOWJjM2EwNDEiLCJncm91cCI6Imdyb3VwLTEyIiwiaWF0IjoxNjg1MzcyNjM3LCJleHAiOjE3MTY5MDg2Mzd9.oLZ9-C_BxpZfHGFZME63UoVi76OJQgwosZpjEhIiJnI"
 
 const response = (res) => {
-    return res.json().catch((error) => {
-        console.error(error)
-    })
+    return res?.json()
 }
 
 export const getProducts = () => {

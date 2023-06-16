@@ -167,4 +167,8 @@
         max-width: 234px;
         width: 100%;
     }
+
+    .card__button {
+        width: 100%;
+    }
 }

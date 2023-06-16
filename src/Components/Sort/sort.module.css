@@ -15,6 +15,7 @@
 
 .item {
     color: #7B8E98;
+    cursor: pointer;
 }
 
 .item:hover {

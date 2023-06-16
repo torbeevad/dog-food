@@ -1,20 +1,20 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Catalog} from "../../Components/Catalog/Catalog";
 import {Sort} from "../../Components/Sort/Sort";
 import {QueryFind} from "../../Components/QueryFind/QueryFind";
 import {Page404} from "../Page404/Page404";
-import {ValueContext} from "../../ValueContext/ValueContext";
+import {useSelector} from "react-redux";
 
 export const CatalogPage = () => {
 
-    const {products, setProducts} = useContext(ValueContext)
+    const {allProducts} = useSelector(s => s.products)
 
     return <main>
-        <QueryFind cards={products}/>
-        {products.length !== 0 ?
+        <QueryFind cards={allProducts}/>
+        {allProducts?.length !== 0 ?
             <>
-                <Sort cards={products} setFunc={setProducts}/>
-                <Catalog cards={products}/>
+                <Sort/>
+                <Catalog items={allProducts}/>
             </> :
             <Page404/>}
     </main>

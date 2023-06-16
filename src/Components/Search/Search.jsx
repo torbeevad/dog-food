@@ -9,7 +9,7 @@ export const Search = () => {
     const {search, setSearch} = useContext(ValueContext)
 
     const inputValue = useCallback((e) => {
-        if (e.target.value === undefined) return
+        if (e.target.value === "") return
         setSearch(e.target.value)
     }, [setSearch])
 

@@ -4,10 +4,11 @@ import {ReviewCard} from "../ReviewCard/ReviewCard";
 import {getReviewsById} from "../../Utils/api";
 import {AddReviewForm} from "../Form/AddReviewForm/AddReviewForm";
 import {ValueContext} from "../../ValueContext/ValueContext";
+import {useSelector} from "react-redux";
 
 export const Reviews = ({productId}) => {
 
-    const {user} = useContext(ValueContext)
+    const {user} = useSelector(state => state.user)
 
     const [prodReview, setProdReview] = useState([])
     const [addReview, setAddReview] = useState(false)

@@ -1,9 +1,14 @@
 import React, {useCallback, useState} from "react";
 import styles from "./sort.module.css";
+import {useDispatch} from "react-redux";
+import {sortProducts} from "../../Storage/slices/productsSlice";
 
-export const Sort = ({cards, setFunc}) => {
+export const Sort = () => {
+
+    const dispatch = useDispatch()
 
     const [isActive, setActive] = useState({});
+
     const activeSortItem = useCallback((e) => {
         if (!e.target.id) return;
         setActive(e.target);
@@ -13,53 +18,16 @@ export const Sort = ({cards, setFunc}) => {
         }
     }, [isActive])
 
-    const sortByDate = useCallback((arr) => {
-        return arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-    }, [])
-
-    const averRating = useCallback((arr) => {
-        if (!arr.length) {
-            return 0
-        }
-        return arr.reduce((acc, prev) => acc + prev.rating, 0) / arr.length;
-    }, [])
-
-    const popular = useCallback(() => {
-        const result = cards.sort((a, b) => b.likes.length - a.likes.length)
-        setFunc([...result])
-    }, [cards, setFunc])
-
-    const newest = useCallback(() => {
-        const result = sortByDate(cards)
-        setFunc([...result])
-    }, [sortByDate, cards, setFunc])
-
-    const lowPrice = useCallback(() => {
-        const result = cards.sort((a, b) => (a.price - a.price / 100 * a.discount) - (b.price - b.price / 100 * b.discount))
-        setFunc([...result])
-    }, [cards, setFunc])
-
-    const highPrice = useCallback(() => {
-        const result = cards.sort((a, b) => b.price - a.price)
-        setFunc([...result])
-    }, [cards, setFunc])
-
-    const rate = useCallback(() => {
-        const result = cards.sort((a, b) => averRating(b.reviews) - averRating(a.reviews))
-        setFunc([...result])
-    }, [averRating, cards, setFunc])
-
-    const discount = useCallback(() => {
-        const result = cards.sort((a, b) => b.discount - a.discount)
-        setFunc([...result])
-    }, [cards, setFunc])
+    const sortChoose = (e) => {
+        dispatch(sortProducts(e.target.id))
+    }
 
     return <div onClick={activeSortItem} className={styles.wrapper}>
-        <span onClick={popular} id={1} className={styles.item}>Популярные</span>
-        <span onClick={newest} id={2} className={styles.item}>Новинки</span>
-        <span onClick={lowPrice} id={3} className={styles.item}>Сначала дешёвые</span>
-        <span onClick={highPrice} id={4} className={styles.item}>Сначала дорогие</span>
-        <span onClick={rate} id={5} className={styles.item}>По рейтингу</span>
-        <span onClick={discount} id={6} className={styles.item}>По скидке</span>
+        <span onClick={sortChoose} id={"popular"} className={styles.item}>Популярные</span>
+        <span onClick={sortChoose} id={"newest"} className={styles.item}>Новинки</span>
+        <span onClick={sortChoose} id={"lowPrice"} className={styles.item}>Сначала дешёвые</span>
+        <span onClick={sortChoose} id={"highPrice"} className={styles.item}>Сначала дорогие</span>
+        <span onClick={sortChoose} id={"rate"} className={styles.item}>По рейтингу</span>
+        <span onClick={sortChoose} id={"discount"} className={styles.item}>По скидке</span>
     </div>
 }

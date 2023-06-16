@@ -1,25 +1,27 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./index.css"
 import {NavLink} from "react-router-dom";
 import {ReactComponent as Like} from "./img/ic-favorites-fill.svg";
-import {ValueContext} from "../../ValueContext/ValueContext";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
 
 export const Card = ({card}) => {
 
-    const {handleLike, user} = useContext(ValueContext)
+    const dispatch = useDispatch()
+    const {user} = useSelector(state => state.user)
 
-    const isLiked = card.likes.some(e => e === user._id)
+    const isLiked = card.likes.includes(user._id)
 
     const handleClick = () => {
-        handleLike(card, isLiked)
+        dispatch(fetchChangeProductLike(card))
     }
 
     return <div className="card">
         <div className="card__sticky">
             <div className="card__tags-wrapper">
                 {!!card.discount && <div className="card__discount">-{card.discount}%</div>}
-                {!!card.tags.includes("new") && <div className="card__new">New</div>}
-                {!!card.tags.includes("sale") && <div className="card__sale">Sale</div>}
+                {!!card.tags?.includes("new") && <div className="card__new">New</div>}
+                {!!card.tags?.includes("sale") && <div className="card__sale">Sale</div>}
             </div>
             <div className="card__favorite">
                 <Like onClick={handleClick} className={isLiked ? "card__like_liked" : "card__like"}/>
