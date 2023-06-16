@@ -11,7 +11,6 @@ const initialState = {
     product: {},
     favorites: [],
     length: 0,
-    isLiked: true,
 }
 
 export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProducts", async function (data, arg) {
@@ -38,8 +37,8 @@ export const fetchChangeProductLike = createAsyncThunk("products/fetchChangeProd
     try {
         const state = arg.getState();
         const isLiked = data.likes.includes(state.user.user._id)
-        const updatedList = await changeProductLike(state.products.allProducts, data, isLiked);
-        return arg.fulfillWithValue({state, data, updatedList, isLiked});
+        const updatedCard = await changeProductLike(data._id, isLiked);
+        return arg.fulfillWithValue({state, data, updatedCard});
     } catch (error) {
         return arg.rejectWithValue(error);
     }
@@ -98,9 +97,11 @@ const productsSlice = createSlice({
             state.loading = false;
         })
         builder.addCase(fetchChangeProductLike.fulfilled, (state, action) => {
-            state.allProducts = action.payload.updatedList
-            state.favorites = action.payload.updatedList.filter(e => e.likes.includes(action.payload.state.user.user._id))
-            state.isLiked = !action.payload.isLiked
+            state.product = action.payload.updatedCard
+            const updatedList = action.payload.state.products.allProducts.map(e => e._id === action.payload.updatedCard._id ? action.payload.updatedCard : e)
+            state.allProducts = updatedList
+            state.favorites = updatedList.filter(e => e.likes.includes(action.payload.state.user.user._id))
+            // state.isLiked = action.payload.data.likes.includes(action.payload.state.user.user._id)
             state.loading = false;
         })
         builder.addCase(fetchProduct.fulfilled, (state, action) => {

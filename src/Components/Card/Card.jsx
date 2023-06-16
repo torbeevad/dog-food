@@ -11,7 +11,6 @@ export const Card = ({card}) => {
     const {user} = useSelector(state => state.user)
 
     const isLiked = card.likes.includes(user._id)
-
     const handleClick = () => {
         dispatch(fetchChangeProductLike(card))
     }

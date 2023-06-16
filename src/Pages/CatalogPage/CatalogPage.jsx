@@ -9,14 +9,17 @@ export const CatalogPage = () => {
 
     const {allProducts} = useSelector(s => s.products)
 
-    return <main>
-        <QueryFind cards={allProducts}/>
-        {allProducts?.length !== 0 ?
-            <>
-                <Sort/>
-                <Catalog items={allProducts}/>
-            </> :
-            <Page404/>}
-    </main>
-
+    return (
+        <>
+            < QueryFind cards={allProducts}/>
+            {allProducts?.length !== 0 ?
+                <>
+                    <Sort/>
+                    <Catalog items={allProducts}/>
+                </>
+                :
+                <Page404/>
+            }
+        </>
+    )
 }

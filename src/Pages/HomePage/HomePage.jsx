@@ -13,16 +13,19 @@ export const HomePage = () => {
 
     const {allProducts} = useSelector(state => state.products)
 
-    return <main>
-        {debounceValueInApp
-            ? <>
-                <QueryFind cards={allProducts}/>
-                <Sort/>
-                <Catalog cards={allProducts}/>
-            </>  :
-           <Link className={styles.link} to={"/catalog"}>
-                <button className="home-page-button">Каталог&nbsp;></button>
-            </Link>
-        }
-    </main>
+    return (
+        <>
+            {debounceValueInApp ?
+                <>
+                    <QueryFind cards={allProducts}/>
+                    <Sort/>
+                    <Catalog cards={allProducts}/>
+                </>
+                :
+                <Link className={styles.link} to={"/catalog"}>
+                    <button className="home-page-button">Каталог&nbsp;></button>
+                </Link>
+            }
+        </>
+    )
 }

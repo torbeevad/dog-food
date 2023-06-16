@@ -8,24 +8,32 @@ import Rating from "../Rating/Rating";
 import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
 import {ReactComponent as Trash} from "../Card/img/Trash.svg";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {Reviews} from "../Reviews/Reviews";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
 
-export const Product = ({product, isLiked}) => {
-
+export const Product = () => {
 
     const dispatch = useDispatch()
+
+    const {product} = useSelector(state => state.products)
+    const {user} = useSelector(state => state.user)
+    const {reviews} = useSelector(state => state.reviews)
+
+    const isLiked = product.likes.includes(user._id)
 
     const navigate = useNavigate()
     const back = () => {
         navigate("/")
     }
+
     const handleChangeLike = () => {
         dispatch(fetchChangeProductLike(product))
     }
 
+
     let prodStr = "";
-    let str = product.reviews.length.toString()
+    let str = reviews.length.toString()
 
 
     if (str.match(/1$/g)) {
@@ -54,8 +62,8 @@ export const Product = ({product, isLiked}) => {
                     <span>Артикул</span>
                     <Rating id={product._id}/>
                     <Link className={styles.link}>
-                        {product.reviews.length
-                            ? <span>{product.reviews.length} {prodStr}</span>
+                        {reviews.length
+                            ? <span>{reviews.length} {prodStr}</span>
                             : <span>{prodStr}</span>}
                     </Link>
                 </div>
@@ -134,7 +142,7 @@ export const Product = ({product, isLiked}) => {
                     </div>
                 </div>
             </div>
-            {/*<Reviews productId={product._id}/>*/}
+            <Reviews id={"reviews"} productId={product._id}/>
         </div>
     )
 }

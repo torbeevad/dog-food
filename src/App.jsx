@@ -37,6 +37,7 @@ function App() {
     }
 
     useEffect(() => {
+        if (debounceValueInApp === undefined) return;
         dispatch(fetchSearchProduct(debounceValueInApp))
     }, [debounceValueInApp, dispatch])
 
@@ -48,17 +49,19 @@ function App() {
         <div className="App">
             <ValueContext.Provider value={valueContext}>
                 <Header/>
-                <Routes>
-                    {/*<Route path={"/"} element={<HomePage/>}/>*/}
-                    <Route path={"/"} element={<CatalogPage/>}/>
-                    <Route path={"/product/:id"} element={<ProductPage/>}/>
-                    <Route path={"/favorites"} element={<FavoritePage/>}/>
-                    <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
-                    <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
-                    <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
-                    <Route path={"/profile"} element={<Profile/>}/>
-                    <Route path={"*"} element={<Page404/>}/>
-                </Routes>
+                <main>
+                    <Routes>
+                        {/*<Route path={"/"} element={<HomePage/>}/>*/}
+                        <Route path={"/"} element={<CatalogPage/>}/>
+                        <Route path={"/product/:id"} element={<ProductPage/>}/>
+                        <Route path={"/favorites"} element={<FavoritePage/>}/>
+                        <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                        <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                        <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                        <Route path={"/profile"} element={<Profile/>}/>
+                        <Route path={"*"} element={<Page404/>}/>
+                    </Routes>
+                </main>
                 <Footer/>
             </ValueContext.Provider>
         </div>

@@ -10,18 +10,19 @@ export const FavoritePage = () => {
 
     const {favorites} = useSelector(state => state.products)
 
-    const message =  <b className={styles.title}>В Избранном пока ничего нет <br/>
+    const message = <b className={styles.title}>В Избранном пока ничего нет <br/>
         Добавляйте товары в Избранное с помощью ❤️️
     </b>
 
-    return <main>
-        <QueryFind cards={favorites}/>
-        {favorites.length !== 0 ?
-            <>
-                <Sort />
-                <Catalog items={favorites}/>
-            </> :
-            <Page404 message={message}/>}
-    </main>
-
+    return (
+        <>
+            <QueryFind cards={favorites}/>
+            {favorites.length !== 0 ?
+                <>
+                    <Sort/>
+                    <Catalog items={favorites}/>
+                </> :
+                <Page404 message={message}/>}
+        </>
+    )
 }

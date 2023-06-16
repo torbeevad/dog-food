@@ -2,17 +2,21 @@ import React, {useState} from "react";
 import styles from "./add-review-form.module.css"
 import {Rate} from "antd";
 import {useForm} from "react-hook-form";
-import {setReviewById} from "../../../Utils/api";
+import {useDispatch} from "react-redux";
+import {fetchSetReviewsById} from "../../../Storage/slices/reviewsSlice";
 
-export const AddReviewForm = ({id, setProdReview, setAddReview}) => {
+export const AddReviewForm = ({id, setAddReview, setShowBtn}) => {
+
+    const dispatch = useDispatch()
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm()
     const [rating, setRating] = useState(0)
 
-    const addReview = async (data) => {
-        await setReviewById(id, data, rating).then(res => setProdReview(res.reviews)).catch(error => console.log(error));
+    const addReview = (data) => {
+        dispatch(fetchSetReviewsById({id, data, rating}));
         reset();
         setAddReview(state => !state);
+        setShowBtn(true)
     }
 
     return (

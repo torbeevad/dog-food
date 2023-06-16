@@ -1,18 +1,20 @@
-import React, {memo, useContext, useEffect, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 import styles from "./review-card.module.css";
 import {Rate} from "antd";
 import {ReactComponent as Close} from "../Card/img/Trash.svg";
-import {deleteReviewById} from "../../Utils/api";
-import {ValueContext} from "../../ValueContext/ValueContext";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDeleteReviewsById} from "../../Storage/slices/reviewsSlice";
 
-export const ReviewCard = memo(({reviewCard, setProdReview}) => {
+export const ReviewCard = memo(({reviewCard}) => {
 
-    const {user} = useContext(ValueContext)
+    const dispatch = useDispatch()
+
+    const {user} = useSelector(state => state.user)
 
     const [testId, setTestId] = useState(Boolean)
 
-    const deleteReview = async (prodId, revId) => {
-        await deleteReviewById(prodId, revId).then(res => setProdReview(res.reviews)).catch(error => console.log(error))
+    const deleteReview = (prodId, reviewId) => {
+        dispatch(fetchDeleteReviewsById({prodId, reviewId}))
     }
 
     useEffect(() => {

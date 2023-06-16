@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {memo, useCallback, useContext} from "react";
 import {Logo} from "../Logo/Logo";
 import "./index.css"
 import {Search} from "../Search/Search";
@@ -10,15 +10,15 @@ import {ValueContext} from "../../ValueContext/ValueContext";
 import {ReactComponent as Menu} from "./img/Menu.svg";
 import {useSelector} from "react-redux";
 
-export const Header = () => {
+export const Header = memo(() => {
 
     const {setActiveModal} = useContext(ValueContext)
 
     const {favorites} = useSelector(state => state.products)
 
-    const clickActive = () => {
+    const clickActive = useCallback(() => {
         setActiveModal(true)
-    }
+    }, [setActiveModal])
 
     return <header>
         <div className="wrapper">
@@ -43,4 +43,4 @@ export const Header = () => {
 
         </div>
     </header>
-}
+})

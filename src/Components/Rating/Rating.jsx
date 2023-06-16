@@ -1,16 +1,20 @@
 import React from "react";
 import {Rate} from 'antd';
-import {getReviewsById} from "../../Utils/api";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {averRating} from "../../Utils/sort";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchGetReviewsById} from "../../Storage/slices/reviewsSlice";
 
 const Rating = ({id}) => {
 
-    const [rating, setRating] = useState(0)
+    const dispatch = useDispatch()
+
+    const {reviews} = useSelector(state => state.reviews)
 
     useEffect(() => {
-        getReviewsById(id).then(res => (setRating((res.reduce((prev, curr) => prev + curr.rating, 0) / res.length).toFixed(1)))).catch(e=>console.log(e))
-    }, [id])
+        dispatch(fetchGetReviewsById(id))
+    }, [dispatch, id])
 
-    return <Rate style={{fontSize: 14, color: "#FFAA0D"}} value={rating} allowHalf={true}/>
+    return <Rate style={{fontSize: 14, color: "#FFAA0D"}} value={Math.round(averRating(reviews))} allowHalf={true}/>
 };
 export default Rating;

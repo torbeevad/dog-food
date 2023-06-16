@@ -11,14 +11,16 @@ export const Page404 = ({message}) => {
         navigate("/")
     }
 
-    return <main>
-        <div className={styles.wrapper}>
-            <NotFound className={styles.nfound}/>
-            {message ? message : <b className={styles.title}>Простите, по вашему запросу <br/>
-                товаров не найдено.
-            </b>}
-            <button onClick={home}>На главную</button>
-        </div>
+    return (
+        <>
+            <div className={styles.wrapper}>
+                <NotFound className={styles.nfound}/>
+                {message ? message : <b className={styles.title}>Простите, по вашему запросу <br/>
+                    товаров не найдено.
+                </b>}
+                <button onClick={home}>На главную</button>
+            </div>
 
-    </main>
+        </>
+    )
 }
