@@ -16,7 +16,7 @@ export const RegistrationForm = () => {
         reset();
         setTimeout(() => {
             setActiveModal(false);
-        }, 2000)
+        }, 500)
     }
 
     const emailRegister = {

@@ -10,14 +10,13 @@ const initialState = {
     allProducts: [],
     product: {},
     favorites: [],
-    length: 0,
 }
 
 export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProducts", async function (data, arg) {
     try {
         const state = arg.getState()
         const data = await getProducts();
-        return arg.fulfillWithValue(data, state);
+        return arg.fulfillWithValue({data, state});
     } catch (error) {
         return arg.rejectWithValue(error);
     }
@@ -91,9 +90,8 @@ const productsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetAllProducts.fulfilled, (state, action) => {
-            state.allProducts = action.payload;
-            state.favorites = action.payload.filter(e => e.likes.includes(action.meta.user.user._id));
-            state.length = action.payload.length;
+            state.allProducts = action.payload.data.products;
+            state.favorites = action.payload.data.products.filter(e => e.likes.includes(action.payload.state.user.user._id));
             state.loading = false;
         })
         builder.addCase(fetchChangeProductLike.fulfilled, (state, action) => {
@@ -101,7 +99,6 @@ const productsSlice = createSlice({
             const updatedList = action.payload.state.products.allProducts.map(e => e._id === action.payload.updatedCard._id ? action.payload.updatedCard : e)
             state.allProducts = updatedList
             state.favorites = updatedList.filter(e => e.likes.includes(action.payload.state.user.user._id))
-            // state.isLiked = action.payload.data.likes.includes(action.payload.state.user.user._id)
             state.loading = false;
         })
         builder.addCase(fetchProduct.fulfilled, (state, action) => {
@@ -123,9 +120,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const {
-    sortProducts,
-
-} = productsSlice.actions
+export const {sortProducts} = productsSlice.actions
 
 export default productsSlice.reducer

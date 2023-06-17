@@ -14,10 +14,11 @@ import {Modal} from "./Components/Modal/Modal";
 import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
 import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
 import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Profile} from "./Components/Profile/Profile";
-import {getUserInfo} from "./Storage/slices/userSlice";
+import {getUserInfo, setIsLogin} from "./Storage/slices/userSlice";
 import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
+import {useNavigate} from "react-router";
 
 function App() {
 
@@ -27,8 +28,12 @@ function App() {
 
     const dispatch = useDispatch()
 
-    const valueContext = {
+    const navigate = useNavigate()
 
+    const {isLogin} = useSelector(state => state.user)
+
+
+    const valueContext = {
         search,
         setSearch,
         debounceValueInApp,
@@ -37,13 +42,27 @@ function App() {
     }
 
     useEffect(() => {
-        if (debounceValueInApp === undefined) return;
-        dispatch(fetchSearchProduct(debounceValueInApp))
-    }, [debounceValueInApp, dispatch])
+        if (isLogin) {
+            dispatch(getUserInfo()).then(() => dispatch(fetchGetAllProducts()))
+        }
+    }, [dispatch, isLogin]);
 
     useEffect(() => {
-        dispatch(getUserInfo()).then(() => dispatch(fetchGetAllProducts()))
-    }, [dispatch]);
+        if (isLogin) {
+            if (debounceValueInApp === "undefined") return;
+            dispatch(fetchSearchProduct(debounceValueInApp))
+        }
+    }, [debounceValueInApp, dispatch, isLogin])
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            dispatch(setIsLogin(true))
+            setActiveModal(false);
+        } else {
+            setActiveModal(true);
+            navigate("/authorization")
+        }
+    }, [dispatch, isLogin, navigate])
 
     return (
         <div className="App">
@@ -51,15 +70,24 @@ function App() {
                 <Header/>
                 <main>
                     <Routes>
-                        {/*<Route path={"/"} element={<HomePage/>}/>*/}
-                        <Route path={"/"} element={<CatalogPage/>}/>
-                        <Route path={"/product/:id"} element={<ProductPage/>}/>
-                        <Route path={"/favorites"} element={<FavoritePage/>}/>
-                        <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
-                        <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
-                        <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
-                        <Route path={"/profile"} element={<Profile/>}/>
-                        <Route path={"*"} element={<Page404/>}/>
+                        {isLogin ?
+                            <>
+                                {/*<Route path={"/"} element={<HomePage/>}/>*/}
+                                <Route path={"/"} element={<CatalogPage/>}/>
+                                <Route path={"/product/:id"} element={<ProductPage/>}/>
+                                <Route path={"/favorites"} element={<FavoritePage/>}/>
+                                <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                                <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                                <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                                <Route path={"/profile"} element={<Profile/>}/>
+                            </> :
+                            <>
+                                <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                                <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                                <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                                <Route path={"/profile"} element={<Profile/>}/>
+                                <Route path={"*"} element={<Page404/>}/>
+                            </>}
                     </Routes>
                 </main>
                 <Footer/>

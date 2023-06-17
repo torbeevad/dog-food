@@ -15,6 +15,9 @@ export const Header = memo(() => {
     const {setActiveModal} = useContext(ValueContext)
 
     const {favorites} = useSelector(state => state.products)
+    const {isLogin} = useSelector(state => state.user)
+
+
 
     const clickActive = useCallback(() => {
         setActiveModal(true)
@@ -23,7 +26,7 @@ export const Header = memo(() => {
     return <header>
         <div className="wrapper">
             <Link className="header__logo" to={"/"}><Logo/></Link>
-            <Search/>
+            {isLogin && <Search/>}
             <div className="buttons">
                 <Link to={"/favorites"}>
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>

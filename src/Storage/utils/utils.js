@@ -7,3 +7,7 @@ export const isError = (action) => {
 export const isLoading = (action) => {
     return action.type.endsWith("pending")
 }
+
+export const refreshToken = (obj) => {
+    return { ...obj, authorization: localStorage.getItem('token') };
+};

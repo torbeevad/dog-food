@@ -12,7 +12,6 @@ export const Modal = ({children}) => {
         e.key === "Escape" && setActiveModal(false)
     }, [setActiveModal])
 
-
     return <div tabIndex={1} onKeyDown={handleKeyDown}
                 className={activeModal ? styles.active : styles.modal}>
         <div className={styles.content}>

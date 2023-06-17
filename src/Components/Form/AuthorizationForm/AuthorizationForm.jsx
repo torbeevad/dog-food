@@ -1,22 +1,32 @@
 import React, {useContext} from "react";
 import {useForm} from "react-hook-form";
 import styles from "./authotization.module.css"
-import {getEnter} from "../../../Utils/api";
 import {ValueContext} from "../../../ValueContext/ValueContext";
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {getAuthorization} from "../../../Storage/slices/userSlice";
 
 export const AuthorizationForm = () => {
+
+    const dispatch = useDispatch()
+
+    const {isLogin} = useSelector(state => state.user)
+
+    const navigate = useNavigate()
 
     const {setActiveModal} = useContext(ValueContext)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
+
     const authorization = async (data) => {
-        await getEnter(data).then((res) => localStorage.setItem("token", res.token)).catch(e => console.log(e))
-        reset();
+       await dispatch(getAuthorization(data))
         setTimeout(() => {
-            setActiveModal(false);
-        }, 2000)
+            navigate("/")
+            setActiveModal(false)
+            reset()
+        }, 500)
     }
 
     const emailRegister = {
