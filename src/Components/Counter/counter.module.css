@@ -1,12 +1,12 @@
 .wrapper {
     border: 1px solid #CFD8DC;
     border-radius: 100px;
-    width: 109px;
+    width: 50%;
+    height: 48px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 0 12px;
 }
 
 .wrapper div {
@@ -16,6 +16,11 @@
     justify-content: center;
     user-select: none;
     cursor: pointer;
+}
+
+.operator {
+    height: 100%;
+    width: 30%;
 }
 
 .count {
@@ -30,7 +35,7 @@
     width: 20%;
 }
 
-.minus {
+.disable {
     fill: #CFD8DC;
 }
 
@@ -39,5 +44,5 @@
 }
 
 .plus {
-    fill: #1A1A1A;
+    fill: #CFD8DC;
 }

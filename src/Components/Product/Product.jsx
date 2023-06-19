@@ -11,26 +11,29 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Reviews} from "../Reviews/Reviews";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
+import {addUnit} from "../../Storage/slices/cartSlice";
 
 export const Product = () => {
 
-    const dispatch = useDispatch()
 
+    const dispatch = useDispatch()
     const {product} = useSelector(state => state.products)
+    const {qty} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
     const {reviews} = useSelector(state => state.reviews)
-
+    const {cartList} = useSelector(state => state.cart)
     const isLiked = product.likes.includes(user._id)
+
+    const available = cartList.some(e => e.product._id === product._id)
 
     const navigate = useNavigate()
     const back = () => {
-        navigate("/")
+        navigate(-1)
     }
 
     const handleChangeLike = () => {
         dispatch(fetchChangeProductLike(product))
     }
-
 
     let prodStr = "";
     let str = reviews.length.toString()
@@ -52,6 +55,28 @@ export const Product = () => {
         prodStr = "нет отзывов";
     }
 
+    const handleAddToCart = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        if (product.stock > 0) {
+            dispatch(addUnit({product, qty: 1}))
+        }
+    }
+
+    const fu = () => {
+        if (available) {
+            return "Уже в корзине"
+        } else if (product.stock === 0) {
+            return "В каталог"
+        } else {
+            return "В Корзину"
+        }
+    }
+
+    const wayToCart = () => {
+        navigate("/cart")
+    }
+
 
     return (
         <div className={styles.wrapper}>
@@ -68,7 +93,6 @@ export const Product = () => {
                     </Link>
                 </div>
             </div>
-
             <div className={styles.content}>
                 <div className={styles.properties}>
                     <div className={styles.left}>
@@ -86,9 +110,11 @@ export const Product = () => {
                                     className={product.discount ? styles.pricewithdisc : styles.price}>
                                 {(product.price - product.price / 100 * product.discount).toFixed()}&nbsp;&#8381;</span>
                             </div>
-                            <div className={styles.buttons}>
-                                <Counter/>
-                                <button>В корзину</button>
+                            <div className={styles.buttons}>{product.stock
+                                ? <Counter product={product} qty={qty}/>
+                                : <b>Нет на складе!</b>}
+                                <button onClick={available ? wayToCart : handleAddToCart}
+                                        className={"card__button"}>{fu()}</button>
                             </div>
                             <div className={styles.favorite}>{!isLiked ? <Like className={styles.favorite__pic}/> :
                                 <Trash className={styles.favorite__pic}/>}<span

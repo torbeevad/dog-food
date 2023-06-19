@@ -1,10 +1,14 @@
-import React, {useContext} from "react";
+import React from "react";
 import styles from "./query.module.css"
-import {ValueContext} from "../../ValueContext/ValueContext";
+import {useSelector} from "react-redux";
+import {useLocation} from "react-router";
 
 export const QueryFind = ({cards}) => {
 
-    const {debounceValueInApp} = useContext(ValueContext)
+    const {searchValue} = useSelector(state => state.products)
+
+    const location = useLocation()
+
 
     let findStr = ""
     let prodStr = ""
@@ -32,12 +36,15 @@ export const QueryFind = ({cards}) => {
     }
 
     return (
-        <div className={debounceValueInApp ? styles.query : styles.hide}>
-            {!cards.length
-                ?
-                <span>По запросу <b>{debounceValueInApp}</b> {prodStr} {findStr}!</span>
-                :
-                <span>По запросу <b>{debounceValueInApp}</b> {findStr} {cards.length} {prodStr}:</span>
+        <div className={location.pathname === "/cart" || searchValue ? styles.query : styles.hide}>
+            {location.pathname === "/cart"
+                ? <>
+                    {!!cards.length && <span>В корзине <b>{cards.length}</b> {prodStr}!</span>}</>
+                : <>
+                    {!cards.length
+                        ? <span>По запросу <b>{searchValue}</b> {prodStr} {findStr}!</span>
+                        : <span>По запросу <b>{searchValue}</b> {findStr} {cards.length} {prodStr}:</span>
+                    }</>
             }
         </div>
     )

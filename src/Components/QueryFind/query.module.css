@@ -1,7 +1,10 @@
 .query {
+    align-self: center;
     max-width:100%;
+    height: 48px;
     font-size: 28px;
     line-height: 32px;
+    white-space: nowrap;
 }
 
 .hide {

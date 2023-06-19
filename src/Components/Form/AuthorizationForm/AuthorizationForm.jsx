@@ -4,14 +4,12 @@ import styles from "./authotization.module.css"
 import {ValueContext} from "../../../ValueContext/ValueContext";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getAuthorization} from "../../../Storage/slices/userSlice";
 
 export const AuthorizationForm = () => {
 
     const dispatch = useDispatch()
-
-    const {isLogin} = useSelector(state => state.user)
 
     const navigate = useNavigate()
 

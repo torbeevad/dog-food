@@ -10,6 +10,7 @@ const initialState = {
     allProducts: [],
     product: {},
     favorites: [],
+    searchValue: "",
 }
 
 export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProducts", async function (data, arg) {
@@ -86,6 +87,9 @@ const productsSlice = createSlice({
                 default:
                     break;
             }
+        },
+        setSearchValue: (state, action) => {
+            state.searchValue = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -120,6 +124,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const {sortProducts} = productsSlice.actions
+export const {sortProducts, setSearchValue} = productsSlice.actions
 
 export default productsSlice.reducer

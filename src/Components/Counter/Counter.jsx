@@ -1,25 +1,39 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import styles from "./counter.module.css";
 import {ReactComponent as Minus} from "./Minus.svg";
 import {ReactComponent as Plus} from "./Plus.svg";
+import {useDispatch} from "react-redux";
+import {addUnit, deleteUnit, reduceUnit} from "../../Storage/slices/cartSlice";
 
-export const Counter = () => {
+export const Counter =({product,qty}) => {
 
-    const [counter, setCounter] = useState(0)
-    const increase = useCallback(() => {
-        setCounter(counter + 1)
-    }, [counter])
 
-    const decrease = useCallback(() => {
-        if (counter > 0) {
-            setCounter(counter - 1)
+    const dispatch = useDispatch()
+
+    const increase = useCallback((e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        if (qty < product?.stock) {
+            dispatch(addUnit({product, qty: 1}))
         }
-    }, [counter])
+
+    }, [product, dispatch, qty])
+
+    const decrease = useCallback((e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        if (qty > 1) {
+            dispatch(reduceUnit({product, qty: 1}))
+        } else if (qty === 1) {
+            dispatch(deleteUnit(product))
+        }
+    }, [dispatch, product, qty])
 
     return <div className={styles.wrapper}>
-        <div onClick={decrease}><Minus className={counter > 0 ? styles.active : styles.minus}/></div>
-        <div className={styles.count}>{counter}</div>
-        {/*<input className={styles.count} value={counter}/>*/}
-        <div onClick={increase}><Plus className={styles.plus}/></div>
+        <div onClick={decrease} className={styles.operator}><Minus
+            className={qty > 0 ? styles.active : styles.disable}/></div>
+        <div className={styles.count}>{qty}</div>
+        <div onClick={increase} className={styles.operator}><Plus
+            className={qty === product?.stock ? styles.disable : styles.active}/></div>
     </div>
 }

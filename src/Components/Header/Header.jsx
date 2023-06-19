@@ -16,8 +16,7 @@ export const Header = memo(() => {
 
     const {favorites} = useSelector(state => state.products)
     const {isLogin} = useSelector(state => state.user)
-
-
+    const {cartList} = useSelector(state => state.cart)
 
     const clickActive = useCallback(() => {
         setActiveModal(true)
@@ -32,11 +31,12 @@ export const Header = memo(() => {
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>
                         {!!favorites.length && <span className="bubble">{favorites.length}</span>}</div>
                 </Link>
-                <Link to={"/profile"}>
+                <Link to={"/cart"}>
                     <div className="bubble__wrapper"><Cart className="button__cart"/>
-                        <span className="bubble">12</span></div>
+                        {!!cartList.length && <span className="bubble">{cartList.length}</span>}
+                    </div>
                 </Link>
-                <Link to={"/authorization"} onClick={clickActive} className="bubble__wrapper">
+                <Link to={isLogin ? "/profile" : "/authorization"} onClick={clickActive} className="bubble__wrapper">
                     <Face className="button__face"/>
                 </Link>
             </div>

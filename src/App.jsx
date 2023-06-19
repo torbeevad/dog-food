@@ -3,7 +3,6 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
 import {Route, Routes} from "react-router-dom";
-// import {HomePage} from "./Pages/HomePage/HomePage";
 import {CatalogPage} from "./Pages/CatalogPage/CatalogPage";
 import {ProductPage} from "./Pages/ProductPage/ProductPage";
 import {FavoritePage} from "./Pages/FavoritePage/FavoritePage";
@@ -19,31 +18,38 @@ import {Profile} from "./Components/Profile/Profile";
 import {getUserInfo, setIsLogin} from "./Storage/slices/userSlice";
 import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
 import {useNavigate} from "react-router";
+import {CartPage} from "./Pages/CartPage/CartPage";
+import {cartFromLocal} from "./Storage/slices/cartSlice";
 
 function App() {
 
-    const [search, setSearch] = useState("")
-    const debounceValueInApp = useDebounce(search)
     const [activeModal, setActiveModal] = useState(false)
 
     const dispatch = useDispatch()
-
     const navigate = useNavigate()
 
     const {isLogin} = useSelector(state => state.user)
+    const {searchValue} = useSelector(state => state.products)
 
+    const debounceValueInApp = useDebounce(searchValue)
 
     const valueContext = {
-        search,
-        setSearch,
-        debounceValueInApp,
         activeModal,
         setActiveModal,
     }
 
+
+    useEffect(() => {
+        if (isLogin && localStorage.getItem("cart")) {
+            dispatch(cartFromLocal(JSON.parse(localStorage.getItem("cart"))))
+        }
+    }, [dispatch, isLogin])
+
+
     useEffect(() => {
         if (isLogin) {
             dispatch(getUserInfo()).then(() => dispatch(fetchGetAllProducts()))
+
         }
     }, [dispatch, isLogin]);
 
@@ -57,7 +63,6 @@ function App() {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             dispatch(setIsLogin(true))
-            setActiveModal(false);
         } else {
             setActiveModal(true);
             navigate("/authorization")
@@ -72,14 +77,14 @@ function App() {
                     <Routes>
                         {isLogin ?
                             <>
-                                {/*<Route path={"/"} element={<HomePage/>}/>*/}
                                 <Route path={"/"} element={<CatalogPage/>}/>
                                 <Route path={"/product/:id"} element={<ProductPage/>}/>
                                 <Route path={"/favorites"} element={<FavoritePage/>}/>
+                                <Route path={"/cart"} element={<CartPage/>}/>
+                                <Route path={"/profile"} element={<Profile/>}/>
                                 <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
                                 <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
                                 <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
-                                <Route path={"/profile"} element={<Profile/>}/>
                             </> :
                             <>
                                 <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
@@ -95,5 +100,6 @@ function App() {
         </div>
     );
 }
+
 
 export default App;

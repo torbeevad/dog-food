@@ -1,0 +1,142 @@
+.cart__wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1024px; /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    gap: 2rem;
+}
+
+.cart__content {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 60px;
+}
+
+.cart__list {
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    gap: 1rem;
+}
+
+.cart__list > div {
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    gap: 1rem;
+}
+
+
+.list__link {
+    height: 48px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 16px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 20px;
+    border-radius: 55px;
+    border: none;
+    color: #1A1A1A;
+    background-color: var(--main-color);
+    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24);
+}
+
+.list__link:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24), 0 4px 16px rgba(96, 97, 112, 0.36);
+}
+
+
+.unit__left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.unit__right {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.unit__prices {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.list__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.cart__unit {
+    display: grid;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    grid-template-columns: 6fr 4fr;
+    gap: 1rem;
+}
+
+.cart__overall {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: min-content;
+    gap: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 16px 0 rgba(96, 97, 112, 0.16);
+    border-radius: 20px;
+}
+
+.overall__top {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem
+}
+
+.overall__top > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.overall__cost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.unit__img {
+    width: 80px;
+}
+
+.unit__button {
+    width: min-content;
+    height: min-content;
+    background: transparent;
+    box-shadow: none;
+}
+
+.unit__button:hover {
+    box-shadow: none;
+}
+
+.line {
+    border-bottom: #ECEFF1 solid 1px;
+}
+
+.hidden {
+    display: none;
+}
+
+
