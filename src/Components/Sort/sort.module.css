@@ -13,20 +13,21 @@
     width: -webkit-fill-available;
 }
 
-.item {
-    color: #7B8E98;
-    cursor: pointer;
-}
+/*.item {*/
+/*    color: #7B8E98;*/
+/*    cursor: pointer;*/
+/*}*/
 
-.item:hover {
-    cursor: pointer;
-    color: #1A1A1A;
-}
-.item-black{
-    cursor: pointer;
-    font-weight: 700;
-    color: #1A1A1A;
-}
+/*.item:hover {*/
+/*    cursor: pointer;*/
+/*    color: #1A1A1A;*/
+/*}*/
+
+/*.black{*/
+/*    cursor: pointer;*/
+/*    font-weight: 700;*/
+/*    color: #1A1A1A;*/
+/*}*/
 
 @media (max-width: 580px) {
     .wrapper {

@@ -2,32 +2,33 @@ import React, {useCallback, useState} from "react";
 import styles from "./sort.module.css";
 import {useDispatch} from "react-redux";
 import {sortProducts} from "../../Storage/slices/productsSlice";
+import {SortItem} from "./SortItem/SortItem";
+
+
 
 export const Sort = () => {
 
+    const [isActive, setActive] = useState("");
     const dispatch = useDispatch()
 
-    const [isActive, setActive] = useState({});
+    const arrSortNames = [
+        {"popular": "Популярные"},
+        {"newest": "Новинки"},
+        {"lowPrice": "Сначала дешёвые"},
+        {"highPrice": "Сначала дорогие"},
+        {"rate": "По рейтингу"},
+        {"discount": "По скидке"},
+    ]
 
     const activeSortItem = useCallback((e) => {
-        if (!e.target.id) return;
-        setActive(e.target);
-        if (isActive !== e.target.id) {
-            e.target.className = styles.itemBlack;
-            isActive.className = styles.item;
-        }
-    }, [isActive])
+        setActive([e.target.id]);
+    }, [])
 
     const sortChoose = (e) => {
         dispatch(sortProducts(e.target.id))
     }
 
-    return <div onClick={activeSortItem} className={styles.wrapper}>
-        <span onClick={sortChoose} id={"popular"} className={styles.item}>Популярные</span>
-        <span onClick={sortChoose} id={"newest"} className={styles.item}>Новинки</span>
-        <span onClick={sortChoose} id={"lowPrice"} className={styles.item}>Сначала дешёвые</span>
-        <span onClick={sortChoose} id={"highPrice"} className={styles.item}>Сначала дорогие</span>
-        <span onClick={sortChoose} id={"rate"} className={styles.item}>По рейтингу</span>
-        <span onClick={sortChoose} id={"discount"} className={styles.item}>По скидке</span>
+    return <div onClick={sortChoose} className={styles.wrapper}>
+        {arrSortNames.map(item => <SortItem activeSortItem={activeSortItem} isActive={isActive} key={Object.keys(item)} id={Object.keys(item)} children={Object.values(item)}/>)}
     </div>
 }

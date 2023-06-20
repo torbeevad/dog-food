@@ -22,10 +22,10 @@ export const Product = () => {
     const {user} = useSelector(state => state.user)
     const {reviews} = useSelector(state => state.reviews)
     const {cartList} = useSelector(state => state.cart)
-    const isLiked = product.likes.includes(user._id)
+
 
     const available = cartList.some(e => e.product._id === product._id)
-
+    const isLiked = product.likes.includes(user._id)
     const navigate = useNavigate()
     const back = () => {
         navigate(-1)
@@ -66,7 +66,7 @@ export const Product = () => {
     const fu = () => {
         if (available) {
             return "Уже в корзине"
-        } else if (product.stock === 0) {
+        } else if (!product.stock) {
             return "В каталог"
         } else {
             return "В Корзину"
@@ -113,8 +113,12 @@ export const Product = () => {
                             <div className={styles.buttons}>{product.stock
                                 ? <Counter product={product} qty={qty}/>
                                 : <b>Нет на складе!</b>}
-                                <button onClick={available ? wayToCart : handleAddToCart}
-                                        className={"card__button"}>{fu()}</button>
+                                {!product.stock
+                                    ? <button onClick={() => {
+                                        navigate("/")
+                                    }} className={"card__button"}>{fu()}</button>
+                                    : <button onClick={available ? wayToCart : handleAddToCart}
+                                              className={"card__button"}>{fu()}</button>}
                             </div>
                             <div className={styles.favorite}>{!isLiked ? <Like className={styles.favorite__pic}/> :
                                 <Trash className={styles.favorite__pic}/>}<span

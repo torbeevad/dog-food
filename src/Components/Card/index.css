@@ -8,6 +8,7 @@
     cursor: auto;
     padding: 0.5rem;
     position: relative;
+    user-select: none;
 }
 
 .card:hover {
@@ -52,8 +53,9 @@
     stroke: #7B8E98;
 }
 
-.card__like_liked {
+.liked {
     fill: #F44336;
+    stroke: none;
 }
 
 .card__discount {
@@ -106,23 +108,17 @@
     width: 60%;
 }
 
-.card__button-disabled{
+.disabled {
     background: rgba(236, 239, 241, 0.5);
     box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
 }
 
-.card__button-disabled:hover{
+.disabled:hover {
     background: rgba(236, 239, 241, 0.5);
     cursor: auto;
     box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
 }
 
-.card__old-price {
-    text-decoration-line: line-through;
-    font-weight: 600;
-    font-size: 12px;
-    color: #1A1A1A;
-}
 
 .card__price {
     font-weight: 800;
@@ -135,6 +131,14 @@
     font-size: 20px;
     color: #F44336;
 }
+
+.old-price {
+    text-decoration-line: line-through;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1A1A1A;
+}
+
 
 .card__nav-link {
     text-decoration: none;

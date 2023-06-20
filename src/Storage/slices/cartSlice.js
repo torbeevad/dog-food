@@ -16,8 +16,7 @@ const cartSlice = createSlice({
             if (item) {
                 item.qty = item.qty + action.payload.qty
             } else {
-                const unit = action.payload
-                state.cartList = [...state.cartList, unit]
+                state.cartList = [...state.cartList, action.payload]
             }
             localStorage.setItem("cart", JSON.stringify(state.cartList))
         },
