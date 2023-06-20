@@ -36,21 +36,21 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getAuthorization.fulfilled, (state, action) => {
-            state.user = action.payload.data
-            localStorage.setItem("token", action.payload.token)
+        builder.addCase(getAuthorization.fulfilled, (state, {payload}) => {
+            state.user = payload.data
+            localStorage.setItem("token", payload.token)
             state.isLogin = true
             state.loading = false;
         })
-        builder.addCase(getUserInfo.fulfilled, (state, action) => {
-            state.user = action.payload;
+        builder.addCase(getUserInfo.fulfilled, (state, {payload}) => {
+            state.user = payload;
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;
         })
-        builder.addMatcher(isError, (state, action) => {
-            state.error = action.payload
+        builder.addMatcher(isError, (state, {payload}) => {
+            state.error = payload
             state.loading = false;
         })
     }

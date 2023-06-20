@@ -44,25 +44,25 @@ const reviewsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchGetReviewsById.fulfilled, (state, action) => {
-            state.reviews = sortByDate(action.payload.reviews);
+        builder.addCase(fetchGetReviewsById.fulfilled, (state, {payload}) => {
+            state.reviews = sortByDate(payload.reviews);
             state.loading = false;
         })
-        builder.addCase(fetchSetReviewsById.fulfilled, (state, action) => {
-            state.product = action.payload.updatedProduct;
-            state.allProducts = action.payload.state.products.allProducts.map(e => e._id === action.payload.updatedProduct._id ? action.payload.updatedProduct : e);
+        builder.addCase(fetchSetReviewsById.fulfilled, (state, {payload}) => {
+            state.product = payload.updatedProduct;
+            state.allProducts = payload.state.products.allProducts.map(e => e._id === payload.updatedProduct._id ? payload.updatedProduct : e);
             state.loading = false;
         })
-        builder.addCase(fetchDeleteReviewsById.fulfilled, (state, action) => {
-            state.product = action.payload.updatedProduct;
-            state.allProducts = action.payload.state.products.allProducts.map(e => e._id === action.payload.updatedProduct._id ? action.payload.updatedProduct : e);
+        builder.addCase(fetchDeleteReviewsById.fulfilled, (state, {payload}) => {
+            state.product = payload.updatedProduct;
+            state.allProducts = payload.state.products.allProducts.map(e => e._id === payload.updatedProduct._id ? payload.updatedProduct : e);
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;
         })
-        builder.addMatcher(isError, (state, action) => {
-            state.error = action.payload
+        builder.addMatcher(isError, (state, {payload}) => {
+            state.error = payload
             state.loading = false;
         })
     }

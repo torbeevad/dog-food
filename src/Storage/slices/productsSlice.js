@@ -58,8 +58,8 @@ const productsSlice = createSlice({
     name: "products",
     initialState,
     reducers: {
-        sortProducts: (state, action) => {
-            switch (action.payload) {
+        sortProducts: (state, {payload}) => {
+            switch (payload) {
                 case ("popular"):
                     state.allProducts = popular(state.allProducts);
                     state.favorites = popular(state.favorites)
@@ -88,34 +88,34 @@ const productsSlice = createSlice({
                     break;
             }
         },
-        setSearchValue: (state, action) => {
-            state.searchValue = action.payload
+        setSearchValue: (state, {payload}) => {
+            state.searchValue = payload
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchGetAllProducts.fulfilled, (state, action) => {
-            state.allProducts = action.payload.data.products;
-            state.favorites = action.payload.data.products.filter(e => e.likes.includes(action.payload.state.user.user._id));
+        builder.addCase(fetchGetAllProducts.fulfilled, (state, {payload}) => {
+            state.allProducts = payload.data.products;
+            state.favorites = payload.data.products.filter(e => e.likes.includes(payload.state.user.user._id));
             state.loading = false;
         })
-        builder.addCase(fetchChangeProductLike.fulfilled, (state, action) => {
-            state.product = action.payload.updatedCard
-            const updatedList = action.payload.state.products.allProducts.map(e => e._id === action.payload.updatedCard._id ? action.payload.updatedCard : e)
+        builder.addCase(fetchChangeProductLike.fulfilled, (state, {payload}) => {
+            state.product = payload.updatedCard
+            const updatedList = payload.state.products.allProducts.map(e => e._id === payload.updatedCard._id ? payload.updatedCard : e)
             state.allProducts = updatedList
-            state.favorites = updatedList.filter(e => e.likes.includes(action.payload.state.user.user._id))
+            state.favorites = updatedList.filter(e => e.likes.includes(payload.state.user.user._id))
             state.loading = false;
         })
-        builder.addCase(fetchProduct.fulfilled, (state, action) => {
-            state.product = action.payload.product;
+        builder.addCase(fetchProduct.fulfilled, (state, {payload}) => {
+            state.product = payload.product;
             state.loading = false;
         })
-        builder.addCase(fetchSearchProduct.fulfilled, (state, action) => {
-            state.allProducts = action.payload.result
-            state.favorites = action.payload.result.filter(e => e.likes.includes(action.payload.state.user.user._id))
+        builder.addCase(fetchSearchProduct.fulfilled, (state, {payload}) => {
+            state.allProducts = payload.result
+            state.favorites = payload.result.filter(e => e.likes.includes(payload.state.user.user._id))
             state.loading = false;
         })
-        builder.addMatcher(isError, (state, action) => {
-            state.action = action.payload
+        builder.addMatcher(isError, (state, {payload}) => {
+            state.action = payload
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state, action) => {

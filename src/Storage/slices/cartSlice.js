@@ -11,27 +11,27 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addUnit(state, action) {
-            const item = state.cartList.find(e => e.product._id === action.payload.product._id)
+        addUnit(state, {payload}) {
+            const item = state.cartList.find(e => e.product._id === payload.product._id)
             if (item) {
-                item.qty = item.qty + action.payload.qty
+                item.qty = item.qty + payload.qty
             } else {
-                state.cartList = [...state.cartList, action.payload]
+                state.cartList = [...state.cartList, payload]
             }
             localStorage.setItem("cart", JSON.stringify(state.cartList))
         },
-        reduceUnit(state, action) {
-            const item = state.cartList.find(e => e.product._id === action.payload.product._id)
-            item.qty = item.qty - action.payload.qty
+        reduceUnit(state, {payload}) {
+            const item = state.cartList.find(e => e.product._id === payload.product._id)
+            item.qty = item.qty - payload.qty
             localStorage.setItem("cart", JSON.stringify(state.cartList))
         },
-        deleteUnit(state, action) {
+        deleteUnit(state, {payload}) {
             const unitListInState = JSON.parse(localStorage.getItem("cart"))
-            state.cartList = unitListInState.filter(el => el.product._id !== action.payload._id)
+            state.cartList = unitListInState.filter(el => el.product._id !== payload._id)
             localStorage.setItem("cart", JSON.stringify(state.cartList))
         },
-        cartFromLocal(state, action) {
-            state.cartList = action.payload
+        cartFromLocal(state, {payload}) {
+            state.cartList = payload
         }
     },
 

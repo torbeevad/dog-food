@@ -54,8 +54,7 @@ function App() {
     }, [dispatch, isLogin]);
 
     useEffect(() => {
-        if (isLogin) {
-            if (debounceValueInApp === "undefined") return;
+        if (isLogin && debounceValueInApp) {
             dispatch(fetchSearchProduct(debounceValueInApp))
         }
     }, [debounceValueInApp, dispatch, isLogin])
