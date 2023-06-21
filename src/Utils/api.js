@@ -1,4 +1,4 @@
-import {refreshToken} from "../Storage/utils/utils";
+import {refreshToken} from "./utils";
 
 const url = "https://api.react-learning.ru"
 

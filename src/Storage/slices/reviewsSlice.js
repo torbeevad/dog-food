@@ -1,10 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {isError, isLoading} from "../utils/utils.js";
-import {deleteReviewById, getReviewsById, setReviewById} from "../../Utils/api";
-import {sortByDate} from "../../Utils/sort";
+import {deleteReviewById, getAllReviews, getReviewsById, setReviewById} from "../../Utils/api";
+import {sortByDate} from "../utils/sort";
 
 const initialState = {
-    reviews: [],
+    allReviews: [],
+    reviewsById: [],
     review: {},
     loading: false,
 }
@@ -12,8 +13,8 @@ const initialState = {
 export const fetchGetReviewsById = createAsyncThunk("reviews/fetchGetReviewsById", async function (productId, arg) {
     try {
         const state = arg.getState()
-        const reviews = await getReviewsById(productId)
-        return arg.fulfillWithValue({reviews, state})
+        const reviewsById = await getReviewsById(productId)
+        return arg.fulfillWithValue({reviewsById, state})
     } catch (error) {
         return arg.rejectWithValue(error);
     }
@@ -39,23 +40,36 @@ export const fetchDeleteReviewsById = createAsyncThunk("reviews/fetchDeleteRevie
     }
 })
 
+export const fetchGetAllReviews = createAsyncThunk("reviews/fetchGetAllReviews", async function (data, arg) {
+    try {
+        const allReviews = await getAllReviews()
+        return arg.fulfillWithValue(allReviews)
+    } catch (error) {
+        return arg.rejectWithValue(error)
+    }
+})
+
 const reviewsSlice = createSlice({
     name: "reviews",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(fetchGetAllReviews.fulfilled, (state, {payload}) => {
+            state.allReviews = payload
+            state.loading = false
+        })
         builder.addCase(fetchGetReviewsById.fulfilled, (state, {payload}) => {
-            state.reviews = sortByDate(payload.reviews);
+            state.reviewsById = sortByDate(payload.reviewsById);
             state.loading = false;
         })
         builder.addCase(fetchSetReviewsById.fulfilled, (state, {payload}) => {
-            state.product = payload.updatedProduct;
-            state.allProducts = payload.state.products.allProducts.map(e => e._id === payload.updatedProduct._id ? payload.updatedProduct : e);
+            const productId = payload.updatedProduct;
+            state.allReviews = payload.state.reviews.allReviews.map(e => e.product === productId ? payload.updatedProduct.reviews : e);
             state.loading = false;
         })
         builder.addCase(fetchDeleteReviewsById.fulfilled, (state, {payload}) => {
-            state.product = payload.updatedProduct;
-            state.allProducts = payload.state.products.allProducts.map(e => e._id === payload.updatedProduct._id ? payload.updatedProduct : e);
+            const productId = payload.updatedProduct;
+            state.allReviews = payload.state.reviews.allReviews.map(e => e.product === productId ? payload.updatedProduct.reviews : e);
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state) => {

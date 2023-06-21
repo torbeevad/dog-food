@@ -14,17 +14,17 @@ export const Reviews = memo(({productId}) => {
 
 
     const {user} = useSelector(state => state.user)
-    const {allProducts} = useSelector(state => state.reviews)
-    const {reviews} = useSelector(state => state.reviews)
+    const {allReviews} = useSelector(state => state.reviews)
+    const {reviewsById} = useSelector(state => state.reviews)
 
     useEffect(() => {
         dispatch(fetchGetReviewsById(productId))
-    }, [dispatch, productId, allProducts])
+    }, [dispatch, productId, allReviews])
 
     useEffect(() => {
-        const result = reviews.some(e => e.author._id === user._id)
+        const result = reviewsById.some(e => e.author._id === user._id)
         setShowBtn(result)
-    }, [reviews, user._id])
+    }, [reviewsById, user._id])
 
     return (
         <div className={styles.wrapper}>
@@ -38,7 +38,7 @@ export const Reviews = memo(({productId}) => {
                 <AddReviewForm setShowBtn={setShowBtn} setAddReview={setAddReview} id={productId}/>}
             <h4>Фотографии наших покупателей</h4>
             <div className={styles.photos}>ТУТ БУДУТ ФОТО</div>
-            {reviews?.length ? reviews.map(el => <ReviewCard key={el.author._id} reviewCard={el}/>) :
+            {reviewsById?.length ? reviewsById.map(el => <ReviewCard key={el.author._id} reviewCard={el}/>) :
                 <span>Отзывов пока нет.</span>}
         </div>
     )

@@ -20,6 +20,7 @@ import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/products
 import {useNavigate} from "react-router";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
+import {fetchGetAllReviews} from "./Storage/slices/reviewsSlice";
 
 function App() {
 
@@ -49,15 +50,18 @@ function App() {
     useEffect(() => {
         if (isLogin) {
             dispatch(getUserInfo()).then(() => dispatch(fetchGetAllProducts()))
-
         }
     }, [dispatch, isLogin]);
 
     useEffect(() => {
-        if (isLogin && debounceValueInApp) {
+        if (isLogin && debounceValueInApp !== undefined) {
             dispatch(fetchSearchProduct(debounceValueInApp))
         }
     }, [debounceValueInApp, dispatch, isLogin])
+
+    useEffect(() => {
+        isLogin && dispatch(fetchGetAllReviews())
+    }, [dispatch, isLogin])
 
     useEffect(() => {
         if (localStorage.getItem("token")) {

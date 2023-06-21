@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getProductById, getProducts, searchProducts} from "../../Utils/api";
 import {isError, isLoading} from "../utils/utils";
 import {changeProductLike} from "../../Utils/utils";
-import {popular, newest, lowPrice, highPrice, rate, discount} from "../../Utils/sort";
+import {popular, newest, lowPrice, highPrice, rate, discount} from "../utils/sort";
 
 
 const initialState = {

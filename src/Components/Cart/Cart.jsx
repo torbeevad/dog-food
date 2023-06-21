@@ -23,7 +23,7 @@ export const Cart = () => {
                 <div className={styles.cart__list}>
                     {!cartList.length
                         ? <div className={styles.list__empty}><h3>Ваша корзина пуста</h3>
-                            <Link className={styles.list__link} to={"/"}> За попукпами </Link>
+                            <Link className={styles.list__link} to={"/"}> За покупками </Link>
                         </div>
                         : cartList.map(el => {
                             return <LiCart key={el.product._id} card={el.product} qty={el.qty}/>
