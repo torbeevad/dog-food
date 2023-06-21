@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import {ValueContext} from "../../ValueContext/ValueContext";
 import {ReactComponent as Menu} from "./img/Menu.svg";
 import {useSelector} from "react-redux";
+import {useLocation} from "react-router";
 
 export const Header = memo(() => {
 
@@ -17,6 +18,8 @@ export const Header = memo(() => {
     const {favorites} = useSelector(state => state.products)
     const {isLogin} = useSelector(state => state.user)
     const {cartList} = useSelector(state => state.cart)
+    const location = useLocation()
+
 
     const clickActive = useCallback(() => {
         setActiveModal(true)
@@ -25,7 +28,7 @@ export const Header = memo(() => {
     return <header>
         <div className="wrapper">
             <Link className="header__logo" to={"/"}><Logo/></Link>
-            {isLogin && <Search/>}
+            {isLogin && (location.pathname === ("/") || location.pathname === ("/favorites"))  && < Search/>}
             <div className="buttons">
                 <Link to={"/favorites"}>
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>

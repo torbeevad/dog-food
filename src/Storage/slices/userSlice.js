@@ -1,5 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getEnter, getUser} from "../../Utils/api";
+import {
+    forgotPassword,
+    getEnter,
+    getRegistration,
+    getUser,
+    resetPassword
+} from "../../Utils/api/apiUser";
 import {isError, isLoading} from "../utils/utils.js";
 
 const initialState = {
@@ -8,7 +14,7 @@ const initialState = {
     isLogin: false,
 }
 
-export const getAuthorization = createAsyncThunk("user/getAuthorization", async function (data, arg) {
+export const fetchGetAuthorization = createAsyncThunk("user/fetchGetAuthorization", async function (data, arg) {
     try {
         const result = await getEnter(data)
         return arg.fulfillWithValue(result)
@@ -17,12 +23,39 @@ export const getAuthorization = createAsyncThunk("user/getAuthorization", async 
     }
 })
 
-export const getUserInfo = createAsyncThunk("user/getUser", async function (data, arg) {
+export const fetchGetUserInfo = createAsyncThunk("user/fetchGetUserInfo", async function (data, arg) {
     try {
-        const data = await getUser();
-        return arg.fulfillWithValue(data);
+        const result = await getUser();
+        return arg.fulfillWithValue(result);
     } catch (error) {
+        return arg.rejectWithValue(error)
+    }
+})
 
+export const fetchGetRegistration = createAsyncThunk("user/fetchGetRegistration", async function (data, arg) {
+    try {
+        const result = await getRegistration(data);
+        return arg.fulfillWithValue(result);
+    } catch (error) {
+        return arg.rejectWithValue(error)
+    }
+})
+
+export const fetchForgotPassword = createAsyncThunk("user/fetchForgotPassword", async function (data, arg) {
+    try {
+        const result = await forgotPassword(data);
+        return arg.fulfillWithValue(result);
+    } catch (error) {
+        return arg.rejectWithValue(error)
+    }
+})
+
+export const fetchResetPassword = createAsyncThunk("user/fetchResetPassword", async function (data, arg) {
+    try {
+        const result = await resetPassword(data);
+        return arg.fulfillWithValue(result);
+    } catch (error) {
+        arg.rejectWithValue(error)
     }
 })
 
@@ -36,14 +69,25 @@ const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getAuthorization.fulfilled, (state, {payload}) => {
+        builder.addCase(fetchGetAuthorization.fulfilled, (state, {payload}) => {
             state.user = payload.data
             localStorage.setItem("token", payload.token)
             state.isLogin = true
             state.loading = false;
         })
-        builder.addCase(getUserInfo.fulfilled, (state, {payload}) => {
+        builder.addCase(fetchGetUserInfo.fulfilled, (state, {payload}) => {
             state.user = payload;
+            state.loading = false;
+        })
+        builder.addCase(fetchGetRegistration.fulfilled, (state, {payload}) => {
+            state.user = payload;
+            state.loading = false;
+        })
+        builder.addCase(fetchForgotPassword.fulfilled, (state, {payload}) => {
+            state.loading = false;
+        })
+        builder.addCase(fetchResetPassword.fulfilled, (state, {payload}) => {
+            state.user = payload.data;
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state) => {

@@ -7,7 +7,6 @@ import {useNavigate} from "react-router";
 import Rating from "../Rating/Rating";
 import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
 import {ReactComponent as Trash} from "../Card/img/Trash.svg";
-import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Reviews} from "../Reviews/Reviews";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
@@ -78,6 +77,13 @@ export const Product = () => {
         navigate("/cart")
     }
 
+    const handleClickScroll = () => {
+        const element = document.querySelector("#reviews");
+        if (element) {
+            element.scrollIntoView({behavior: 'smooth'});
+        }
+    }
+
 
     return (
         <div className={styles.wrapper}>
@@ -86,12 +92,12 @@ export const Product = () => {
                 <h3>{product.name}</h3>
                 <div className={styles.info}>
                     <span>Артикул</span>
-                    <Rating id={product._id}/>
-                    <Link className={styles.link}>
+                    <Rating disabled={true} id={product._id}/>
+                    <div className={styles.link} onClick={handleClickScroll}>
                         {reviewsById.length
                             ? <span>{reviewsById.length} {prodStr}</span>
                             : <span>{prodStr}</span>}
-                    </Link>
+                    </div>
                 </div>
             </div>
             <div className={styles.content}>
@@ -121,7 +127,8 @@ export const Product = () => {
                                     : <button onClick={available ? wayToCart : handleAddToCart}
                                               className={"card__button"}>{fu()}</button>}
                             </div>
-                            <div className={styles.favorite}>{!isLiked ? <Like className={styles.favorite__pic}/> :
+                            <div className={styles.favorite}>{!isLiked ?
+                                <Like className={styles.favorite__pic}/> :
                                 <Trash className={styles.favorite__pic}/>}<span
                                 onClick={handleChangeLike}
                                 className={styles.favorite__text}>{!isLiked ? 'В избранное' : "Убрать из избранного"}</span>
@@ -139,7 +146,8 @@ export const Product = () => {
                                     <img src={union} alt="штамп"/>
                                     <div>
                                         <b>Гарантия качества</b>,<br/>
-                                        <p>Если Вам не понравилось качество нашей продукции, мы вернем деньги, либо
+                                        <p>Если Вам не понравилось качество нашей продукции, мы вернем деньги,
+                                            либо
                                             сделаем
                                             все
                                             возможное, чтобы удовлетворить ваши нужды.</p>
@@ -156,24 +164,30 @@ export const Product = () => {
                 <div className={styles.characteristics}>
                     <b>Характеристики</b>
                     <div className={styles.details}>
-                        <div className={styles.title}><span>Вес</span><span className={styles.dashed}></span></div>
+                        <div className={styles.title}><span>Вес</span><span className={styles.dashed}></span>
+                        </div>
                         <span>{product.wight}</span>
-                        <div className={styles.title}><span>Цена</span><span className={styles.dashed}></span></div>
+                        <div className={styles.title}><span>Цена</span><span className={styles.dashed}></span>
+                        </div>
                         <span>{product.price - product.price / 100 * product.discount} р.</span>
-                        <div className={styles.title}><span>Польза</span><span className={styles.dashed}></span></div>
+                        <div className={styles.title}><span>Польза</span><span className={styles.dashed}></span>
+                        </div>
                         <div>Большое содержание аминокислот и микроэлементов
                             оказывает
-                            положительное воздействие на общий обмен веществ собаки. Способствуют укреплению десен и
+                            положительное воздействие на общий обмен веществ собаки. Способствуют укреплению
+                            десен и
                             жевательных мышц.
                             Развивают зубочелюстной аппарат, отвлекают собаку во время смены зубов.
-                            Имеет цельную волокнистую структуру, при разжевывание получается эффект зубной щетки, лучше
+                            Имеет цельную волокнистую структуру, при разжевывание получается эффект зубной
+                            щетки,
+                            лучше
                             всего очищает клыки собак.
                             Следует учесть высокую калорийность продукта.
                         </div>
                     </div>
                 </div>
             </div>
-            <Reviews id={"reviews"} productId={product._id}/>
+            <Reviews productId={product._id}/>
         </div>
     )
 }

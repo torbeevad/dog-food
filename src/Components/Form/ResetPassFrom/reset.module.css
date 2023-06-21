@@ -1,4 +1,5 @@
 .wrap {
+    width: 350px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -7,7 +8,7 @@
 .form__reset {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
 }
 
 .form__reset p, .form__reset span {
@@ -44,6 +45,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    gap: 0.5rem;
 }
 
 .input:focus {
@@ -59,7 +61,7 @@
     color: #7B8E98;
 }
 
-.input:focus::placeholder{
+.input:focus::placeholder {
     position: absolute;
     font-weight: 400;
     font-size: 12px;

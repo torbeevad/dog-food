@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import './App.css';
+import "./App.css";
 import {Header} from "./Components/Header/Header";
 import {Footer} from "./Components/Footer/Footer";
 import {Route, Routes} from "react-router-dom";
@@ -12,33 +12,29 @@ import {ValueContext} from "./ValueContext/ValueContext";
 import {Modal} from "./Components/Modal/Modal";
 import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
 import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
-import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
+import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
 import {useDispatch, useSelector} from "react-redux";
 import {Profile} from "./Components/Profile/Profile";
-import {getUserInfo, setIsLogin} from "./Storage/slices/userSlice";
+import {fetchGetUserInfo, setIsLogin} from "./Storage/slices/userSlice";
 import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
-import {useNavigate} from "react-router";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
 import {fetchGetAllReviews} from "./Storage/slices/reviewsSlice";
+import {PrivateRoute} from "./Utils/router/PrivateRoute";
+import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
 
 function App() {
 
-    const [activeModal, setActiveModal] = useState(false)
-
+    const [activeModal, setActiveModal] = useState(true)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-
     const {isLogin} = useSelector(state => state.user)
     const {searchValue} = useSelector(state => state.products)
-
     const debounceValueInApp = useDebounce(searchValue)
 
     const valueContext = {
         activeModal,
         setActiveModal,
     }
-
 
     useEffect(() => {
         if (isLogin && localStorage.getItem("cart")) {
@@ -49,7 +45,7 @@ function App() {
 
     useEffect(() => {
         if (isLogin) {
-            dispatch(getUserInfo()).then(() => dispatch(fetchGetAllProducts()))
+            dispatch(fetchGetUserInfo()).then(() => dispatch(fetchGetAllProducts()))
         }
     }, [dispatch, isLogin]);
 
@@ -66,11 +62,8 @@ function App() {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             dispatch(setIsLogin(true))
-        } else {
-            setActiveModal(true);
-            navigate("/authorization")
         }
-    }, [dispatch, isLogin, navigate])
+    }, [dispatch])
 
     return (
         <div className="App">
@@ -78,24 +71,18 @@ function App() {
                 <Header/>
                 <main>
                     <Routes>
-                        {isLogin ?
-                            <>
-                                <Route path={"/"} element={<CatalogPage/>}/>
-                                <Route path={"/product/:id"} element={<ProductPage/>}/>
-                                <Route path={"/favorites"} element={<FavoritePage/>}/>
-                                <Route path={"/cart"} element={<CartPage/>}/>
-                                <Route path={"/profile"} element={<Profile/>}/>
-                                <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
-                                <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
-                                <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
-                            </> :
-                            <>
-                                <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
-                                <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
-                                <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
-                                <Route path={"/profile"} element={<Profile/>}/>
-                                <Route path={"*"} element={<Page404/>}/>
-                            </>}
+                        <Route element={<PrivateRoute/>}>
+                            <Route path={"/"} element={<CatalogPage/>}/>
+                            <Route path={"/product/:id"} element={<ProductPage/>}/>
+                            <Route path={"/favorites"} element={<FavoritePage/>}/>
+                            <Route path={"/cart"} element={<CartPage/>}/>
+                            <Route path={"/profile"} element={<Profile/>}/>
+                        </Route>
+                        <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                        <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                        <Route path={"/forgot"} element={<Modal><ForgotPassForm/></Modal>}/>
+                        <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                        <Route path={"*"} element={<Page404/>}/>
                     </Routes>
                 </main>
                 <Footer/>

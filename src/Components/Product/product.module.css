@@ -77,6 +77,10 @@ product p {
     text-decoration-line: underline;
 }
 
+.link:hover {
+    cursor: pointer;
+}
+
 .right {
     display: flex;
     align-items: flex-start;

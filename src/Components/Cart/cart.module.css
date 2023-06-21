@@ -40,6 +40,7 @@
     color: #1A1A1A;
     background-color: var(--main-color);
     box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24);
+    user-select: none;
 }
 
 .list__link:hover {
@@ -146,6 +147,24 @@
 
 .hidden {
     display: none;
+}
+
+@media (max-width: 580px) {
+    .cart__wrapper {
+        gap: 0;
+    }
+
+    .cart__content {
+        display: flex;
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    .cart__unit {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 
 

@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getProductById, getProducts, searchProducts} from "../../Utils/api";
+import {getProductById, getProducts, searchProducts} from "../../Utils/api/apiProducts";
 import {isError, isLoading} from "../utils/utils";
 import {changeProductLike} from "../../Utils/utils";
 import {popular, newest, lowPrice, highPrice, rate, discount} from "../utils/sort";

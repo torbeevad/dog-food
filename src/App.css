@@ -17,7 +17,8 @@ button {
   border-radius: 55px;
   border: none;
   background-color: var(--main-color);
-  box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
+  box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24);
+  user-select: none;
 }
 
 button:hover {

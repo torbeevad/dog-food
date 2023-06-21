@@ -27,7 +27,7 @@ export const Reviews = memo(({productId}) => {
     }, [reviewsById, user._id])
 
     return (
-        <div className={styles.wrapper}>
+        <div id="reviews" className={styles.wrapper}>
             <h3 className={styles.title}>Отзывы</h3>
             {!showBtn && <button onClick={() => {
                 setAddReview(true);

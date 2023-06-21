@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {isError, isLoading} from "../utils/utils.js";
-import {deleteReviewById, getAllReviews, getReviewsById, setReviewById} from "../../Utils/api";
+import {deleteReviewById, getAllReviews, getReviewsById, setReviewById} from "../../Utils/api/apiReviews";
 import {sortByDate} from "../utils/sort";
 
 const initialState = {
