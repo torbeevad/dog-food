@@ -1,27 +1,25 @@
-import React, {useContext} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
 import styles from "./authotization.module.css"
-import {ValueContext} from "../../../ValueContext/ValueContext";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
-import {fetchGetAuthorization} from "../../../Storage/slices/userSlice";
+import {fetchGetAuthorization, modalActive} from "../../../Storage/slices/userSlice";
 
 export const AuthorizationForm = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const {setActiveModal} = useContext(ValueContext)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
 
     const authorization = async (data) => {
-       await dispatch(fetchGetAuthorization(data))
+        await dispatch(fetchGetAuthorization(data))
         setTimeout(() => {
             navigate("/")
-            setActiveModal(false)
+            dispatch(modalActive(false))
             reset()
         }, 500)
     }

@@ -39,3 +39,19 @@ export const resetPassword = (data) => {
         headers: {"Content-Type": "application/json"},
     }).then(res => response(res))
 }
+
+export const changeAvatar = (data) => {
+    return fetch(`${url}/users/me/avatar`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: refreshToken(headers),
+    }).then(res => response(res))
+}
+
+export const changeProfile = (data) => {
+    return fetch(`${url}/users/me/`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: refreshToken(headers),
+    }).then(res => response(res))
+}

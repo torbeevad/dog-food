@@ -1,0 +1,109 @@
+
+.wrapper {
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    gap: 0.5rem;
+}
+
+.form__avatar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid #CFD8DC;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.avatar__button {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.top__wrapper, .bottom__wrapper {
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr ;
+    gap: 0.5rem;
+}
+
+.about__wrap {
+    display: grid;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+.about {
+    display: flex;
+    resize: none;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    border: 1px solid #CFD8DC;
+    border-radius: 12px;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px 16px;
+    outline: none;
+}
+
+.bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0.5rem
+}
+
+.bottom div, button{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.input {
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    height: 24px;
+    border: 1px solid #CFD8DC;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px 16px;
+    outline: none;
+}
+
+.forms__button, .avatar__button {
+    background-color: #FFFFFF;
+}
+.forms__button:hover, .avatar__button:hover {
+    background-color: var(--main-color)
+}
+

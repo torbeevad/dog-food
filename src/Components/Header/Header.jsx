@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useContext} from "react";
+import React, {memo} from "react";
 import {Logo} from "../Logo/Logo";
 import "./index.css"
 import {Search} from "../Search/Search";
@@ -6,29 +6,21 @@ import {ReactComponent as Fav} from "./img/Favorites.svg"
 import {ReactComponent as Cart} from "./img/Cart.svg"
 import {ReactComponent as Face} from "./img/Face.svg"
 import {Link} from "react-router-dom";
-import {ValueContext} from "../../ValueContext/ValueContext";
 import {ReactComponent as Menu} from "./img/Menu.svg";
 import {useSelector} from "react-redux";
 import {useLocation} from "react-router";
 
 export const Header = memo(() => {
 
-    const {setActiveModal} = useContext(ValueContext)
-
     const {favorites} = useSelector(state => state.products)
     const {isLogin} = useSelector(state => state.user)
     const {cartList} = useSelector(state => state.cart)
     const location = useLocation()
 
-
-    const clickActive = useCallback(() => {
-        setActiveModal(true)
-    }, [setActiveModal])
-
     return <header>
         <div className="wrapper">
             <Link className="header__logo" to={"/"}><Logo/></Link>
-            {isLogin && (location.pathname === ("/") || location.pathname === ("/favorites"))  && < Search/>}
+            {isLogin && (location.pathname === ("/") || location.pathname === ("/favorites")) && < Search/>}
             <div className="buttons">
                 <Link to={"/favorites"}>
                     <div className="bubble__wrapper"><Fav className="button__favorite"></Fav>
@@ -39,7 +31,7 @@ export const Header = memo(() => {
                         {!!cartList.length && <span className="bubble">{cartList.length}</span>}
                     </div>
                 </Link>
-                <Link to={isLogin ? "/profile" : "/authorization"} onClick={clickActive} className="bubble__wrapper">
+                <Link to={isLogin ? "/profile" : "/authorization"} className="bubble__wrapper">
                     <Face className="button__face"/>
                 </Link>
             </div>

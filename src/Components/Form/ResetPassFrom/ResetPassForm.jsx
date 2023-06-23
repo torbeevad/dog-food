@@ -1,7 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
 import styles from "./reset.module.css"
-import {ValueContext} from "../../../ValueContext/ValueContext";
 import {Link} from "react-router-dom";
 import {fetchResetPassword} from "../../../Storage/slices/userSlice";
 import {useNavigate} from "react-router";
@@ -9,7 +8,6 @@ import {useDispatch} from "react-redux";
 
 export const ResetPassForm = () => {
 
-    const {setActiveModal} = useContext(ValueContext)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -19,7 +17,6 @@ export const ResetPassForm = () => {
     const resetPass = async (data) => {
         await dispatch(fetchResetPassword(data))
         setTimeout(() => {
-            setActiveModal(true)
             navigate("/authorization")
         }, 300)
         reset();

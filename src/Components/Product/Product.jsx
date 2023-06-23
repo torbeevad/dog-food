@@ -20,13 +20,13 @@ export const Product = () => {
     const {cartList} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
     const {reviewsById} = useSelector(state => state.reviews)
-
+    const navigate = useNavigate()
 
     const available = cartList.some(e => e.product._id === product._id)
     const {qty} = available && cartList.find(e => e.product._id === product._id)
 
     const isLiked = product.likes.includes(user._id)
-    const navigate = useNavigate()
+
     const back = () => {
         navigate(-1)
     }

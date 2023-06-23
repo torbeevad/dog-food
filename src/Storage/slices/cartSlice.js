@@ -29,8 +29,8 @@ const cartSlice = createSlice({
             state.cartList = unitListInState.filter(el => el.product._id !== payload._id)
             localStorage.setItem("cart", JSON.stringify(state.cartList))
         },
-        cartFromLocal(state, {payload}) {
-            state.cartList = payload
+        cartFromLocal(state) {
+            state.cartList = JSON.parse(localStorage.getItem("cart"))
         }
     },
 

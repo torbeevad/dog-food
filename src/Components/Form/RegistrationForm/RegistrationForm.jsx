@@ -1,15 +1,13 @@
-import React, {useContext} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
 import styles from "./registration.module.css"
-import {ValueContext} from "../../../ValueContext/ValueContext";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {fetchGetRegistration} from "../../../Storage/slices/userSlice";
+import {fetchGetRegistration, modalActive} from "../../../Storage/slices/userSlice";
 
 export const RegistrationForm = () => {
 
     const dispatch = useDispatch()
-    const {setActiveModal} = useContext(ValueContext)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
@@ -17,7 +15,7 @@ export const RegistrationForm = () => {
         await dispatch(fetchGetRegistration(data))
         reset();
         setTimeout(() => {
-            setActiveModal(false);
+            dispatch(modalActive(false))
         }, 500)
     }
 
