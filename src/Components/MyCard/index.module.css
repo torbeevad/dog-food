@@ -1,0 +1,54 @@
+.my__card__wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    width: 100%;
+    height: 84px;
+    border: 1px solid #CFD8DC;
+    border-radius: 12px;
+    padding: 0 1rem;
+    gap: 3rem;
+}
+.my__card__image {
+    max-height: 80px;
+    max-width: 80px;
+    object-fit: contain;
+    grid-column: 1;
+    display: flex;
+    gap: 1rem;
+}
+
+.my__card__pict__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    gap: 2rem;
+}
+
+.my__card__like {
+    stroke: #7B8E98;
+    fill: none;
+}
+
+.liked {
+    stroke: none;
+    fill: #F44336;
+}
+
+.my__card__trash__wrap {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my__card__trash {
+    fill: #7B8E98;
+}
+
+.my__card__trash:hover {
+    cursor: pointer;
+}

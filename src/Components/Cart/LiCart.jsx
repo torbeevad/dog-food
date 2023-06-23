@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./cart.module.css"
 import {Counter} from "../Counter/Counter";
-import {ReactComponent as Trash} from "../Card/img/Trash.svg";
+import {ReactComponent as Trash} from "../../assets/Trash.svg";
 import {useDispatch} from "react-redux";
 import {deleteUnit} from "../../Storage/slices/cartSlice";
 import {NavLink} from "react-router-dom";
@@ -27,10 +27,11 @@ export const LiCart = ({card, qty}) => {
                     </div>
                 </NavLink>
                 <div className={styles.unit__right}>
-                    <Counter product={card} qty={qty}/>
+                    <Counter className={styles.unit__counter} product={card} qty={qty}/>
                     <div className={styles.unit__prices}>
-                        {!!card.discount && <span className={styles.unit__price__old}>{card.price}&nbsp;&#8381;</span>}
-                        <b className={cn(styles.unit__price, {[styles.with_disc] : !!card.discount})}>{(card.price - card.price / 100 * card.discount).toFixed()}&nbsp;&#8381;</b>
+                        {!!card.discount &&
+                            <span className={styles.unit__price__old}>{card.price * qty}&nbsp;&#8381;</span>}
+                        <b className={cn(styles.unit__price, {[styles.with_disc]: !!card.discount})}>{(card.price - card.price / 100 * card.discount).toFixed() * qty}&nbsp;&#8381;</b>
                     </div>
                     <button onClick={handleDelete} className={styles.unit__button}><Trash/></button>
                 </div>

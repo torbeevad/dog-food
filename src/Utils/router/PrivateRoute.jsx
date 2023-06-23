@@ -4,5 +4,5 @@ import {Navigate, Outlet} from "react-router";
 
 export const PrivateRoute = () => {
     const {isLogin} = useSelector(state => state.user)
-    return !isLogin ? <Navigate to="/authorization"/> : <Outlet/>
+    return isLogin ? <Outlet/> : <Navigate to="/authorization"/>
 }

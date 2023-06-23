@@ -21,7 +21,19 @@ export const searchProducts = (path) => {
         headers: refreshToken(headers)
     }).then(res => response(res))
 }
-
+export const addProduct = (data) => {
+    return fetch(`${url}/products/`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: refreshToken(headers)
+    }).then(res => response(res))
+}
+export const deleteProduct = (id) => {
+    return fetch(`${url}/products/${id}`, {
+        method: "DELETE",
+        headers: refreshToken(headers)
+    }).then(res => response(res))
+}
 
 export const addLike = (id) => {
     return fetch(`${url}/products/likes/${id}/`, {

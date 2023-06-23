@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./product.module.css";
-import truck from "./Truck.svg";
-import union from "./Union.svg";
+import truck from "../../assets/Truck.svg";
+import union from "../../assets/Union.svg";
 import {Counter} from "../Counter/Counter";
 import {useNavigate} from "react-router";
 import Rating from "../Rating/Rating";
-import {ReactComponent as Like} from "../Card/img/ic-favorites-fill.svg";
-import {ReactComponent as Trash} from "../Card/img/Trash.svg";
+import {ReactComponent as Like} from "../../assets/ic-favorites-fill.svg";
+import {ReactComponent as Trash} from "../../assets/Trash.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {Reviews} from "../Reviews/Reviews";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";

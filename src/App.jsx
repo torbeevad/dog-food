@@ -13,9 +13,9 @@ import {AuthorizationForm} from "./Components/Form/AuthorizationForm/Authorizati
 import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
 import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
 import {useDispatch, useSelector} from "react-redux";
-import {Profile} from "./Components/Profile/Profile";
+import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
 import {fetchGetUserInfo, setIsLogin, userFromLocal} from "./Storage/slices/userSlice";
-import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
+import {fetchGetAllProducts, fetchSearchProduct, getMyProductsFromLocal} from "./Storage/slices/productsSlice";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
 import {fetchGetAllReviews} from "./Storage/slices/reviewsSlice";
@@ -49,6 +49,12 @@ function App() {
     }, [dispatch, isLogin])
 
     useEffect(() => {
+        if (isLogin && localStorage.getItem("myProducts")) {
+            dispatch(getMyProductsFromLocal())
+        }
+    }, [dispatch, isLogin])
+
+    useEffect(() => {
         if (isLogin) {
             dispatch(fetchGetUserInfo()).then(() => dispatch(fetchGetAllProducts()))
         }
@@ -74,7 +80,7 @@ function App() {
                         <Route path={"product/:id"} element={<ProductPage/>}/>
                         <Route path={"favorites"} element={<FavoritePage/>}/>
                         <Route path={"cart"} element={<CartPage/>}/>
-                        <Route path={"profile"} element={<Profile/>}/>
+                        <Route path={"profile"} element={<ProfilePage/>}/>
                         <Route path={"change"} element={<ProfileChangeForm/>}/>
                     </Route>
                     <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>

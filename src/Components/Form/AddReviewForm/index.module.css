@@ -1,6 +1,4 @@
-.wrap {
-    height: 350px;
-    width: 350px;
+.form__review {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -17,6 +15,10 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
+}
+
+.review__button {
+    width: 20%;
 }
 
 .form__text:focus {

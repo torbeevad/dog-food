@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import "./index.css"
-import {ReactComponent as Clear} from "./img/ic-close-input.svg";
+import {ReactComponent as Clear} from "../../assets/ic-close-input.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {setSearchValue} from "../../Storage/slices/productsSlice";
 

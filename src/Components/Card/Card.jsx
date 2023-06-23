@@ -1,12 +1,13 @@
 import React from "react";
 import "./index.css"
 import {NavLink} from "react-router-dom";
-import {ReactComponent as Like} from "./img/ic-favorites-fill.svg";
+import {ReactComponent as Like} from "../../assets/ic-favorites-fill.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
 import {addUnit} from "../../Storage/slices/cartSlice";
 import {useNavigate} from "react-router";
 import cn from "classnames";
+import {Counter} from "../Counter/Counter";
 
 export const Card = ({product}) => {
 
@@ -17,10 +18,10 @@ export const Card = ({product}) => {
     const {cartList} = useSelector(state => state.cart)
 
     const isLiked = product.likes.includes(user._id)
-
     const available = cartList.some(e => e.product._id === product._id)
+    const {qty} = available && cartList.find(e => e.product._id === product._id)
 
-    const handleFetch = () => {
+    const handleFetchLike = () => {
         dispatch(fetchChangeProductLike(product))
     }
 
@@ -55,7 +56,7 @@ export const Card = ({product}) => {
                 {!!product.tags?.includes("sale") && <div className="card__sale">Sale</div>}
             </div>
             <div className="card__favorite">
-                <Like onClick={handleFetch} className={cn("card__like", {"liked" : isLiked})}/>
+                <Like onClick={handleFetchLike} className={cn("card__like", {"liked" : isLiked})}/>
             </div>
         </div>
         <NavLink className="card__nav-link" to={`/product/${product._id}`}>
@@ -73,8 +74,9 @@ export const Card = ({product}) => {
                     className="card__price-with-disc">{(product.price - product.price / 100 * product.discount).toFixed()}&nbsp;&#8381;</span>}
             <span className="card__count">{product.wight}</span>
             <p className="card__description">{product.name}</p>
-            <button disabled={product.stock === 0} onClick={available ? wayToCart : handleAddToCart}
-                    className={cn("card__button", {"disabled" : product.stock === 0})}>{fu()}</button>
+            {available ? <Counter product={product} qty={qty}/> : <button disabled={product.stock === 0} onClick={available ? wayToCart : handleAddToCart}
+                                              className={cn("card__button", {"disabled" : product.stock === 0})}>{fu()}</button>}
+
         </div>
     </div>
 }

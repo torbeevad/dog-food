@@ -69,7 +69,7 @@ const reviewsSlice = createSlice({
         })
         builder.addCase(fetchDeleteReviewsById.fulfilled, (state, {payload}) => {
             const productId = payload.updatedProduct;
-            state.allReviews = payload.state.reviews.allReviews.map(e => e.product === productId ? payload.updatedProduct.reviews : e);
+            state.allReviews = payload.state.reviews.allReviews.filter(e => e.product !== productId);
             state.loading = false;
         })
         builder.addMatcher(isLoading, (state) => {

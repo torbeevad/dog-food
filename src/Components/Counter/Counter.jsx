@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import styles from "./counter.module.css";
-import {ReactComponent as Minus} from "./Minus.svg";
-import {ReactComponent as Plus} from "./Plus.svg";
+import {ReactComponent as Minus} from "../../assets/Minus.svg";
+import {ReactComponent as Plus} from "../../assets/Plus.svg";
 import {useDispatch} from "react-redux";
 import {addUnit, deleteUnit, reduceUnit} from "../../Storage/slices/cartSlice";
 

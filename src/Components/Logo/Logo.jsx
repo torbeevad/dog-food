@@ -1,6 +1,6 @@
 import React from "react";
-import {ReactComponent as LogoTitle} from "./img/logo-title.svg"
-import {ReactComponent as LogoFace} from "./img/logo-face.svg";
+import {ReactComponent as LogoTitle} from "../../assets/logo-title.svg"
+import {ReactComponent as LogoFace} from "../../assets/logo-face.svg";
 import styles from "./logo.module.css"
 
 export const Logo = () => {

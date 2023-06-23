@@ -11,8 +11,8 @@ export const ProfileForm = () => {
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         defaultValues: {
-            name: user?.name.split(" ")[0],
-            surname: user?.name.split(" ")[1],
+            name: user.name.split(" ")[0],
+            surname: user.name.split(" ")[1],
             email: user.email,
             about: user.about,
         }
@@ -45,8 +45,7 @@ export const ProfileForm = () => {
             value: false,
             message: ""
         },
-        pattern: {
-        }
+        pattern: {}
     }
 
     const emailRegister = {
@@ -70,29 +69,27 @@ export const ProfileForm = () => {
     }
 
     return (
-        <>
-            <form className={styles.top} onSubmit={handleSubmit(changeProfile)}>
-                <div>
-                    <input className={styles.input} placeholder="Имя"
-                           type="text" {...register("name", {...nameRegister})} />
-                    <span>{errors?.name && errors?.name.message}</span>
-                </div>
-                <div>
-                    <input className={styles.input} placeholder="Фамилия"
-                           type="text" {...register("surname", {...surnameRegister})} />
-                    <span>{errors?.surname && errors?.surname.message}</span>
-                </div>
-                <div>
-                    <input className={styles.input} placeholder="Email"
-                           type="text" {...register("email", {...emailRegister})} />
-                    <span>{errors?.email && errors?.email.message}</span>
-                </div>
-                <div className={styles.about__wrap}>
+        <form className={styles.top} onSubmit={handleSubmit(changeProfile)}>
+            <div>
+                <input className={styles.input} placeholder="Имя"
+                       type="text" {...register("name", {...nameRegister})} />
+                <span>{errors?.name && errors?.name.message}</span>
+            </div>
+            <div>
+                <input className={styles.input} placeholder="Фамилия"
+                       type="text" {...register("surname", {...surnameRegister})} />
+                <span>{errors?.surname && errors?.surname.message}</span>
+            </div>
+            <div>
+                <input className={styles.input} placeholder="Email"
+                       type="text" {...register("email", {...emailRegister})} />
+                <span>{errors?.email && errors?.email.message}</span>
+            </div>
+            <div className={styles.about__wrap}>
                         <textarea className={styles.about} placeholder="О себе"
                                   {...register("about", {...aboutRegister})} />
-                </div>
-                <button className={styles.forms__button}>Сохранить</button>
-            </form>
-        </>
+            </div>
+            <button className={styles.forms__button}>Сохранить</button>
+        </form>
     )
 }

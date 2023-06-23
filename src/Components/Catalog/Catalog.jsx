@@ -4,9 +4,11 @@ import {Card} from "../Card/Card";
 
 export const Catalog = memo(({items}) => {
 
-    return <div className="wrapper">
-        {items?.map(el => {
-            return <Card key={el._id} product={el}/>
-        })}
-    </div>
+    return (
+        <div className="wrapper">
+            {items?.map(el => {
+                return <Card key={el._id} product={el}/>
+            })}
+        </div>
+    )
 })

@@ -1,7 +1,7 @@
 import React, {memo, useEffect, useState} from "react";
 import styles from "./review-card.module.css";
 import {Rate} from "antd";
-import {ReactComponent as Close} from "../Card/img/Trash.svg";
+import {ReactComponent as Close} from "../../assets/Trash.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDeleteReviewsById} from "../../Storage/slices/reviewsSlice";
 

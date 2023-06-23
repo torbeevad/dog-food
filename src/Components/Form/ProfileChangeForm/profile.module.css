@@ -20,6 +20,7 @@
 .avatar {
     width: 150px;
     height: 150px;
+    object-fit: cover;
     border-radius: 50%;
     border: 1px solid #CFD8DC;
     grid-column-start: 1;
@@ -105,5 +106,9 @@
 }
 .forms__button:hover, .avatar__button:hover {
     background-color: var(--main-color)
+}
+
+.back:hover {
+    cursor: pointer;
 }
 

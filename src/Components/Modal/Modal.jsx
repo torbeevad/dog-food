@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import styles from "./modal.module.css"
-import {ReactComponent as Close} from "./img/Close.svg";
+import {ReactComponent as Close} from "../../assets/Close.svg";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {modalActive} from "../../Storage/slices/userSlice";

@@ -1,0 +1,11 @@
+.profile__wrapper {
+    max-width: 1024px;
+    /*noinspection CssInvalidPropertyValue*/
+    width: -webkit-fill-available;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 46px);
+    gap: 0.5rem;
+}
+

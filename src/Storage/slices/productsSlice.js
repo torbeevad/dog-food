@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getProductById, getProducts, searchProducts} from "../../Utils/api/apiProducts";
+import {addProduct, deleteProduct, getProductById, getProducts, searchProducts} from "../../Utils/api/apiProducts";
 import {isError, isLoading} from "../utils/utils";
 import {changeProductLike} from "../../Utils/utils";
 import {popular, newest, lowPrice, highPrice, rate, discount} from "../utils/sort";
@@ -10,6 +10,7 @@ const initialState = {
     allProducts: [],
     product: {},
     favorites: [],
+    myProducts: [],
     searchValue: "",
 }
 
@@ -53,6 +54,26 @@ export const fetchSearchProduct = createAsyncThunk("products/fetchSearchProduct"
     }
 })
 
+export const fetchAddProduct = createAsyncThunk("products/fetchAddProduct", async function (data, arg) {
+    try {
+        const state = arg.getState();
+        const product = await addProduct(data)
+        return arg.fulfillWithValue({state, product});
+    } catch (error) {
+        return arg.rejectWithValue(error);
+    }
+})
+
+export const fetchDeleteProduct = createAsyncThunk("products/fetchDeleteProduct", async function (id, arg) {
+    try {
+        const state = arg.getState();
+        const product = await deleteProduct(id)
+        return arg.fulfillWithValue({state, product});
+    } catch (error) {
+        return arg.rejectWithValue(error);
+    }
+})
+
 
 const productsSlice = createSlice({
     name: "products",
@@ -90,12 +111,16 @@ const productsSlice = createSlice({
         },
         setSearchValue: (state, {payload}) => {
             state.searchValue = payload
-        }
+        },
+        getMyProductsFromLocal: (state) => {
+            state.myProducts = JSON.parse(localStorage.getItem("myProducts"))
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetAllProducts.fulfilled, (state, {payload}) => {
             state.allProducts = payload.data.products;
             state.favorites = payload.data.products.filter(e => e.likes.includes(payload.state.user.user._id));
+            state.myProducts = payload.data.products.filter(e => e.author._id === payload.state.user.user._id);
             state.loading = false;
         })
         builder.addCase(fetchChangeProductLike.fulfilled, (state, {payload}) => {
@@ -103,6 +128,7 @@ const productsSlice = createSlice({
             const updatedList = payload.state.products.allProducts.map(e => e._id === payload.updatedCard._id ? payload.updatedCard : e)
             state.allProducts = updatedList
             state.favorites = updatedList.filter(e => e.likes.includes(payload.state.user.user._id))
+            state.myProducts = payload.state.products.allProducts.filter(e => e._id === payload.state.user.user._id)
             state.loading = false;
         })
         builder.addCase(fetchProduct.fulfilled, (state, {payload}) => {
@@ -112,6 +138,20 @@ const productsSlice = createSlice({
         builder.addCase(fetchSearchProduct.fulfilled, (state, {payload}) => {
             state.allProducts = payload.result
             state.favorites = payload.result.filter(e => e.likes.includes(payload.state.user.user._id))
+            state.loading = false;
+        })
+        builder.addCase(fetchAddProduct.fulfilled, (state, {payload}) => {
+            const updatedList = [...payload.state.products.allProducts, payload.product]
+            state.allProducts = updatedList
+            state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
+            localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
+            state.loading = false;
+        })
+        builder.addCase(fetchDeleteProduct.fulfilled, (state, {payload}) => {
+            const updatedList = payload.state.products.allProducts.filter(e => e._id !== payload.product._id)
+            state.allProducts = updatedList
+            state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
+            localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
             state.loading = false;
         })
         builder.addMatcher(isError, (state, {payload}) => {
@@ -124,6 +164,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const {sortProducts, setSearchValue} = productsSlice.actions
+export const {sortProducts, setSearchValue, getMyProductsFromLocal} = productsSlice.actions
 
 export default productsSlice.reducer
