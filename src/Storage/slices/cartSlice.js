@@ -1,10 +1,25 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {notification} from "antd";
 
 const initialState = {
     cartList: [],
     product: {},
     availability: false,
 }
+
+export const fetchGetPayCart = createAsyncThunk("cart/fetchGetPayCart", async function (data, arg) {
+    try {
+        const purchases = JSON.parse(data)
+        const message = purchases.map(e => <div key={e.product._id}
+            dangerouslySetInnerHTML={{__html: `${e.product.name}: ${e.qty} шт.</br>`}}
+        />)
+        notification.success({message: "Ваш заказ", description: message})
+        arg.fulfillWithValue(purchases)
+    } catch (error) {
+        notification.error({message: error.message})
+        arg.rejectWithValue(error)
+    }
+})
 
 const cartSlice = createSlice({
     name: "cart",
@@ -31,10 +46,13 @@ const cartSlice = createSlice({
         },
         cartFromLocal(state) {
             state.cartList = JSON.parse(localStorage.getItem("cart"))
-        }
+        },
     },
-
     extraReducers: builder => {
+        builder.addCase(fetchGetPayCart.fulfilled, (state, {payload}) => {
+            localStorage.removeItem("cart")
+            state.cartList = []
+        })
     }
 })
 

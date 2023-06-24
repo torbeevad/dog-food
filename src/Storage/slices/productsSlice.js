@@ -3,6 +3,7 @@ import {addProduct, deleteProduct, getProductById, getProducts, searchProducts} 
 import {isError, isLoading} from "../utils/utils";
 import {changeProductLike} from "../../Utils/utils";
 import {popular, newest, lowPrice, highPrice, rate, discount} from "../utils/sort";
+import {notification} from "antd";
 
 
 const initialState = {
@@ -30,6 +31,7 @@ export const fetchProduct = createAsyncThunk("products/fetchProduct", async func
         const product = await getProductById(data);
         return arg.fulfillWithValue({product, state});
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -41,6 +43,7 @@ export const fetchChangeProductLike = createAsyncThunk("products/fetchChangeProd
         const updatedCard = await changeProductLike(data._id, isLiked);
         return arg.fulfillWithValue({state, data, updatedCard});
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -50,6 +53,7 @@ export const fetchSearchProduct = createAsyncThunk("products/fetchSearchProduct"
         const result = await searchProducts(data)
         return arg.fulfillWithValue({state, result});
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -60,6 +64,7 @@ export const fetchAddProduct = createAsyncThunk("products/fetchAddProduct", asyn
         const product = await addProduct(data)
         return arg.fulfillWithValue({state, product});
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -70,6 +75,7 @@ export const fetchDeleteProduct = createAsyncThunk("products/fetchDeleteProduct"
         const product = await deleteProduct(id)
         return arg.fulfillWithValue({state, product});
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -146,6 +152,7 @@ const productsSlice = createSlice({
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
             localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
             state.loading = false;
+            notification.success({message: "Товар добавлен!"})
         })
         builder.addCase(fetchDeleteProduct.fulfilled, (state, {payload}) => {
             const updatedList = payload.state.products.allProducts.filter(e => e._id !== payload.product._id)
@@ -153,6 +160,7 @@ const productsSlice = createSlice({
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
             localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
             state.loading = false;
+            notification.success({message: "Товар удален!"})
         })
         builder.addMatcher(isError, (state, {payload}) => {
             state.action = payload

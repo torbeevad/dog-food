@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {fetchGetAuthorization, modalActive} from "../../../Storage/slices/userSlice";
+import {notification} from "antd";
 
 export const AuthorizationForm = () => {
 
@@ -53,12 +54,12 @@ export const AuthorizationForm = () => {
                 <div>
                     <input className={styles.input} placeholder="Email"
                            type="text" {...register("email", {...emailRegister})} />
-                    <span>{errors?.email && errors?.email.message}</span>
+                    <span>{errors?.email && notification.warning({message: errors?.email.message})}</span>
                 </div>
                 <div>
                     <input className={styles.input} placeholder="Пароль"
                            type="password" {...register("password", {...passwordRegister})} />
-                    <span>{errors?.password && errors?.password.message}</span>
+                    <span>{errors?.password && notification.warning({message: errors?.password.message})}</span>
                 </div>
             </div>
             <Link to="/forgot"><span className={styles.reset}>Восстановить пароль</span></Link>

@@ -15,7 +15,7 @@ button {
   font-size: 16px;
   line-height: 20px;
   border-radius: 55px;
-  border: none;
+  border: 1px solid transparent;
   background-color: var(--main-color);
   box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24);
   user-select: none;

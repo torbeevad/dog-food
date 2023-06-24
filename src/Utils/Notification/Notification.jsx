@@ -7,7 +7,7 @@ const openNotificationWithIcon = (type) => {
             'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
     });
 };
-const App = () => (
+export const Notification = () => (
     <Space>
         <Button onClick={() => openNotificationWithIcon('success')}>Success</Button>
         <Button onClick={() => openNotificationWithIcon('info')}>Info</Button>
@@ -15,4 +15,3 @@ const App = () => (
         <Button onClick={() => openNotificationWithIcon('error')}>Error</Button>
     </Space>
 );
-export default App;

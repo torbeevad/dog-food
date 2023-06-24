@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "./cart.module.css"
 import {LiCart} from "./LiCart";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {QueryFind} from "../QueryFind/QueryFind";
 import {Link} from "react-router-dom";
+import {fetchGetPayCart} from "../../Storage/slices/cartSlice";
+import {useNavigate} from "react-router";
 
 export const Cart = () => {
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {cartList} = useSelector(state => state.cart)
 
@@ -14,7 +18,13 @@ export const Cart = () => {
     const overAllPriceWithDisc = cartList.reduce((acc, curr) => (acc + curr.product.price / 100 * curr.product.discount * curr.qty), 0).toFixed()
     const overAllDisc = overAllPrice - overAllPriceWithDisc
 
+    const getPay = () => {
+        dispatch(fetchGetPayCart(localStorage.getItem("cart")))
+        setTimeout(()=>{
+            navigate("/")
+        }, 500)
 
+    }
 
     return (
         <div className={styles.cart__wrapper}>
@@ -49,7 +59,7 @@ export const Cart = () => {
                             <b>Общая стоимость</b><span>{overAllDisc} ₽</span>
                         </div>
                     </div>
-                    <button>Оформить заказ</button>
+                    <button onClick={getPay}>Оформить заказ</button>
                 </div>
             </div>
         </div>

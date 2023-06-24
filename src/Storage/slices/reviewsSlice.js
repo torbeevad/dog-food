@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {isError, isLoading} from "../utils/utils.js";
 import {deleteReviewById, getAllReviews, getReviewsById, setReviewById} from "../../Utils/api/apiReviews";
 import {sortByDate} from "../utils/sort";
+import {notification} from "antd";
 
 const initialState = {
     allReviews: [],
@@ -16,6 +17,7 @@ export const fetchGetReviewsById = createAsyncThunk("reviews/fetchGetReviewsById
         const reviewsById = await getReviewsById(productId)
         return arg.fulfillWithValue({reviewsById, state})
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -26,6 +28,7 @@ export const fetchSetReviewsById = createAsyncThunk("reviews/fetchSetReviewsById
         const updatedProduct = await setReviewById(data.id, data.data, data.rating)
         return arg.fulfillWithValue({updatedProduct, state})
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -36,6 +39,7 @@ export const fetchDeleteReviewsById = createAsyncThunk("reviews/fetchDeleteRevie
         const updatedProduct = await deleteReviewById(data.prodId, data.reviewId)
         return arg.fulfillWithValue({updatedProduct, state})
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error);
     }
 })
@@ -45,6 +49,7 @@ export const fetchGetAllReviews = createAsyncThunk("reviews/fetchGetAllReviews",
         const allReviews = await getAllReviews()
         return arg.fulfillWithValue(allReviews)
     } catch (error) {
+        notification.error({message: error.message})
         return arg.rejectWithValue(error)
     }
 })
@@ -66,11 +71,13 @@ const reviewsSlice = createSlice({
             const productId = payload.updatedProduct;
             state.allReviews = payload.state.reviews.allReviews.map(e => e.product === productId ? payload.updatedProduct.reviews : e);
             state.loading = false;
+            notification.success({message: "Отзыв добавлен"})
         })
         builder.addCase(fetchDeleteReviewsById.fulfilled, (state, {payload}) => {
             const productId = payload.updatedProduct;
             state.allReviews = payload.state.reviews.allReviews.filter(e => e.product !== productId);
             state.loading = false;
+            notification.success({message: "Отзыв удален"})
         })
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;

@@ -4,10 +4,12 @@ import {ReactComponent as Minus} from "../../assets/Minus.svg";
 import {ReactComponent as Plus} from "../../assets/Plus.svg";
 import {useDispatch} from "react-redux";
 import {addUnit, deleteUnit, reduceUnit} from "../../Storage/slices/cartSlice";
+import {useNavigate} from "react-router";
 
 export const Counter = ({product, qty}) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const increase = useCallback((e) => {
         e.stopPropagation()
@@ -31,7 +33,7 @@ export const Counter = ({product, qty}) => {
     return <div className={styles.wrapper}>
         <div onClick={decrease} className={styles.operator}><Minus
             className={qty > 0 ? styles.active : styles.disable}/></div>
-        <div className={styles.count}>{!!qty ? qty : qty = 0}</div>
+        <div onClick={()=>navigate("/cart")} className={styles.count}>{!!qty ? qty : qty = 0}</div>
         <div onClick={increase} className={styles.operator}><Plus
             className={qty === product?.stock ? styles.disable : styles.active}/></div>
     </div>

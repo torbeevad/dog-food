@@ -56,7 +56,7 @@ export const Card = ({product}) => {
                 {!!product.tags?.includes("sale") && <div className="card__sale">Sale</div>}
             </div>
             <div className="card__favorite">
-                <Like onClick={handleFetchLike} className={cn("card__like", {"liked" : isLiked})}/>
+                <Like onClick={handleFetchLike} className={cn("card__like", {"liked": isLiked})}/>
             </div>
         </div>
         <NavLink className="card__nav-link" to={`/product/${product._id}`}>
@@ -68,15 +68,15 @@ export const Card = ({product}) => {
         </NavLink>
         <div className="card__content">
                 <span
-                    className={cn("card__price", {"old-price" : !!product.discount})}>{product.price}&nbsp;&#8381;</span>
+                    className={cn("card__price", {"old-price": !!product.discount})}>{product.price}&nbsp;&#8381;</span>
             {!!product.discount &&
                 <span
                     className="card__price-with-disc">{(product.price - product.price / 100 * product.discount).toFixed()}&nbsp;&#8381;</span>}
             <span className="card__count">{product.wight}</span>
             <p className="card__description">{product.name}</p>
-            {available ? <Counter product={product} qty={qty}/> : <button disabled={product.stock === 0} onClick={available ? wayToCart : handleAddToCart}
-                                              className={cn("card__button", {"disabled" : product.stock === 0})}>{fu()}</button>}
-
+            {available ? <Counter product={product} qty={qty}/> :
+                <button disabled={product.stock === 0} onClick={available ? wayToCart : handleAddToCart}
+                        className={cn("card__button", {"disabled": product.stock === 0})}>{fu()}</button>}
         </div>
     </div>
 }
