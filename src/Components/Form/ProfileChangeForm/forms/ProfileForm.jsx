@@ -2,19 +2,20 @@ import React from "react";
 import styles from "../profile.module.css";
 import {fetchChangeProfile} from "../../../../Storage/slices/userSlice";
 import {useForm} from "react-hook-form";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 export const ProfileForm = () => {
 
     const dispatch = useDispatch()
-    const {user} = useSelector(state => state.user)
+    const userFromLocal = JSON.parse(localStorage.getItem("user"))
+
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         defaultValues: {
-            name: user.name.split(" ")[0],
-            surname: user.name.split(" ")[1],
-            email: user.email,
-            about: user.about,
+            name: userFromLocal.name.split(" ")[0],
+            surname: userFromLocal.name.split(" ")[1],
+            email: userFromLocal.email,
+            about: userFromLocal.about,
         }
     })
 

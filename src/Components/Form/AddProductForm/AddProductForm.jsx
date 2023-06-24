@@ -35,7 +35,7 @@ export const AddProductForm = () => {
             </div>
             <div className={styles.add__wight}>
                 <input className={styles.input} placeholder="ед.изм."
-                       type="number" {...register("wight")} />
+                       type="text" {...register("wight")} />
                 <span>{errors?.wight && notification.warning.warning({message: errors?.wight.message})}</span>
             </div>
             <div className={styles.add__price}>

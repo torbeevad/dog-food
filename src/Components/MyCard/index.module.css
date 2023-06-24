@@ -52,3 +52,9 @@
 .my__card__trash:hover {
     cursor: pointer;
 }
+
+@media (max-width: 580px) {
+    .my__card__wrap {
+        width: auto;
+    }
+}

@@ -9,3 +9,12 @@
     gap: 0.5rem;
 }
 
+@media (max-width: 580px) {
+    .profile__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 8px;
+    }
+}
+
