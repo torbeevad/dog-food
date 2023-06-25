@@ -3,7 +3,6 @@ import styles from "./index.module.css"
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {fetchAddProduct} from "../../../Storage/slices/productsSlice";
-import {notification} from "antd";
 import {Input} from "../../Input/Input";
 
 export const AddProductForm = () => {

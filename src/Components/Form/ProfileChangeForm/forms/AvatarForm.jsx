@@ -4,7 +4,6 @@ import {fetchChangeAvatar} from "../../../../Storage/slices/userSlice";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {Input} from "../../../Input/Input";
-import {Button} from "../../../Button/Button";
 
 export const AvatarForm = memo(() => {
 
