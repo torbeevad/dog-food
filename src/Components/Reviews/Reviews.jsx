@@ -4,6 +4,7 @@ import {ReviewCard} from "../ReviewCard/ReviewCard";
 import {AddReviewForm} from "../Form/AddReviewForm/AddReviewForm";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchGetReviewsById} from "../../Storage/slices/reviewsSlice";
+import {Button} from "../Button/Button";
 
 export const Reviews = memo(({productId}) => {
 
@@ -29,11 +30,10 @@ export const Reviews = memo(({productId}) => {
     return (
         <div id="reviews" className={styles.reviews__wrapper}>
             <h3 className={styles.title}>Отзывы</h3>
-            {!showBtn && <button onClick={() => {
+            {!showBtn && <Button color={"white"} children={"Оставить отзыв"} unit={productId} onClick={() => {
                 setAddReview(true);
                 setShowBtn(state => !state)
-            }} className={styles.button}>Написать отзыв
-            </button>}
+            }} className={styles.button}/>}
             {addReview &&
                 <AddReviewForm setShowBtn={setShowBtn} setAddReview={setAddReview} id={productId}/>}
             <h4>Фотографии наших покупателей</h4>

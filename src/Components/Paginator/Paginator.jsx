@@ -16,8 +16,8 @@ export const Paginator: React.FC = ({total, setPageSize, setPage}) => {
                 colorText: "#7B8E98",
             },
         }}>
-            <Pagination defaultCurrent={1} defaultPageSize={4} onChange={onChangeHandler}
-                        pageSizeOptions={[4, 8, 16, total.length]} total={total.length}/>
+            <Pagination defaultCurrent={1} defaultPageSize={8} onChange={onChangeHandler}
+                        pageSizeOptions={[8, 16, 32, total.length]} total={total.length}/>
         </ConfigProvider>
     )
 }

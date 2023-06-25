@@ -1,3 +1,22 @@
+button {
+    height: 48px;
+    width: 60%;
+    padding: 9px 16px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    border-radius: 55px;
+    align-items: center;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24);
+    user-select: none;
+    transition: 0.3s;
+}
+
+button:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24), 0 4px 16px rgba(96, 97, 112, 0.36);
+}
 
 .profile__title {
     grid-row: 1;
@@ -42,6 +61,9 @@
     font-size: 12px;
     line-height: 14px;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .profile__phone, .profile__mail {

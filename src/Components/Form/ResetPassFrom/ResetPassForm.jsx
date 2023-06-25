@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import {fetchResetPassword} from "../../../Storage/slices/userSlice";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
+import {Button} from "../../Button/Button";
+import {Input} from "../../Input/Input";
 
 export const ResetPassForm = () => {
 
@@ -42,21 +44,20 @@ export const ResetPassForm = () => {
 
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Восстановление пароля</h3>
-        <form className={styles.form__reset} onSubmit={handleSubmit(resetPass)}>
+        <form className={styles.form__reset}>
             <span>Введите Токен.</span>
             <div className={styles.inputs}>
                 <div>
-                    <input className={styles.input} placeholder="Token"
-                           type="text" {...register("Token", {...tokenRegister})} />
-                    {errors?.token && <span>{errors?.token.message}</span>}
-                    <input className={styles.input} placeholder="Пароль"
-                           type="password" {...register("password", {...passwordRegister})} />
+                    <Input type={"text"} name={"Token"} placeholder={"Token"} register={register}
+                           nameRegister={tokenRegister} errors={errors.token}/>
+                    <Input type={"password"} name={"password"} nameRegister={passwordRegister} register={register}
+                           placeholder={"Пароль"} errors={errors.password}/>
                     <span>{errors?.password && errors?.password.message}</span>
                 </div>
             </div>
             <span>Срок действия временного пароля 24 ч.</span>
             <div className={styles.buttons}>
-                <button>Отправить</button>
+                <Button onClick={handleSubmit(resetPass)} children={"Отправить"} color={"yellow"}/>
                 <Link to="/authorization">
                     <button className={styles.white__button}>Войти</button>
                 </Link>

@@ -3,14 +3,14 @@ import styles from "./product.module.css";
 import truck from "../../assets/Truck.svg";
 import union from "../../assets/Union.svg";
 import {Counter} from "../Counter/Counter";
-import {useNavigate} from "react-router";
 import Rating from "../Rating/Rating";
 import {ReactComponent as Like} from "../../assets/ic-favorites-fill.svg";
 import {ReactComponent as Trash} from "../../assets/Trash.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {Reviews} from "../Reviews/Reviews";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
-import {addUnit} from "../../Storage/slices/cartSlice";
+import {Button} from "../Button/Button";
+import {Back} from "../Back/Back";
 
 export const Product = () => {
 
@@ -20,16 +20,11 @@ export const Product = () => {
     const {cartList} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
     const {reviewsById} = useSelector(state => state.reviews)
-    const navigate = useNavigate()
 
     const available = cartList.some(e => e.product._id === product._id)
     const {qty} = available && cartList.find(e => e.product._id === product._id)
 
     const isLiked = product.likes.includes(user._id)
-
-    const back = () => {
-        navigate(-1)
-    }
 
     const handleChangeLike = () => {
         dispatch(fetchChangeProductLike(product))
@@ -55,28 +50,6 @@ export const Product = () => {
         prodStr = "нет отзывов";
     }
 
-    const handleAddToCart = (e) => {
-        e.stopPropagation()
-        e.preventDefault()
-        if (product.stock > 0) {
-            dispatch(addUnit({product, qty: 1}))
-        }
-    }
-
-    const fu = () => {
-        if (available) {
-            return "Уже в корзине"
-        } else if (!product.stock) {
-            return "В каталог"
-        } else {
-            return "В Корзину"
-        }
-    }
-
-    const wayToCart = () => {
-        navigate("/cart")
-    }
-
     const handleClickScroll = () => {
         const element = document.querySelector("#reviews");
         if (element) {
@@ -88,7 +61,7 @@ export const Product = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
-                <span className={styles.back} onClick={back}>Назад</span>
+                <Back/>
                 <h3>{product.name}</h3>
                 <div className={styles.info}>
                     <span>Артикул</span>
@@ -120,12 +93,7 @@ export const Product = () => {
                             <div className={styles.buttons}>{product.stock
                                 ? <Counter product={product} qty={qty}/>
                                 : <b>Нет на складе!</b>}
-                                {!product.stock
-                                    ? <button onClick={() => {
-                                        navigate("/")
-                                    }} className={"card__button"}>{fu()}</button>
-                                    : <button onClick={available ? wayToCart : handleAddToCart}
-                                              className={"card__button"}>{fu()}</button>}
+                                <Button unit={product} available={available}/>
                             </div>
                             <div className={styles.favorite}>{!isLiked ?
                                 <Like className={styles.favorite__pic}/> :

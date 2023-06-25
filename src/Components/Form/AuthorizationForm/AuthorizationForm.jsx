@@ -4,8 +4,9 @@ import styles from "./authotization.module.css"
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
-import {fetchGetAuthorization, modalActive} from "../../../Storage/slices/userSlice";
-import {notification} from "antd";
+import {fetchGetAuthorization, setModalActive} from "../../../Storage/slices/userSlice";
+import {Button} from "../../Button/Button";
+import {Input} from "../../Input/Input";
 
 export const AuthorizationForm = () => {
 
@@ -20,7 +21,7 @@ export const AuthorizationForm = () => {
         await dispatch(fetchGetAuthorization(data))
         setTimeout(() => {
             navigate("/")
-            dispatch(modalActive(false))
+            dispatch(setModalActive(false))
             reset()
         }, 500)
     }
@@ -49,22 +50,16 @@ export const AuthorizationForm = () => {
 
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Вход</h3>
-        <form className={styles.form__author} onSubmit={handleSubmit(authorization)}>
+        <form className={styles.form__author}>
             <div className={styles.inputs}>
-                <div>
-                    <input className={styles.input} placeholder="Email"
-                           type="text" {...register("email", {...emailRegister})} />
-                    <span>{errors?.email && notification.warning({message: errors?.email.message})}</span>
-                </div>
-                <div>
-                    <input className={styles.input} placeholder="Пароль"
-                           type="password" {...register("password", {...passwordRegister})} />
-                    <span>{errors?.password && notification.warning({message: errors?.password.message})}</span>
-                </div>
+                <Input type="text" name="email" nameRegister={emailRegister} register={register} placeholder="Email"
+                       errors={errors.email}/>
+                <Input type="password" name="password" nameRegister={passwordRegister} register={register}
+                       placeholder="Пароль" errors={errors.password}/>
             </div>
             <Link to="/forgot"><span className={styles.reset}>Восстановить пароль</span></Link>
             <div className={styles.buttons}>
-                <button type="submit">Войти</button>
+                <Button onClick={handleSubmit(authorization)} children={"Войти"} color={"yellow"}/>
                 <Link to="/registration">
                     <button className={styles.white__button}>Регистрация</button>
                 </Link>

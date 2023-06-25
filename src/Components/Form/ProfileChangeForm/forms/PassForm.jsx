@@ -1,8 +1,9 @@
-import React from "react";
+import React, {memo} from "react";
 import styles from "../profile.module.css";
 import {useForm} from "react-hook-form";
+import {Input} from "../../../Input/Input";
 
-export const PassForm = () => {
+export const PassForm = memo(() => {
 
     const {register, handleSubmit, formState: {errors}} = useForm()
 
@@ -22,21 +23,15 @@ export const PassForm = () => {
     }
 
     return (
-            <div className={styles.bottom__wrapper}>
-                <h4>Изменить пароль</h4>
-                <form className={styles.bottom}  onSubmit={handleSubmit(changePass)}>
-                    <div>
-                        <input className={styles.input} placeholder="Старый Пароль"
-                               type="password" {...register("password", {...passwordRegister})} />
-                        <span>{errors?.password && errors?.password.message}</span>
-                    </div>
-                    <div>
-                        <input className={styles.input} placeholder="Новый Пароль"
-                               type="password" {...register("password", {...passwordRegister})} />
-                        <span>{errors?.password && errors?.password.message}</span>
-                    </div>
-                    <button className={styles.forms__button} type="submit">Сохранить</button>
-                </form>
-            </div>
+        <div className={styles.bottom__wrapper}>
+            <h4>Изменить пароль</h4>
+            <form className={styles.bottom} onSubmit={handleSubmit(changePass)}>
+                <Input type="password" name="password" nameRegister={passwordRegister} register={register}
+                       placeholder="Старый Пароль" errors={errors.password}/>
+                <Input type="password" name={"password"} nameRegister={passwordRegister} register={register}
+                       placeholder={"Новый Пароль"} errors={errors.password}/>
+                <button className={styles.forms__button} type="submit">Сохранить</button>
+            </form>
+        </div>
     )
-}
+})

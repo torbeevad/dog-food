@@ -1,0 +1,21 @@
+.input {
+    /*noinspection CssInvalidPropertyValue*/
+    width: 100%;
+    border: 1px solid #CFD8DC;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px 8px;
+    outline: none;
+}
+
+.input:focus {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    border: 1px solid #FFE44D;
+}

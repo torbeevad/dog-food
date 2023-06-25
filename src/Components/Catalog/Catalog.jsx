@@ -8,7 +8,7 @@ export const Catalog = memo(({items}) => {
     const [page, setPage] = useState()
     const [pageSize, setPageSize] = useState()
 
-    const newArr = items.slice(pageSize * page - pageSize || 0, pageSize * page || 4)
+    const newArr = items.slice(pageSize * page - pageSize || 0, pageSize * page || 8)
 
     return (
         <>

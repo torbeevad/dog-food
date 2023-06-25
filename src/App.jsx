@@ -14,8 +14,8 @@ import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationF
 import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
-import {fetchGetUserInfo, setIsLogin, userFromLocal} from "./Storage/slices/userSlice";
-import {fetchGetAllProducts, fetchSearchProduct, getMyProductsFromLocal} from "./Storage/slices/productsSlice";
+import {fetchGetUserInfo, setIsLogin} from "./Storage/slices/userSlice";
+import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
 import {fetchGetAllReviews} from "./Storage/slices/reviewsSlice";
@@ -37,20 +37,8 @@ function App() {
     }, [dispatch])
 
     useEffect(() => {
-        if (localStorage.getItem("user")) {
-            dispatch(userFromLocal())
-        }
-    }, [dispatch])
-
-    useEffect(() => {
         if (isLogin && localStorage.getItem("cart")) {
             dispatch(cartFromLocal())
-        }
-    }, [dispatch, isLogin])
-
-    useEffect(() => {
-        if (isLogin && localStorage.getItem("myProducts")) {
-            dispatch(getMyProductsFromLocal())
         }
     }, [dispatch, isLogin])
 

@@ -24,7 +24,7 @@ export const setReviewById = (id, data, rating) => {
 }
 
 export const deleteReviewById = (productId, reviewId) => {
-    return fetch(`${url}/products//review/${productId}/${reviewId}/`, {
+    return fetch(`${url}/products/review/${productId}/${reviewId}/`, {
         method: "DELETE",
         headers: refreshToken(headers)
     }).then(res => response(res))

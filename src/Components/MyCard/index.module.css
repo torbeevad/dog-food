@@ -8,15 +8,22 @@
     border: 1px solid #CFD8DC;
     border-radius: 12px;
     padding: 0 1rem;
-    gap: 3rem;
+    gap: 2rem;
 }
+
+.my__card__image__wrap {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1;
+}
+
 .my__card__image {
     max-height: 80px;
     max-width: 80px;
     object-fit: contain;
-    grid-column: 1;
-    display: flex;
-    gap: 1rem;
 }
 
 .my__card__pict__wrap {
@@ -25,15 +32,16 @@
     justify-content: space-between;
     grid-column-start: 2;
     grid-column-end: 4;
-    gap: 2rem;
 }
 
 .my__card__like {
+    box-sizing: content-box;
     stroke: #7B8E98;
     fill: none;
 }
 
 .liked {
+    box-sizing: content-box;
     stroke: none;
     fill: #F44336;
 }

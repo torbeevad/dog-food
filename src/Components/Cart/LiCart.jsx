@@ -17,7 +17,7 @@ export const LiCart = ({card, qty}) => {
     return (
         <>
             <div className={styles.cart__unit}>
-                <NavLink className="card__nav-link" to={`/product/${card._id}`}>
+                <NavLink className="cart__nav-link" to={`/product/${card._id}`}>
                     <div className={styles.unit__left}>
                         <img className={styles.unit__img} src={card.pictures} alt="товар"/>
                         <div className={styles.unit__desc}>

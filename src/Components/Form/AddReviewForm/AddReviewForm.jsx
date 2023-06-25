@@ -4,6 +4,7 @@ import {Rate} from "antd";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {fetchSetReviewsById} from "../../../Storage/slices/reviewsSlice";
+import {Button} from "../../Button/Button";
 
 export const AddReviewForm = ({id, setAddReview, setShowBtn}) => {
 
@@ -25,7 +26,7 @@ export const AddReviewForm = ({id, setAddReview, setShowBtn}) => {
                 <Rate onChange={value => setRating(value)}/>
                 <textarea className={styles.form__text} {...register("text", {required: "Напишите отзыв"})}/>
                 {errors?.text && <span className={styles.error}>{errors?.text.message}</span>}
-                <button className={styles.review__button} onClick={handleSubmit(addReview)} type={"submit"}>Отправить</button>
+                <Button unit={id} color={"white"} onClick={handleSubmit(addReview)} children={"Отправить"}/>
             </form>
         </div>
     )

@@ -11,8 +11,8 @@ import {isError, isLoading} from "../utils/utils.js";
 import {notification} from "antd";
 
 const initialState = {
-    user: {},
     loading: false,
+    user: {},
     isLogin: true,
     isActiveModal: true,
 }
@@ -22,7 +22,7 @@ export const fetchGetAuthorization = createAsyncThunk("user/fetchGetAuthorizatio
         const result = await getEnter(data)
         return arg.fulfillWithValue(result)
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error)
     }
 })
@@ -32,7 +32,7 @@ export const fetchGetUserInfo = createAsyncThunk("user/fetchGetUserInfo", async 
         const result = await getUser();
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error)
     }
 })
@@ -42,7 +42,7 @@ export const fetchGetRegistration = createAsyncThunk("user/fetchGetRegistration"
         const result = await getRegistration(data);
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error)
     }
 })
@@ -52,7 +52,7 @@ export const fetchForgotPassword = createAsyncThunk("user/fetchForgotPassword", 
         const result = await forgotPassword(data);
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error)
     }
 })
@@ -62,7 +62,7 @@ export const fetchResetPassword = createAsyncThunk("user/fetchResetPassword", as
         const result = await resetPassword(data);
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         arg.rejectWithValue(error)
     }
 })
@@ -72,7 +72,7 @@ export const fetchChangeAvatar = createAsyncThunk("user/fetchChangeAvatar", asyn
         const result = await changeAvatar(data);
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         arg.rejectWithValue(error)
     }
 })
@@ -81,7 +81,7 @@ export const fetchChangeProfile = createAsyncThunk("user/fetchChangeProfile", as
         const result = await changeProfile(data);
         return arg.fulfillWithValue(result);
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         arg.rejectWithValue(error)
     }
 })
@@ -93,10 +93,7 @@ const userSlice = createSlice({
         setIsLogin(state, action) {
             state.isLogin = action.payload;
         },
-        userFromLocal(state, action) {
-            state.user = JSON.parse(localStorage.getItem("user"))
-        },
-        modalActive(state, {payload}) {
+        setModalActive(state, {payload}) {
             state.isActiveModal = payload
         }
     },
@@ -106,36 +103,35 @@ const userSlice = createSlice({
             localStorage.setItem("token", payload.token);
             state.isLogin = true;
             state.loading = false;
-            notification.success({message: `Добро пожаловать, ${payload.data.name}!`})
+            notification.success({message: "Добро пожаловать", duration: 2,})
         })
         builder.addCase(fetchGetUserInfo.fulfilled, (state, {payload}) => {
             state.user = payload;
-            localStorage.setItem("user", JSON.stringify(payload));
             state.loading = false;
         })
         builder.addCase(fetchGetRegistration.fulfilled, (state, {payload}) => {
             state.user = payload;
             state.loading = false;
-            notification.success({message: "Вы успешно зарегестрировались!"})
+            notification.success({message: "Вы успешно зарегестрировались!", duration: 2,})
         })
         builder.addCase(fetchForgotPassword.fulfilled, (state, {payload}) => {
             state.loading = false;
-            notification.success({message: payload.message})
+            notification.success({message: payload.message, duration: 2,})
         })
         builder.addCase(fetchResetPassword.fulfilled, (state, {payload}) => {
             state.user = payload.data;
             state.loading = false;
-            notification.success({message: "Пароль успешно обновлен!"})
+            notification.success({message: "Пароль успешно обновлен!", duration: 2,})
         })
         builder.addCase(fetchChangeAvatar.fulfilled, (state, {payload}) => {
             state.user = payload;
             state.loading = false;
-            notification.success({message: "Аватар успешно обновлен!"})
+            notification.success({message: "Аватар успешно обновлен!", duration: 2,})
         })
         builder.addCase(fetchChangeProfile.fulfilled, (state, {payload}) => {
             state.user = payload;
             state.loading = false;
-            notification.success({message: "Данные профиля обновлены!"})
+            notification.success({message: "Данные профиля обновлены!", duration: 2,})
         })
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;
@@ -147,6 +143,6 @@ const userSlice = createSlice({
     }
 })
 
-export const {setIsLogin, userFromLocal, modalActive} = userSlice.actions
+export const {setIsLogin, setModalActive} = userSlice.actions
 
 export default userSlice.reducer;

@@ -31,7 +31,7 @@ export const fetchProduct = createAsyncThunk("products/fetchProduct", async func
         const product = await getProductById(data);
         return arg.fulfillWithValue({product, state});
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
     }
 })
@@ -43,7 +43,7 @@ export const fetchChangeProductLike = createAsyncThunk("products/fetchChangeProd
         const updatedCard = await changeProductLike(data._id, isLiked);
         return arg.fulfillWithValue({state, data, updatedCard});
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
     }
 })
@@ -53,7 +53,7 @@ export const fetchSearchProduct = createAsyncThunk("products/fetchSearchProduct"
         const result = await searchProducts(data)
         return arg.fulfillWithValue({state, result});
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
     }
 })
@@ -64,7 +64,7 @@ export const fetchAddProduct = createAsyncThunk("products/fetchAddProduct", asyn
         const product = await addProduct(data)
         return arg.fulfillWithValue({state, product});
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
     }
 })
@@ -75,7 +75,7 @@ export const fetchDeleteProduct = createAsyncThunk("products/fetchDeleteProduct"
         const product = await deleteProduct(id)
         return arg.fulfillWithValue({state, product});
     } catch (error) {
-        notification.error({message: error.message})
+        notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
     }
 })
@@ -118,9 +118,6 @@ const productsSlice = createSlice({
         setSearchValue: (state, {payload}) => {
             state.searchValue = payload
         },
-        getMyProductsFromLocal: (state) => {
-            state.myProducts = JSON.parse(localStorage.getItem("myProducts"))
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetAllProducts.fulfilled, (state, {payload}) => {
@@ -134,7 +131,7 @@ const productsSlice = createSlice({
             const updatedList = payload.state.products.allProducts.map(e => e._id === payload.updatedCard._id ? payload.updatedCard : e)
             state.allProducts = updatedList
             state.favorites = updatedList.filter(e => e.likes.includes(payload.state.user.user._id))
-            state.myProducts = payload.state.products.allProducts.filter(e => e._id === payload.state.user.user._id)
+            state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
             state.loading = false;
         })
         builder.addCase(fetchProduct.fulfilled, (state, {payload}) => {
@@ -150,17 +147,15 @@ const productsSlice = createSlice({
             const updatedList = [...payload.state.products.allProducts, payload.product]
             state.allProducts = updatedList
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
-            localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
             state.loading = false;
-            notification.success({message: "Товар добавлен!"})
+            notification.success({message: "Товар добавлен!", duration: 2,})
         })
         builder.addCase(fetchDeleteProduct.fulfilled, (state, {payload}) => {
             const updatedList = payload.state.products.allProducts.filter(e => e._id !== payload.product._id)
             state.allProducts = updatedList
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
-            localStorage.setItem("myProducts", JSON.stringify(state.myProducts))
             state.loading = false;
-            notification.success({message: "Товар удален!"})
+            notification.success({message: "Товар удален!", duration: 2,})
         })
         builder.addMatcher(isError, (state, {payload}) => {
             state.action = payload
@@ -172,6 +167,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const {sortProducts, setSearchValue, getMyProductsFromLocal} = productsSlice.actions
+export const {sortProducts, setSearchValue} = productsSlice.actions
 
 export default productsSlice.reducer

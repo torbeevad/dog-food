@@ -3,7 +3,7 @@ import styles from "./modal.module.css"
 import {ReactComponent as Close} from "../../assets/Close.svg";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {modalActive} from "../../Storage/slices/userSlice";
+import {setModalActive} from "../../Storage/slices/userSlice";
 
 export const Modal = ({children}) => {
 
@@ -12,14 +12,14 @@ export const Modal = ({children}) => {
     const {isLogin} = useSelector(state => state.user)
 
     const handleKeyDown = useCallback((e) => {
-        e.key === isLogin && "Escape" && dispatch(modalActive(false))
+        e.key === isLogin && "Escape" && dispatch(setModalActive(false))
     }, [dispatch, isLogin])
 
     return <div tabIndex={1} onKeyDown={handleKeyDown}
                 className={isActiveModal ? styles.active : styles.modal}>
         <div className={styles.content}>
             <Link to="/"><span onClick={() => {
-                dispatch(modalActive(false))
+                dispatch(setModalActive(false))
             }} className={styles.close}>{isLogin && <Close/>}</span></Link>
             {children}
         </div>

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 16px;
-    justify-content: center;
+    justify-content: space-between;
     text-decoration: none;
     color: #1A1A1A;
     cursor: auto;
@@ -10,7 +10,7 @@
     position: relative;
     user-select: none;
     transition: 0.3s;
-    box-shadow: 0 2px 4px rgba(40, 41, 61, 0.16)
+    box-shadow: 0 2px 4px rgba(40, 41, 61, 0.16);
 }
 
 .card:hover {
@@ -75,14 +75,14 @@
 .card__image-wrapper {
     display: flex;
     justify-content: center;
-    height: 234px;
-    max-width: 234px;
+    height: 218px;
+    max-width: 218px;
     align-items: center;
 }
 
 .card__image {
-    max-height: 234px;
-    max-width: 234px;
+    max-height: 218px;
+    max-width: 218px;
     width: 100%;
     object-fit: contain;
 }
@@ -92,6 +92,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
+}
+
+.card__prices {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 40px;
 }
 
 .card__count {
@@ -104,19 +111,9 @@
     height: 40px;
     font-weight: 600;
     font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-.disabled {
-    background: rgba(236, 239, 241, 0.5);
-    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
-}
-
-.disabled:hover {
-    background: rgba(236, 239, 241, 0.5);
-    cursor: auto;
-    box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24)
-}
-
 
 .card__price {
     font-weight: 800;
@@ -139,14 +136,11 @@
 
 
 .card__nav-link {
+    display: flex;
+    justify-content: center;
     text-decoration: none;
     color: #1A1A1A;
     cursor: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /*noinspection CssInvalidPropertyValue*/
-    height: -webkit-fill-available;
 }
 
 @media (max-width: 580px) {

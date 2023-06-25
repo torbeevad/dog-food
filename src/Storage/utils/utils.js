@@ -1,5 +1,4 @@
 
-
 export const isError = (action) => {
     return action.type.endsWith("rejected")
 }

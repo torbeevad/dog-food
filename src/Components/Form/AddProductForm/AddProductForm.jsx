@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
 import {fetchAddProduct} from "../../../Storage/slices/productsSlice";
 import {notification} from "antd";
+import {Input} from "../../Input/Input";
 
 export const AddProductForm = () => {
 
@@ -19,39 +20,28 @@ export const AddProductForm = () => {
         <>
             <h3 className={styles.add__title}>Добавить продукт</h3>
             <div className={styles.add__pictures}>
-                <input className={styles.input} placeholder="url фото"
-                       type="text" {...register("pictures")} />
-                <span>{errors?.pictures && notification({message: errors?.pictures.message})}</span>
+                <Input type="text" name="pictures" register={register} placeholder="url фото"
+                       errors={errors.pictures}/>
             </div>
             <div className={styles.add__name}>
-                <input className={styles.input} placeholder="название"
-                       type="text" {...register("name")} />
-                <span>{errors?.name && notification.warning({message: errors?.name.message})}</span>
-            </div>
-            <div className={styles.add__available}>
-                <input className={styles.input} placeholder="наличие"
-                       type="checkbox" {...register("available")} />
-                <span>{errors?.available && notification.warning({message: errors?.available.message})}</span>
+                <Input type="text" name="name" register={register} placeholder="название"
+                       errors={errors.name}/>
             </div>
             <div className={styles.add__wight}>
-                <input className={styles.input} placeholder="ед.изм."
-                       type="text" {...register("wight")} />
-                <span>{errors?.wight && notification.warning.warning({message: errors?.wight.message})}</span>
+                <Input type="text" name="wight" register={register} placeholder="ед.изм."
+                       errors={errors.wight}/>
             </div>
             <div className={styles.add__price}>
-                <input className={styles.input} placeholder="цена"
-                       type="number" {...register("price")} />
-                <span>{errors?.price && notification.warning({message: errors?.price.message})}</span>
+                <Input type="number" name="price" register={register} placeholder="цена"
+                       errors={errors.price}/>
             </div>
             <div className={styles.add__stock}>
-                <input className={styles.input} placeholder="кол-во"
-                       type="number" {...register("stock")} />
-                <span>{errors?.stock && notification.warning({message: errors?.stock.message})}</span>
+                <Input type="number" name="stock" register={register} placeholder="кол-во"
+                       errors={errors.stock}/>
             </div>
             <div className={styles.add__discount}>
-                <input className={styles.input} placeholder="скидка"
-                       type="number" {...register("discount")} />
-                <span>{errors?.discount && notification.warning({message: errors?.discount.message})}</span>
+                <Input type="number" name="discount" register={register} placeholder="скидка"
+                       errors={errors.discount}/>
             </div>
             <div className={styles.about__wrap}>
                 <textarea className={styles.about} placeholder="описание"

@@ -18,21 +18,6 @@
     color: #7B8E98;
 }
 
-.form__reset .input {
-    height: 24px;
-    border: 1px solid #CFD8DC;
-    border-radius: 12px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    padding: 14px 16px;
-    outline: none;
-}
-
 .form__reset .inputs {
     display: flex;
     flex-direction: column;
@@ -46,35 +31,6 @@
     flex-direction: column;
     position: relative;
     gap: 0.5rem;
-}
-
-.input:focus {
-    height: 24px;
-    border: 1px solid #FFE44D;
-    padding: 24px 16px 4px;
-}
-
-.input::placeholder {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: #7B8E98;
-}
-
-.input:focus::placeholder {
-    position: absolute;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    top: 4px;
-    color: #7B8E98;
-}
-
-.inputs span {
-    color: red;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
 }
 
 .buttons {
@@ -91,6 +47,6 @@
     background-color: #FFFFFF;
 }
 
-.button:hover .white__button:hover {
+.white__button:hover {
     cursor: pointer;
 }

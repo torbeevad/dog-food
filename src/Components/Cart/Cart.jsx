@@ -6,6 +6,7 @@ import {QueryFind} from "../QueryFind/QueryFind";
 import {Link} from "react-router-dom";
 import {fetchGetPayCart} from "../../Storage/slices/cartSlice";
 import {useNavigate} from "react-router";
+import {Button} from "../Button/Button";
 
 export const Cart = () => {
 
@@ -20,7 +21,7 @@ export const Cart = () => {
 
     const getPay = () => {
         dispatch(fetchGetPayCart(localStorage.getItem("cart")))
-        setTimeout(()=>{
+        setTimeout(() => {
             navigate("/")
         }, 500)
 
@@ -59,7 +60,7 @@ export const Cart = () => {
                             <b>Общая стоимость</b><span>{overAllDisc} ₽</span>
                         </div>
                     </div>
-                    <button onClick={getPay}>Оформить заказ</button>
+                    <Button unit={cartList} color={"yellow"} onClick={getPay}>Оформить заказ</Button>
                 </div>
             </div>
         </div>

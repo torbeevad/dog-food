@@ -3,7 +3,9 @@ import {useForm} from "react-hook-form";
 import styles from "./registration.module.css"
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {fetchGetRegistration, modalActive} from "../../../Storage/slices/userSlice";
+import {fetchGetRegistration} from "../../../Storage/slices/userSlice";
+import {Button} from "../../Button/Button";
+import {Input} from "../../Input/Input";
 
 export const RegistrationForm = () => {
 
@@ -14,9 +16,6 @@ export const RegistrationForm = () => {
     const registration = async (data) => {
         await dispatch(fetchGetRegistration(data))
         reset();
-        setTimeout(() => {
-            dispatch(modalActive(false))
-        }, 500)
     }
 
     const emailRegister = {
@@ -44,24 +43,18 @@ export const RegistrationForm = () => {
 
     return <div className={styles.wrap}>
         <h3 className={styles.title}>Регистрация</h3>
-        <form className={styles.form__register} onSubmit={handleSubmit(registration)}>
+        <form className={styles.form__register}>
             <div className={styles.inputs}>
-                <div>
-                    <input className={styles.input} placeholder="Email"
-                           type="text" {...register("email", {...emailRegister})} />
-                    {errors?.email && <span>{errors?.email.message}</span>}
-                </div>
-                <div>
-                    <input className={styles.input} placeholder="Пароль"
-                           type="password" {...register("password", {...passwordRegister})} />
-                    {errors?.password && <span>{errors?.password.message}</span>}
-                </div>
+                <Input name={"email"} type={"text"} placeholder={"Email"} register={register}
+                       nameRegister={emailRegister} errors={errors.email}/>
+                <Input name={"password"} type={"password"} placeholder={"Пароль"} register={register}
+                       nameRegister={passwordRegister} errors={errors.password}/>
             </div>
             <p>Регистрируясь на сайте, вы соглашаетесь с нашими<br/>
                 Правилами и Политикой конфиденциальности и<br/>
                 соглашаетесь на информационную рассылку.</p>
             <div className={styles.buttons}>
-                <button type="submit">Зарегистрироваться</button>
+                <Button onClick={handleSubmit(registration)} children={"Зарегестрироваться"} color={"yellow"}/>
                 <Link to="/authorization">
                     <button className={styles.white__button}>Войти</button>
                 </Link>

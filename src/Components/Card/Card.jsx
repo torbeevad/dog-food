@@ -4,14 +4,11 @@ import {NavLink} from "react-router-dom";
 import {ReactComponent as Like} from "../../assets/ic-favorites-fill.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
-import {addUnit} from "../../Storage/slices/cartSlice";
-import {useNavigate} from "react-router";
 import cn from "classnames";
 import {Counter} from "../Counter/Counter";
+import {Button} from "../Button/Button";
 
 export const Card = ({product}) => {
-
-    const navigate = useNavigate()
 
     const dispatch = useDispatch()
     const {user} = useSelector(state => state.user)
@@ -25,29 +22,6 @@ export const Card = ({product}) => {
         dispatch(fetchChangeProductLike(product))
     }
 
-    const handleAddToCart = (e) => {
-        e.stopPropagation()
-        e.preventDefault()
-        if (product.stock > 0) {
-            dispatch(addUnit({product, qty: 1}))
-        }
-    }
-
-    const fu = () => {
-        if (available) {
-            return "Уже в корзине"
-        } else if (product.stock === 0) {
-            return "Нет в продаже"
-        } else {
-            return "В Корзину"
-        }
-    }
-
-    const wayToCart = () => {
-        navigate("/cart")
-    }
-
-
     return <div className="card">
         <div className="card__sticky">
             <div className="card__tags-wrapper">
@@ -60,23 +34,22 @@ export const Card = ({product}) => {
             </div>
         </div>
         <NavLink className="card__nav-link" to={`/product/${product._id}`}>
-
             <div className="card__image-wrapper">
-                <img src={product.pictures} alt="food"
-                     className="card__image"/>
+                <img src={product.pictures} alt="food" className="card__image"/>
             </div>
         </NavLink>
         <div className="card__content">
+            <div className="card__prices">
                 <span
                     className={cn("card__price", {"old-price": !!product.discount})}>{product.price}&nbsp;&#8381;</span>
-            {!!product.discount &&
-                <span
+                {!!product.discount && <span
                     className="card__price-with-disc">{(product.price - product.price / 100 * product.discount).toFixed()}&nbsp;&#8381;</span>}
+            </div>
             <span className="card__count">{product.wight}</span>
             <p className="card__description">{product.name}</p>
             {available ? <Counter product={product} qty={qty}/> :
-                <button disabled={product.stock === 0} onClick={available ? wayToCart : handleAddToCart}
-                        className={cn("card__button", {"disabled": product.stock === 0})}>{fu()}</button>}
+                <Button color={"yellow"} unit={product} available={available}/>
+            }
         </div>
     </div>
 }
