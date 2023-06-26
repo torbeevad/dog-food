@@ -1,7 +1,8 @@
 .cart__wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 1024px; /*noinspection CssInvalidPropertyValue*/
+    max-width: 1024px;
+    /*noinspection CssInvalidPropertyValue*/
     width: -webkit-fill-available;
     gap: 2rem;
 }
@@ -24,7 +25,6 @@
     gap: 1rem;
 }
 
-
 .list__link {
     height: 58px;
     width: 60%;
@@ -46,7 +46,6 @@
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(40, 41, 61, 0.24), 0 4px 16px rgba(96, 97, 112, 0.36);
 }
-
 
 .unit__left {
     display: flex;
@@ -92,7 +91,6 @@
     align-items: center;
     justify-content: center;
 }
-
 
 .cart__unit {
     display: grid;
