@@ -14,11 +14,10 @@ import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationF
 import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
-import {fetchGetUserInfo, setIsLogin} from "./Storage/slices/userSlice";
+import {fetchGetUserInfo, setIsLogin, setModalActive} from "./Storage/slices/userSlice";
 import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
-import {fetchGetAllReviews} from "./Storage/slices/reviewsSlice";
 import {PrivateRoute} from "./Utils/router/PrivateRoute";
 import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
 import {ProfileChangeForm} from "./Components/Form/ProfileChangeForm/ProfileChangeForm";
@@ -33,6 +32,7 @@ function App() {
     useEffect(() => {
         if (!localStorage.getItem("token")) {
             dispatch(setIsLogin(false));
+            dispatch(setModalActive(true))
         }
     }, [dispatch])
 
@@ -54,9 +54,9 @@ function App() {
         }
     }, [debounceValueInApp, dispatch, isLogin])
 
-    useEffect(() => {
-        isLogin && dispatch(fetchGetAllReviews())
-    }, [dispatch, isLogin])
+    // useEffect(() => {
+    //     isLogin && dispatch(fetchGetAllReviews())
+    // }, [dispatch, isLogin])
 
     return (
         <div className="App">

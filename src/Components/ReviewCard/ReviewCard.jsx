@@ -3,7 +3,7 @@ import styles from "./review-card.module.css";
 import {Rate} from "antd";
 import {ReactComponent as Close} from "../../assets/Trash.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchDeleteReviewsById} from "../../Storage/slices/reviewsSlice";
+import {fetchDeleteReview} from "../../Storage/slices/productsSlice";
 
 export const ReviewCard = memo(({reviewCard}) => {
 
@@ -14,7 +14,7 @@ export const ReviewCard = memo(({reviewCard}) => {
     const [testId, setTestId] = useState(Boolean)
 
     const deleteReview = (prodId, reviewId) => {
-        dispatch(fetchDeleteReviewsById({prodId, reviewId}))
+        dispatch(fetchDeleteReview({prodId, reviewId}))
     }
 
     useEffect(() => {

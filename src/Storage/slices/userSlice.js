@@ -102,6 +102,7 @@ const userSlice = createSlice({
             state.user = payload.data;
             localStorage.setItem("token", payload.token);
             state.isLogin = true;
+            state.isModalActive = false;
             state.loading = false;
             notification.success({message: "Добро пожаловать", duration: 2,})
         })

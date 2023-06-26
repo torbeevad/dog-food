@@ -4,6 +4,7 @@ import {isError, isLoading} from "../utils/utils";
 import {changeProductLike} from "../../Utils/utils";
 import {popular, newest, lowPrice, highPrice, rate, discount} from "../utils/sort";
 import {notification} from "antd";
+import {deleteReviewById, setReviewById} from "../../Utils/api/apiReviews";
 
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
     favorites: [],
     myProducts: [],
     searchValue: "",
+    reviewsById: [],
 }
 
 export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProducts", async function (data, arg) {
@@ -25,7 +27,7 @@ export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProduct
     }
 })
 
-export const fetchProduct = createAsyncThunk("products/fetchProduct", async function (data, arg) {
+export const fetchGetProduct = createAsyncThunk("products/fetchProduct", async function (data, arg) {
     try {
         const state = arg.getState()
         const product = await getProductById(data);
@@ -74,6 +76,26 @@ export const fetchDeleteProduct = createAsyncThunk("products/fetchDeleteProduct"
         const state = arg.getState();
         const product = await deleteProduct(id)
         return arg.fulfillWithValue({state, product});
+    } catch (error) {
+        notification.error({message: error.message, duration: 2,})
+        return arg.rejectWithValue(error);
+    }
+})
+
+export const fetchSetReview = createAsyncThunk("products/fetchSetReviewsById", async function (data, arg) {
+    try {
+        const updatedProduct = await setReviewById(data.id, data.data, data.rating)
+        return arg.fulfillWithValue({updatedProduct})
+    } catch (error) {
+        notification.error({message: error.message, duration: 2,})
+        return arg.rejectWithValue(error);
+    }
+})
+
+export const fetchDeleteReview = createAsyncThunk("products/fetchDeleteReviewsById", async function (data, arg) {
+    try {
+        const updatedProduct = await deleteReviewById(data.prodId, data.reviewId)
+        return arg.fulfillWithValue({updatedProduct})
     } catch (error) {
         notification.error({message: error.message, duration: 2,})
         return arg.rejectWithValue(error);
@@ -134,7 +156,7 @@ const productsSlice = createSlice({
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
             state.loading = false;
         })
-        builder.addCase(fetchProduct.fulfilled, (state, {payload}) => {
+        builder.addCase(fetchGetProduct.fulfilled, (state, {payload}) => {
             state.product = payload.product;
             state.loading = false;
         })
@@ -156,6 +178,16 @@ const productsSlice = createSlice({
             state.myProducts = updatedList.filter(e => e.author._id === payload.state.user.user._id)
             state.loading = false;
             notification.success({message: "Товар удален!", duration: 2,})
+        })
+        builder.addCase(fetchSetReview.fulfilled, (state, {payload}) => {
+            state.product = payload.updatedProduct;
+            state.loading = false;
+            notification.success({message: "Отзыв добавлен", duration: 2,})
+        })
+        builder.addCase(fetchDeleteReview.fulfilled, (state, {payload}) => {
+            state.product = payload.updatedProduct;
+            state.loading = false;
+            notification.success({message: "Отзыв удален", duration: 2,})
         })
         builder.addMatcher(isError, (state, {payload}) => {
             state.action = payload

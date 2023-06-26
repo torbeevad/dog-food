@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import {Product} from "../../Components/Product/Product";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProduct} from "../../Storage/slices/productsSlice";
+import {fetchGetProduct} from "../../Storage/slices/productsSlice";
+import {Page404} from "../Page404/Page404";
 
 export const ProductPage = () => {
 
@@ -11,17 +12,16 @@ export const ProductPage = () => {
     const params = useParams()
 
     const {product} = useSelector(state => state.products)
-    const {reviews} = useSelector(state => state.reviews)
 
     useEffect(() => {
-        dispatch(fetchProduct(params.id))
-    }, [dispatch, params.id, reviews])
+        dispatch(fetchGetProduct(params.id))
+    }, [dispatch, params.id])
 
     return (
         <>
             {!!Object.keys(product).length ?
                 <Product product={product}/> :
-                <div>Loading</div>
+                <Page404/>
             }
         </>
     )

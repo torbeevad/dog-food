@@ -4,7 +4,7 @@ import styles from "./authotization.module.css"
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
-import {fetchGetAuthorization, setModalActive} from "../../../Storage/slices/userSlice";
+import {fetchGetAuthorization} from "../../../Storage/slices/userSlice";
 import {Button} from "../../Button/Button";
 import {Input} from "../../Input/Input";
 
@@ -21,7 +21,6 @@ export const AuthorizationForm = () => {
         await dispatch(fetchGetAuthorization(data))
         setTimeout(() => {
             navigate("/")
-            dispatch(setModalActive(false))
             reset()
         }, 500)
     }

@@ -2,30 +2,25 @@ import React, {memo, useEffect, useState} from "react";
 import styles from "./reviews.module.css";
 import {ReviewCard} from "../ReviewCard/ReviewCard";
 import {AddReviewForm} from "../Form/AddReviewForm/AddReviewForm";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchGetReviewsById} from "../../Storage/slices/reviewsSlice";
+import {useSelector} from "react-redux";
 import {Button} from "../Button/Button";
+import {sortByDate} from "../../Storage/utils/sort";
+
 
 export const Reviews = memo(({productId}) => {
-
-    const dispatch = useDispatch()
 
     const [addReview, setAddReview] = useState(false)
     const [showBtn, setShowBtn] = useState(Boolean)
 
-
     const {user} = useSelector(state => state.user)
-    const {allReviews} = useSelector(state => state.reviews)
-    const {reviewsById} = useSelector(state => state.reviews)
+    const {product} = useSelector(state => state.products)
+
+    const arrayForSort = [...product.reviews]
 
     useEffect(() => {
-        dispatch(fetchGetReviewsById(productId))
-    }, [dispatch, productId, allReviews])
-
-    useEffect(() => {
-        const result = reviewsById.some(e => e.author._id === user._id)
+        const result = product.reviews.some(e => e.author._id === user._id)
         setShowBtn(result)
-    }, [reviewsById, user._id])
+    }, [product.reviews, user._id])
 
     return (
         <div id="reviews" className={styles.reviews__wrapper}>
@@ -38,7 +33,7 @@ export const Reviews = memo(({productId}) => {
                 <AddReviewForm setShowBtn={setShowBtn} setAddReview={setAddReview} id={productId}/>}
             <h4>Фотографии наших покупателей</h4>
             <div className={styles.photos}>ТУТ БУДУТ ФОТО</div>
-            {reviewsById?.length ? reviewsById.map(el => <ReviewCard key={el.author._id} reviewCard={el}/>) :
+            {product.reviews?.length ? sortByDate(arrayForSort).map(el => <ReviewCard key={el.created_at}                                                                                      reviewCard={el}/>) :
                 <span>Отзывов пока нет.</span>}
         </div>
     )

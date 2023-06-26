@@ -1,20 +1,13 @@
 import React from "react";
 import {Rate} from 'antd';
-import {useEffect} from "react";
 import {averRating} from "../../Storage/utils/sort";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchGetReviewsById} from "../../Storage/slices/reviewsSlice";
+import {useSelector} from "react-redux";
 
-const Rating = ({id, disabled}) => {
+const Rating = ({disabled}) => {
 
-    const dispatch = useDispatch()
+    const {product} = useSelector(state => state.products)
 
-    const {reviewsById} = useSelector(state => state.reviews)
 
-    useEffect(() => {
-        dispatch(fetchGetReviewsById(id))
-    }, [dispatch, id])
-
-    return <Rate disabled={disabled} style={{fontSize: 14, color: "#FFAA0D"}} value={Math.round(averRating(reviewsById))} allowHalf={true}/>
+    return <Rate disabled={disabled} style={{fontSize: 14, color: "#FFAA0D"}} value={Math.round(averRating(product.reviews))} allowHalf={true}/>
 };
 export default Rating;

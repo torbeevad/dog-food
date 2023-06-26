@@ -3,7 +3,7 @@ import styles from "./index.module.css"
 import {Rate} from "antd";
 import {useForm} from "react-hook-form";
 import {useDispatch} from "react-redux";
-import {fetchSetReviewsById} from "../../../Storage/slices/reviewsSlice";
+import {fetchSetReview} from "../../../Storage/slices/productsSlice";
 import {Button} from "../../Button/Button";
 
 export const AddReviewForm = ({id, setAddReview, setShowBtn}) => {
@@ -14,7 +14,7 @@ export const AddReviewForm = ({id, setAddReview, setShowBtn}) => {
     const [rating, setRating] = useState(0)
 
     const addReview = (data) => {
-        dispatch(fetchSetReviewsById({id, data, rating}));
+        dispatch(fetchSetReview({id, data, rating}));
         reset();
         setAddReview(state => !state);
         setShowBtn(true)

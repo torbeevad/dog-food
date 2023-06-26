@@ -7,7 +7,7 @@ const openNotificationWithIcon = (type) => {
             'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
     });
 };
-export const Notification = () => (
+export const App = () => (
     <Space>
         <Button onClick={() => openNotificationWithIcon('success')}>Success</Button>
         <Button onClick={() => openNotificationWithIcon('info')}>Info</Button>

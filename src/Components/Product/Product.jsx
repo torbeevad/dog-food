@@ -12,14 +12,12 @@ import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
 import {Button} from "../Button/Button";
 import {Back} from "../Back/Back";
 
-export const Product = () => {
+export const Product = ({product}) => {
 
 
     const dispatch = useDispatch()
-    const {product} = useSelector(state => state.products)
     const {cartList} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
-    const {reviewsById} = useSelector(state => state.reviews)
 
     const available = cartList.some(e => e.product._id === product._id)
     const {qty} = available && cartList.find(e => e.product._id === product._id)
@@ -31,7 +29,7 @@ export const Product = () => {
     }
 
     let prodStr = "";
-    let str = reviewsById.length.toString()
+    let str = product.reviews.length.toString()
 
 
     if (str.match(/1$/g)) {
@@ -57,7 +55,6 @@ export const Product = () => {
         }
     }
 
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -65,10 +62,10 @@ export const Product = () => {
                 <h3>{product.name}</h3>
                 <div className={styles.info}>
                     <span>Артикул</span>
-                    <Rating disabled={true} id={product._id}/>
+                    <Rating disabled={true} id={product}/>
                     <div className={styles.link} onClick={handleClickScroll}>
-                        {reviewsById.length
-                            ? <span>{reviewsById.length} {prodStr}</span>
+                        {product.reviews.length
+                            ? <span>{product.reviews.length} {prodStr}</span>
                             : <span>{prodStr}</span>}
                     </div>
                 </div>

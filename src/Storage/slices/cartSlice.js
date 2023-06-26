@@ -15,10 +15,10 @@ export const fetchGetPayCart = createAsyncThunk("cart/fetchGetPayCart", async fu
         const message = purchases.map(e => <div key={e.product._id}
                                                 dangerouslySetInnerHTML={{__html: `${e.product.name}: ${e.qty} шт.</br>`}}
         />)
-        notification.success({message: "Ваш заказ", description: message, duration: 2,})
+        notification.success({message: "Ваш заказ", description: message, duration: 3,})
         arg.fulfillWithValue(purchases)
     } catch (error) {
-        notification.error({message: error.message, duration: 4,})
+        notification.error({message: error.message, duration: 2,})
         arg.rejectWithValue(error)
     }
 })
