@@ -20,7 +20,6 @@ export const Page404 = ({message}) => {
                 </b>}
                 <button onClick={home}>На главную</button>
             </div>
-
         </>
     )
 }

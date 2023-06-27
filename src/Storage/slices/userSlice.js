@@ -7,11 +7,9 @@ import {
     getUser,
     resetPassword
 } from "../../Utils/api/apiUser";
-import {isError, isLoading} from "../utils/utils.js";
 import {notification} from "antd";
 
 const initialState = {
-    loading: false,
     user: {},
     isLogin: true,
     isActiveModal: true,
@@ -90,8 +88,8 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setIsLogin(state, action) {
-            state.isLogin = action.payload;
+        setIsLogin(state, {payload}) {
+            state.isLogin = payload;
         },
         setModalActive(state, {payload}) {
             state.isActiveModal = payload
@@ -103,43 +101,29 @@ const userSlice = createSlice({
             localStorage.setItem("token", payload.token);
             state.isLogin = true;
             state.isModalActive = false;
-            state.loading = false;
             notification.success({message: "Добро пожаловать", duration: 2,})
         })
         builder.addCase(fetchGetUserInfo.fulfilled, (state, {payload}) => {
             state.user = payload;
-            state.loading = false;
         })
         builder.addCase(fetchGetRegistration.fulfilled, (state, {payload}) => {
             state.user = payload;
-            state.loading = false;
             notification.success({message: "Вы успешно зарегестрировались!", duration: 2,})
         })
         builder.addCase(fetchForgotPassword.fulfilled, (state, {payload}) => {
-            state.loading = false;
             notification.success({message: payload.message, duration: 2,})
         })
         builder.addCase(fetchResetPassword.fulfilled, (state, {payload}) => {
             state.user = payload.data;
-            state.loading = false;
             notification.success({message: "Пароль успешно обновлен!", duration: 2,})
         })
         builder.addCase(fetchChangeAvatar.fulfilled, (state, {payload}) => {
             state.user = payload;
-            state.loading = false;
             notification.success({message: "Аватар успешно обновлен!", duration: 2,})
         })
         builder.addCase(fetchChangeProfile.fulfilled, (state, {payload}) => {
             state.user = payload;
-            state.loading = false;
             notification.success({message: "Данные профиля обновлены!", duration: 2,})
-        })
-        builder.addMatcher(isLoading, (state) => {
-            state.loading = true;
-        })
-        builder.addMatcher(isError, (state, {payload}) => {
-            state.error = payload
-            state.loading = false;
         })
     }
 })

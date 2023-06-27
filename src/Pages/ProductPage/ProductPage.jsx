@@ -3,7 +3,7 @@ import {Product} from "../../Components/Product/Product";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchGetProduct} from "../../Storage/slices/productsSlice";
-import {Page404} from "../Page404/Page404";
+import {Loader} from "../../Components/Loader/Loader";
 
 export const ProductPage = () => {
 
@@ -11,7 +11,7 @@ export const ProductPage = () => {
 
     const params = useParams()
 
-    const {product} = useSelector(state => state.products)
+    const {product, loading} = useSelector(state => state.products)
 
     useEffect(() => {
         dispatch(fetchGetProduct(params.id))
@@ -19,9 +19,9 @@ export const ProductPage = () => {
 
     return (
         <>
-            {!!Object.keys(product).length ?
+            {!!Object.keys(product).length && !loading ?
                 <Product product={product}/> :
-                <Page404/>
+                <Loader/>
             }
         </>
     )

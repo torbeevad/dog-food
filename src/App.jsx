@@ -54,10 +54,6 @@ function App() {
         }
     }, [debounceValueInApp, dispatch, isLogin])
 
-    // useEffect(() => {
-    //     isLogin && dispatch(fetchGetAllReviews())
-    // }, [dispatch, isLogin])
-
     return (
         <div className="App">
             <Header/>
