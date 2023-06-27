@@ -4,7 +4,7 @@ import {LiCart} from "./LiCart";
 import {useDispatch, useSelector} from "react-redux";
 import {QueryFind} from "../QueryFind/QueryFind";
 import {Link} from "react-router-dom";
-import {fetchGetPayCart} from "../../Storage/slices/cartSlice";
+import {getPayCart} from "../../Storage/slices/cartSlice";
 import {useNavigate} from "react-router";
 import {Button} from "../Button/Button";
 
@@ -20,7 +20,7 @@ export const Cart = () => {
     const overAllDisc = overAllPrice - overAllPriceWithDisc
 
     const getPay = () => {
-        dispatch(fetchGetPayCart(localStorage.getItem("cart")))
+        dispatch(getPayCart(localStorage.getItem("cart")))
         setTimeout(() => {
             navigate("/")
         }, 500)

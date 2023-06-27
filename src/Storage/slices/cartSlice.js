@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {notification} from "antd";
 import {isError, isLoading} from "../utils/utils";
 
@@ -8,20 +8,6 @@ const initialState = {
     availability: false,
     loading: false,
 }
-
-export const fetchGetPayCart = createAsyncThunk("cart/fetchGetPayCart", async function (data, arg) {
-    try {
-        const purchases = JSON.parse(data)
-        const message = purchases.map(e => <div key={e.product._id}
-                                                dangerouslySetInnerHTML={{__html: `${e.product.name}: ${e.qty} шт.</br>`}}
-        />)
-        notification.success({message: "Ваш заказ", description: message, duration: 3,})
-        arg.fulfillWithValue(purchases)
-    } catch (error) {
-        notification.error({message: error.message, duration: 2,})
-        arg.rejectWithValue(error)
-    }
-})
 
 const cartSlice = createSlice({
     name: "cart",
@@ -49,13 +35,17 @@ const cartSlice = createSlice({
         cartFromLocal(state) {
             state.cartList = JSON.parse(localStorage.getItem("cart"))
         },
+        getPayCart(state, {payload}) {
+            const message = JSON.parse(payload).map(e => <div key={e.product._id}
+                                                              dangerouslySetInnerHTML={{__html: `${e.product.name}: ${e.qty} шт.</br>`}}
+            />)
+            notification.success({message: "Ваш заказ", description: message, duration: 3,})
+            state.cartList = []
+            localStorage.removeItem("cart")
+        },
     },
     extraReducers: builder => {
-        builder.addCase(fetchGetPayCart.fulfilled, (state, {payload}) => {
-            localStorage.removeItem("cart")
-            state.cartList = []
-            state.loading = false
-        })
+
         builder.addMatcher(isLoading, (state) => {
             state.loading = true;
         })
@@ -67,6 +57,6 @@ const cartSlice = createSlice({
 
 })
 
-export const {addUnit, deleteUnit, reduceUnit, cartFromLocal} = cartSlice.actions
+export const {addUnit, deleteUnit, reduceUnit, cartFromLocal, getPayCart} = cartSlice.actions
 
 export default cartSlice.reducer
