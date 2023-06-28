@@ -12,12 +12,14 @@ import {fetchChangeProductLike} from "../../Storage/slices/productsSlice";
 import {Button} from "../Button/Button";
 import {Back} from "../Back/Back";
 
-export const Product = ({product}) => {
+export const Product = () => {
 
 
     const dispatch = useDispatch()
     const {cartList} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
+    const {product} = useSelector(state => state.products)
+
 
     const available = cartList.some(e => e.product._id === product._id)
     const {qty} = available && cartList.find(e => e.product._id === product._id)
@@ -152,7 +154,7 @@ export const Product = ({product}) => {
                     </div>
                 </div>
             </div>
-            <Reviews productId={product._id}/>
+            <Reviews/>
         </div>
     )
 }

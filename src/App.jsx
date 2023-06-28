@@ -43,13 +43,13 @@ function App() {
     }, [dispatch, isLogin])
 
     useEffect(() => {
-        if (isLogin) {
+        if (isLogin && localStorage.getItem("token")) {
             dispatch(fetchGetUserInfo()).then(() => dispatch(fetchGetAllProducts()))
         }
     }, [dispatch, isLogin]);
 
     useEffect(() => {
-        if (isLogin && debounceValueInApp !== undefined) {
+        if (isLogin && localStorage.getItem("token") && debounceValueInApp !== undefined) {
             dispatch(fetchSearchProduct(debounceValueInApp))
         }
     }, [debounceValueInApp, dispatch, isLogin])

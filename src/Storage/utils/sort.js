@@ -1,5 +1,5 @@
 export const sortByDate = (arr) => {
-    return arr.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    return arr.toSorted((a, b) => new Date(b.created_at) - new Date(a.created_at))
 }
 
 export const averRating = (arr) => {
