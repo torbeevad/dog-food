@@ -14,7 +14,6 @@ const initialState = {
     favorites: [],
     myProducts: [],
     searchValue: "",
-    reviewsById: [],
 }
 
 export const fetchGetAllProducts = createAsyncThunk("products/fetchGetAllProducts", async function (data, arg) {

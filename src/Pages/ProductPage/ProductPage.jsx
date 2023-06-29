@@ -7,14 +7,15 @@ import {fetchGetProduct} from "../../Storage/slices/productsSlice";
 export const ProductPage = () => {
 
     const dispatch = useDispatch()
-
     const params = useParams()
 
     const {product} = useSelector(state => state.products)
 
     useEffect(() => {
-        dispatch(fetchGetProduct(params.id))
-    }, [dispatch, params.id])
+        if (product._id !== params.id) {
+            dispatch(fetchGetProduct(params.id))
+        }
+    }, [dispatch, params.id, product])
 
     return (
         <>
