@@ -29,7 +29,8 @@ export const Header = memo(() => {
                     </Link>
                     <Link to={"/cart"}>
                         <div className="bubble__wrapper"><Cart className="button__cart"/>
-                            {!!cartList.length && <span className="bubble">{cartList.length}</span>}
+                            {!!cartList.length &&
+                                <span className="bubble">{cartList.reduce((acc, prev) => acc += prev.qty, 0)}</span>}
                         </div>
                     </Link>
                     <Link to={isLogin ? "/profile" : "/authorization"} className="bubble__wrapper">

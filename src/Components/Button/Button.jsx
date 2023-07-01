@@ -41,7 +41,7 @@ export const Button = ({unit, type, available, color, children, onClick}) => {
         }
     }, [available, children, unit, location])
 
-    const onClickChoose = () => {
+    const onClickChoose = useCallback(() => {
         if (!!onClick) {
             return onClick
         } else if (unit?.stock === 0 && location.pathname.includes("/product/")) {
@@ -51,7 +51,7 @@ export const Button = ({unit, type, available, color, children, onClick}) => {
         } else if (available) {
             return wayToCart
         }
-    }
+    }, [available, handleAddToCart, location.pathname, onClick, unit?.stock, wayToCart, wayToHome])
 
 
     return (

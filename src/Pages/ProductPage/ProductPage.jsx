@@ -19,9 +19,7 @@ export const ProductPage = () => {
 
     return (
         <>
-            {!!Object.keys(product).length &&
-                <Product/>
-            }
+            {!!Object.keys(product).length && <Product/>}
         </>
     )
 }
