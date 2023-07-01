@@ -28,8 +28,9 @@ React router, React hook form, Ant design, Classnames
 
 #### Скриншоты: 
 
-![01-07-2023 10-47-25](https://github.com/torbeevad/test/assets/59761872/dc79674a-9138-45fa-800f-d3aef2284d91)
-![01-07-2023 10-49-46](https://github.com/torbeevad/test/assets/59761872/c18adfd2-87f2-46ff-a689-6d9fd7b00ece)
-![01-07-2023 10-50-54](https://github.com/torbeevad/test/assets/59761872/2c752196-cc1c-49c7-9d51-a0e1334a97ec)
-![01-07-2023 10-51-41](https://github.com/torbeevad/test/assets/59761872/db2aba35-6f5d-4c82-bcf1-0a2a56e67caa)
-![01-07-2023 10-52-11](https://github.com/torbeevad/test/assets/59761872/bd12b38f-1336-4e27-9582-f32ce4b0d0c8)
+
+![01-07-2023 10-47-25](https://github.com/torbeevad/dog-food/assets/59761872/5954cf9a-2b4a-4cf8-bd12-98eb73ec14fb)
+![01-07-2023 10-49-46](https://github.com/torbeevad/dog-food/assets/59761872/527756a8-26a4-471d-b71a-73756a8c062a)
+![01-07-2023 10-50-54](https://github.com/torbeevad/dog-food/assets/59761872/5bed9fd7-9e82-4fcf-8124-088d61867a9c)
+![01-07-2023 10-51-41](https://github.com/torbeevad/dog-food/assets/59761872/46de0026-1a52-4754-817d-4dea896ff63b)
+![01-07-2023 10-52-11](https://github.com/torbeevad/dog-food/assets/59761872/cd122e53-2901-4267-9ac7-ba4a7538572b)
