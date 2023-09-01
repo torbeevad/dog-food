@@ -15,6 +15,10 @@ import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/products
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
 import {ProfileChangeForm} from "./Components/Form/ProfileChangeForm/ProfileChangeForm";
+import {Modal} from "./Components/Modal/Modal";
+import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
+import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
+import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
 
 function App() {
 
@@ -22,6 +26,10 @@ function App() {
     const {isLogin} = useSelector(state => state.user)
     const {searchValue} = useSelector(state => state.products)
     const debounceValueInApp = useDebounce(searchValue)
+
+    useEffect(()=> {
+        localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc0YmUzNWUwYmYyYzUxOWJjM2EwNDEiLCJncm91cCI6Imdyb3VwLTEyIiwiaWF0IjoxNjkzNTYxOTcwLCJleHAiOjE3MjUwOTc5NzB9.QpKpRGNOBrAZ52znDmwvUNQR_QFp7qru-Z6oiVjpZec")
+    },[])
 
     useEffect(() => {
         if (!localStorage.getItem("token")) {
@@ -61,9 +69,9 @@ function App() {
                         <Route path={"profile"} element={<ProfilePage/>}/>
                         <Route path={"change"} element={<ProfileChangeForm/>}/>
                     {/*</Route>*/}
-                    {/*<Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>*/}
-                    {/*<Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>*/}
-                    {/*<Route path={"/forgot"} element={<Modal><ForgotPassForm/></Modal>}/>*/}
+                    <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
+                    <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
+                    <Route path={"/forgot"} element={<Modal><ForgotPassForm/></Modal>}/>
                     {/*<Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>*/}
                     <Route path={"*"} element={<Page404/>}/>
                 </Routes>
