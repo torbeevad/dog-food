@@ -44,9 +44,9 @@ export const ProfileDescription = () => {
             <NavLink to={"/"} className={styles.profile__button__home}>
                 <button className={styles.profile__button__home}>На главную</button>
             </NavLink>
-            <NavLink to={"/"} className={styles.profile__button__logout}>
-                <button onClick={exitFn} className={styles.profile__button__logout}>Выйти</button>
-            </NavLink>
+            {/*<NavLink to={"/"} className={styles.profile__button__logout}>*/}
+            {/*    <button onClick={exitFn} className={styles.profile__button__logout}>Выйти</button>*/}
+            {/*</NavLink>*/}
         </>
     )
 }

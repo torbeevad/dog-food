@@ -59,18 +59,18 @@ function App() {
             <Header/>
             <main>
                 <Routes>
-                    <Route path="/" element={<PrivateRoute/>}>
+                    {/*<Route path="/" element={<PrivateRoute/>}>*/}
                         <Route index element={<CatalogPage/>}/>
                         <Route path={"product/:id"} element={<ProductPage/>}/>
                         <Route path={"favorites"} element={<FavoritePage/>}/>
                         <Route path={"cart"} element={<CartPage/>}/>
                         <Route path={"profile"} element={<ProfilePage/>}/>
                         <Route path={"change"} element={<ProfileChangeForm/>}/>
-                    </Route>
-                    <Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>
-                    <Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>
-                    <Route path={"/forgot"} element={<Modal><ForgotPassForm/></Modal>}/>
-                    <Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>
+                    {/*</Route>*/}
+                    {/*<Route path={"/registration"} element={<Modal><RegistrationForm/></Modal>}/>*/}
+                    {/*<Route path={"/authorization"} element={<Modal><AuthorizationForm/></Modal>}/>*/}
+                    {/*<Route path={"/forgot"} element={<Modal><ForgotPassForm/></Modal>}/>*/}
+                    {/*<Route path={"/reset"} element={<Modal><ResetPassForm/></Modal>}/>*/}
                     <Route path={"*"} element={<Page404/>}/>
                 </Routes>
             </main>
