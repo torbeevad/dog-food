@@ -8,18 +8,12 @@ import {ProductPage} from "./Pages/ProductPage/ProductPage";
 import {FavoritePage} from "./Pages/FavoritePage/FavoritePage";
 import {Page404} from "./Pages/Page404/Page404";
 import {useDebounce} from "./hooks/useDebounce";
-import {Modal} from "./Components/Modal/Modal";
-import {AuthorizationForm} from "./Components/Form/AuthorizationForm/AuthorizationForm";
-import {RegistrationForm} from "./Components/Form/RegistrationForm/RegistrationForm";
-import {ForgotPassForm} from "./Components/Form/ForgotPassForm/ForgotPassForm";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
 import {fetchGetUserInfo, setIsLogin, setModalActive} from "./Storage/slices/userSlice";
 import {fetchGetAllProducts, fetchSearchProduct} from "./Storage/slices/productsSlice";
 import {CartPage} from "./Pages/CartPage/CartPage";
 import {cartFromLocal} from "./Storage/slices/cartSlice";
-import {PrivateRoute} from "./Utils/router/PrivateRoute";
-import {ResetPassForm} from "./Components/Form/ResetPassFrom/ResetPassForm";
 import {ProfileChangeForm} from "./Components/Form/ProfileChangeForm/ProfileChangeForm";
 
 function App() {

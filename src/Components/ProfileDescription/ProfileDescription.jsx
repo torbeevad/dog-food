@@ -1,24 +1,24 @@
 import React from "react";
 import styles from "./index.module.css";
 import {NavLink} from "react-router-dom";
-import {setModalActive, setIsLogin} from "../../Storage/slices/userSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router";
+// import {setModalActive, setIsLogin} from "../../Storage/slices/userSlice";
+import {useSelector} from "react-redux";
+// import {useNavigate} from "react-router";
 import {ReactComponent as Phone} from "../../assets/Phone.svg";
 import {ReactComponent as Mail} from "../../assets/Mail.svg";
 
 export const ProfileDescription = () => {
 
     const {user} = useSelector(state => state.user)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
 
-    const exitFn = () => {
-        localStorage.removeItem("token");
-        dispatch(setIsLogin(false))
-        dispatch(setModalActive(true))
-        navigate("/authorization")
-    }
+    // const exitFn = () => {
+    //     localStorage.removeItem("token");
+    //     dispatch(setIsLogin(false))
+    //     dispatch(setModalActive(true))
+    //     navigate("/authorization")
+    // }
 
     return (
         <>
